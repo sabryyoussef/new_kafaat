@@ -1,32 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- Grants Training Main Menu -->
     <menuitem
         id="menu_grants_training_main"
         name="Grants Training"
         sequence="10"
         web_icon="grants_training_suite_v19,static/description/icon.png">
         
+        <!-- Dashboard -->
         <menuitem
             id="menu_grants_training_dashboard"
             name="Dashboard"
             sequence="5"
             groups="grants_training_suite_v19.group_manager,grants_training_suite_v19.group_agent"/>
         
-        <menuitem
-            id="menu_grants_training_intake"
-            name="Intake Management"
-            sequence="10">
-            <menuitem
-                id="menu_grants_training_intake_batch"
-                name="Intake Batches"
-                action="action_gr_intake_batch"
-                sequence="10"/>
-        </menuitem>
-        
+        <!-- Student Management -->
         <menuitem
             id="menu_grants_training_students"
             name="Student Management"
-            sequence="20">
+            sequence="10">
             <menuitem
                 id="menu_grants_training_students_list"
                 name="Students"
@@ -39,10 +31,28 @@
                 sequence="20"/>
         </menuitem>
         
+        <!-- Intake Management -->
+        <menuitem
+            id="menu_grants_training_intake"
+            name="Intake Management"
+            sequence="20">
+            <menuitem
+                id="menu_grants_training_intake_batch"
+                name="Intake Batches"
+                action="action_gr_intake_batch"
+                sequence="10"/>
+            <menuitem
+                id="menu_grants_training_contact_pool_list"
+                name="Contact Pools"
+                action="action_contact_pool"
+                sequence="20"/>
+        </menuitem>
+        
+        <!-- Document Management -->
         <menuitem
             id="menu_grants_training_documents"
             name="Document Management"
-            sequence="30">
+            sequence="35">
             <menuitem
                 id="menu_grants_training_document_requests"
                 name="Document Requests"
@@ -50,6 +60,7 @@
                 sequence="10"/>
         </menuitem>
         
+        <!-- Training Management -->
         <menuitem
             id="menu_grants_training_training"
             name="Training Management"
@@ -64,12 +75,40 @@
                 name="Homework Attempts"
                 action="action_gr_homework_attempt"
                 sequence="20"/>
+            <menuitem
+                id="menu_grants_training_homework_grade_history"
+                name="Homework Grade History"
+                action="action_gr_homework_grade_history"
+                sequence="30"/>
+            <menuitem
+                id="menu_grants_training_session_templates"
+                name="Session Templates"
+                action="action_session_template"
+                sequence="40"/>
         </menuitem>
         
+        <!-- Certification -->
+        <menuitem
+            id="menu_grants_training_certification"
+            name="Certification"
+            sequence="50">
+            <menuitem
+                id="menu_grants_training_certificates"
+                name="Certificates"
+                action="action_gr_certificate"
+                sequence="10"/>
+            <menuitem
+                id="menu_grants_training_certificate_templates"
+                name="Certificate Templates"
+                action="action_gr_certificate_template"
+                sequence="20"/>
+        </menuitem>
+        
+        <!-- eLearning Integration -->
         <menuitem
             id="menu_grants_training_elearning"
             name="eLearning Integration"
-            sequence="50">
+            sequence="60">
             <menuitem
                 id="menu_grants_training_training_programs"
                 name="Training Programs"
@@ -88,31 +127,16 @@
             <menuitem
                 id="menu_grants_training_integration_dashboard"
                 name="Integration Dashboard"
-                action="action_gr_integration_dashboard"
+                action="action_integration_dashboard"
                 sequence="40"/>
             <menuitem
                 id="menu_grants_training_progress_dashboard"
                 name="Progress Dashboard"
-                action="action_gr_progress_dashboard"
+                action="action_progress_dashboard"
                 sequence="50"/>
         </menuitem>
         
-        <menuitem
-            id="menu_grants_training_certification"
-            name="Certification"
-            sequence="60">
-            <menuitem
-                id="menu_grants_training_certificates"
-                name="Certificates"
-                action="action_gr_certificate"
-                sequence="10"/>
-            <menuitem
-                id="menu_grants_training_certificate_templates"
-                name="Certificate Templates"
-                action="action_gr_certificate_template"
-                sequence="20"/>
-        </menuitem>
-        
+        <!-- Advanced Features -->
         <menuitem
             id="menu_grants_training_advanced"
             name="Advanced Features"
@@ -134,23 +158,19 @@
                 sequence="30"/>
         </menuitem>
         
+        <!-- Reports -->
         <menuitem
-            id="menu_grants_training_contact_pool"
-            name="Contact Pool"
-            sequence="80">
+            id="menu_grants_training_reports"
+            name="Reports"
+            sequence="90">
             <menuitem
-                id="menu_grants_training_contact_pool_list"
-                name="Contact Pools"
-                action="action_contact_pool"
+                id="menu_grants_training_integration_reports"
+                name="Integration Reports"
+                action="action_integration_dashboard"
                 sequence="10"/>
-            <menuitem
-                id="menu_grants_training_pool_won_leads"
-                name="Pool Won Leads"
-                action="action_contact_pool"
-                sequence="20"
-                context="{'search_default_pool_won_leads': 1}"/>
         </menuitem>
         
+        <!-- Configuration -->
         <menuitem
             id="menu_grants_training_config"
             name="Configuration"
@@ -158,19 +178,9 @@
             <menuitem
                 id="menu_grants_training_security"
                 name="Security"
-                groups="grants_training_suite_v19.group_manager"
+                action="base.action_res_groups"
                 sequence="10"/>
         </menuitem>
         
-        <menuitem
-            id="menu_grants_training_reports"
-            name="Reports"
-            sequence="200">
-            <menuitem
-                id="menu_grants_training_integration_reports"
-                name="Integration Reports"
-                action="action_integration_dashboard"
-                sequence="10"/>
-        </menuitem>
     </menuitem>
 </odoo>
