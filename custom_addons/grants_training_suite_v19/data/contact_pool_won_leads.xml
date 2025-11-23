@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+        <!-- Task 1.5: Create "Pool Won Leads" - System-locked pool -->
+        <record id="contact_pool_won_leads" model="contact.pool">
+            <field name="name">Pool Won Leads</field>
+            <field name="is_system_pool">True</field>
+            <field name="created_by" ref="base.user_root"/>
+        </record>
+        
+
+</odoo>
+

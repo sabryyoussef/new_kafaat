@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+        <!-- Demo Homework Attempt 1: Draft State -->
+        <record id="demo_homework_attempt_1" model="gr.homework.attempt">
+            <field name="name">HW001</field>
+            <field name="student_id" ref="demo_student_5"/>
+            <field name="homework_title">Grammar Exercise 1</field>
+            <field name="due_date">2025-11-18 23:59:00</field>
+            <field name="state">draft</field>
+            <field name="homework_description">Complete the grammar exercises on page 15-20</field>
+        </record>
+        
+        <!-- Demo Homework Attempt 2: Submitted State -->
+        <record id="demo_homework_attempt_2" model="gr.homework.attempt">
+            <field name="name">HW002</field>
+            <field name="student_id" ref="demo_student_6"/>
+            <field name="homework_title">Vocabulary Quiz</field>
+            <field name="due_date">2025-11-19 23:59:00</field>
+            <field name="state">submitted</field>
+            <field name="submission_date">2025-11-17 14:45:00</field>
+            <field name="homework_description">Complete vocabulary quiz with 50 words</field>
+        </record>
+        
+        <!-- Demo Homework Attempt 3: Under Review State -->
+        <record id="demo_homework_attempt_3" model="gr.homework.attempt">
+            <field name="name">HW003</field>
+            <field name="student_id" ref="demo_student_7"/>
+            <field name="homework_title">Reading Comprehension</field>
+            <field name="due_date">2025-11-19 23:59:00</field>
+            <field name="state">under_review</field>
+            <field name="submission_date">2025-11-17 11:20:00</field>
+            <field name="review_date">2025-11-17 15:00:00</field>
+            <field name="homework_description">Read the passage and answer comprehension questions</field>
+        </record>
+        
+        <!-- Demo Homework Attempt 4: Graded State -->
+        <record id="demo_homework_attempt_4" model="gr.homework.attempt">
+            <field name="name">HW004</field>
+            <field name="student_id" ref="demo_student_8"/>
+            <field name="homework_title">Writing Assignment</field>
+            <field name="due_date">2025-11-18 23:59:00</field>
+            <field name="state">graded</field>
+            <field name="submission_date">2025-11-16 16:30:00</field>
+            <field name="review_date">2025-11-17 10:00:00</field>
+            <field name="grade">85.0</field>
+            <field name="max_grade">100.0</field>
+            <field name="feedback">Good work! Pay attention to punctuation and sentence structure.</field>
+            <field name="homework_description">Write a 300-word essay about your favorite hobby</field>
+        </record>
+        
+        <!-- Demo Homework Attempt 5: Graded State -->
+        <record id="demo_homework_attempt_5" model="gr.homework.attempt">
+            <field name="name">HW005</field>
+            <field name="student_id" ref="demo_student_5"/>
+            <field name="homework_title">Speaking Practice</field>
+            <field name="due_date">2025-11-17 23:59:00</field>
+            <field name="state">graded</field>
+            <field name="submission_date">2025-11-16 12:15:00</field>
+            <field name="review_date">2025-11-16 16:00:00</field>
+            <field name="grade">92.0</field>
+            <field name="max_grade">100.0</field>
+            <field name="feedback">Excellent pronunciation and fluency! Keep up the great work.</field>
+            <field name="homework_description">Record a 5-minute speech about your future goals</field>
+        </record>
+        
+        <!-- Demo Homework Attempt 6: Late Submission State -->
+        <record id="demo_homework_attempt_6" model="gr.homework.attempt">
+            <field name="name">HW006</field>
+            <field name="student_id" ref="demo_student_6"/>
+            <field name="homework_title">Listening Exercise</field>
+            <field name="due_date">2025-11-18 23:59:00</field>
+            <field name="state">graded</field>
+            <field name="submission_date">2025-11-19 10:30:00</field>
+            <field name="review_date">2025-11-19 14:00:00</field>
+            <field name="grade">78.0</field>
+            <field name="max_grade">100.0</field>
+            <field name="feedback">Good work but submitted late. Please manage your time better.</field>
+            <field name="homework_description">Listen to the audio and answer the questions</field>
+        </record>
+        
+        <!-- Demo Homework Attempt 7: Draft State -->
+        <record id="demo_homework_attempt_7" model="gr.homework.attempt">
+            <field name="name">HW007</field>
+            <field name="student_id" ref="demo_student_7"/>
+            <field name="homework_title">Grammar Review</field>
+            <field name="due_date">2025-11-20 23:59:00</field>
+            <field name="state">draft</field>
+            <field name="homework_description">Complete the grammar review exercises</field>
+        </record>
+        
+        <!-- Demo Homework Attempt 8: Submitted State -->
+        <record id="demo_homework_attempt_8" model="gr.homework.attempt">
+            <field name="name">HW008</field>
+            <field name="student_id" ref="demo_student_8"/>
+            <field name="homework_title">Business English</field>
+            <field name="due_date">2025-11-20 23:59:00</field>
+            <field name="state">submitted</field>
+            <field name="submission_date">2025-11-18 15:20:00</field>
+            <field name="homework_description">Write a business email following proper format</field>
+        </record>
+        
+        <!-- Demo Homework Attempt 9: Under Review State -->
+        <record id="demo_homework_attempt_9" model="gr.homework.attempt">
+            <field name="name">HW009</field>
+            <field name="student_id" ref="demo_student_5"/>
+            <field name="homework_title">Presentation Skills</field>
+            <field name="due_date">2025-11-21 23:59:00</field>
+            <field name="state">under_review</field>
+            <field name="submission_date">2025-11-19 13:45:00</field>
+            <field name="review_date">2025-11-19 17:30:00</field>
+            <field name="homework_description">Create a 10-slide presentation about your country</field>
+        </record>
+        
+        <!-- Demo Homework Attempt 10: Graded State -->
+        <record id="demo_homework_attempt_10" model="gr.homework.attempt">
+            <field name="name">HW010</field>
+            <field name="student_id" ref="demo_student_6"/>
+            <field name="homework_title">Cultural Communication</field>
+            <field name="due_date">2025-11-22 23:59:00</field>
+            <field name="state">graded</field>
+            <field name="submission_date">2025-11-20 11:00:00</field>
+            <field name="review_date">2025-11-20 15:00:00</field>
+            <field name="grade">88.0</field>
+            <field name="max_grade">100.0</field>
+            <field name="feedback">Very good understanding of cultural differences. Well done!</field>
+            <field name="homework_description">Compare communication styles between two cultures</field>
+        </record>
+        
+
+</odoo>

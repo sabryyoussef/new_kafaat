@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        
+        <!-- Contact Pool List View -->
+        <record id="view_contact_pool_list" model="ir.ui.view">
+            <field name="name">contact.pool.list</field>
+            <field name="model">contact.pool</field>
+            <field name="arch" type="xml">
+                <list string="Contact Pools">
+                    <field name="name"/>
+                    <field name="contact_count" widget="integer"/>
+                    <field name="sales_person_id"/>
+                    <field name="created_by"/>
+                    <field name="creation_date"/>
+                    <field name="is_system_pool" invisible="1"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Contact Pool Form View -->
+        <record id="view_contact_pool_form" model="ir.ui.view">
+            <field name="name">contact.pool.form</field>
+            <field name="model">contact.pool</field>
+            <field name="arch" type="xml">
+                <form string="Contact Pool">
+                    <header>
+                        <button name="action_batch_assign_contacts" string="Batch Assign Contacts" type="object" class="btn-primary"/>
+                        <button name="action_distribute_contacts" string="Distribute Contacts" type="object" class="btn-primary"/>
+                        <field name="is_system_pool" invisible="1"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_contacts" type="object" class="oe_stat_button" icon="fa-users">
+                                <field name="contact_count" widget="statinfo" string="Contacts"/>
+                            </button>
+                        </div>
+                        
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="is_system_pool"/>
+                            </h1>
+                        </div>
+                        
+                        <group>
+                            <group string="Pool Information">
+                                <field name="creation_date"/>
+                                <field name="created_by"/>
+                                <field name="sales_person_id"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Contacts" name="contacts">
+                                <field name="contact_ids" nolabel="1">
+                                    <list>
+                                        <field name="name"/>
+                                        <field name="email"/>
+                                        <field name="phone"/>
+                                        <field name="pool_id" invisible="1"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <!-- Contact Pool Search View -->
+        <record id="view_contact_pool_search" model="ir.ui.view">
+            <field name="name">contact.pool.search</field>
+            <field name="model">contact.pool</field>
+            <field name="arch" type="xml">
+                <search string="Contact Pools">
+                    <field name="name"/>
+                    <field name="sales_person_id"/>
+                    <field name="created_by"/>
+                    <filter string="System Pools" name="system_pools" domain="[('is_system_pool', '=', True)]"/>
+                    <filter string="Regular Pools" name="regular_pools" domain="[('is_system_pool', '=', False)]"/>
+                    <filter string="Pool Won Leads" name="pool_won_leads" domain="[('name', '=', 'Pool Won Leads')]"/>
+                    <separator/>
+                    <filter string="With Contacts" name="with_contacts" domain="[('contact_count', '>', 0)]"/>
+                    <filter string="Empty Pools" name="empty_pools" domain="[('contact_count', '=', 0)]"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Contact Pool Action -->
+        <record id="action_contact_pool" model="ir.actions.act_window">
+            <field name="name">Contact Pools</field>
+            <field name="res_model">contact.pool</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_contact_pool_search"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first Contact Pool!
+                </p>
+                <p>
+                    Contact Pools allow you to organize and distribute contacts to sales persons.
+                </p>
+            </field>
+        </record>
+
+        <!-- Contact Pool Distribution Wizard Form View -->
+        <record id="view_contact_pool_distribution_wizard_form" model="ir.ui.view">
+            <field name="name">contact.pool.distribution.wizard.form</field>
+            <field name="model">contact.pool.distribution.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Distribute Contacts">
+                    <group>
+                        <field name="pool_id" readonly="1"/>
+                        <field name="distribution_method"/>
+                    </group>
+                    
+                    <notebook>
+                        <page string="Manual Selection" name="manual" invisible="distribution_method != 'manual'">
+                            <group>
+                                <field name="contact_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                                <field name="sales_person_id"/>
+                            </group>
+                        </page>
+                        
+                        <page string="Round-Robin" name="round_robin" invisible="distribution_method != 'round_robin'">
+                            <group>
+                                <field name="sales_person_ids" widget="many2many_tags"/>
+                                <field name="contacts_per_person"/>
+                            </group>
+                        </page>
+                        
+                        <page string="Percentage" name="percentage" invisible="distribution_method != 'percentage'">
+                            <group>
+                                <field name="percentage_lines" nolabel="1">
+                                    <list>
+                                        <field name="sales_person_id"/>
+                                        <field name="percentage"/>
+                                    </list>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
+                    
+                    <footer>
+                        <button string="Distribute" name="action_distribute" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Add Smart Button to Partner Form View -->
+        <record id="view_partner_form_inherit_pool" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit.pool</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <!-- Add pool_id field in contact form -->
+                <xpath expr="//field[@name='category_id']" position="after">
+                    <field name="pool_id"/>
+                </xpath>
+                
+                <!-- Add smart button for pool -->
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="action_view_pool_contacts" type="object" 
+                            class="oe_stat_button" icon="fa-users"
+                            invisible="not pool_id">
+                        <div class="o_stat_info">
+                            <span class="o_stat_text">Pool</span>
+                            <span class="o_stat_value" invisible="not pool_id">
+                                <field name="pool_id" readonly="1"/>
+                            </span>
+                        </div>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Add pool_id to Partner List View -->
+        <record id="view_partner_list_inherit_pool" model="ir.ui.view">
+            <field name="name">res.partner.list.inherit.pool</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='phone']" position="after">
+                    <field name="pool_id" optional="show"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Contact Pool Batch Assignment Wizard Form View -->
+        <record id="view_contact_pool_batch_assignment_wizard_form" model="ir.ui.view">
+            <field name="name">contact.pool.batch.assignment.wizard.form</field>
+            <field name="model">contact.pool.batch.assignment.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Batch Assign Contacts to Pool">
+                    <group>
+                        <field name="pool_id" required="1"/>
+                        <field name="remove_from_old_pool"/>
+                    </group>
+                    <group>
+                        <field name="contact_ids" widget="many2many_tags" options="{'no_create': True}" required="1"/>
+                    </group>
+                    <footer>
+                        <button string="Assign" name="action_assign" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Add Batch Assignment Action to Partner List View -->
+        <record id="action_contact_pool_batch_assignment" model="ir.actions.act_window">
+            <field name="name">Batch Assign to Pool</field>
+            <field name="res_model">contact.pool.batch.assignment.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+</odoo>
+
