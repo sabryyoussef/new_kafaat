@@ -71,9 +71,7 @@
         'views/notification_system_views.xml',
         'views/certificate_automation_views.xml',
         'views/contact_pool_views.xml',
-        
-        # Menu Data
-        'data/menu_views.xml',
+        'views/menu_views.xml',
         
         # Portal Views
         'views/portal/portal_templates.xml',
