@@ -49,6 +49,7 @@
         
         # Views
         'views/batch_intake_views.xml',
+        'views/applicant_views.xml',
         'views/eligibility_criteria_views.xml',
         'views/menu_views.xml',
         

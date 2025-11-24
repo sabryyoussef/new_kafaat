@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Upload Wizard Form -->
+    <record id="view_batch_upload_wizard_form" model="ir.ui.view">
+        <field name="name">batch.intake.upload.wizard.form</field>
+        <field name="model">batch.intake.upload.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Upload Batch File">
+                <group>
+                    <field name="file_data" widget="binary" filename="file_name" required="1"/>
+                    <field name="file_name" invisible="1"/>
+                    <field name="intake_date"/>
+                    <field name="description" placeholder="Brief description of this intake batch..."/>
+                </group>
+                <footer>
+                    <button name="action_upload_and_process" string="Upload and Process" type="object" class="btn-primary"/>
+                    <button name="action_upload_only" string="Upload Only" type="object" class="btn-secondary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Upload Wizard Action -->
+    <record id="action_batch_upload_wizard" model="ir.actions.act_window">
+        <field name="name">Upload Batch</field>
+        <field name="res_model">batch.intake.upload.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>
+

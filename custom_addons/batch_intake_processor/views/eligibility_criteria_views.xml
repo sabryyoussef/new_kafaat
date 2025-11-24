@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Eligibility Criteria Form View -->
+    <record id="view_eligibility_criteria_form" model="ir.ui.view">
+        <field name="name">batch.intake.eligibility.criteria.form</field>
+        <field name="model">batch.intake.eligibility.criteria</field>
+        <field name="arch" type="xml">
+            <form string="Eligibility Criteria">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" placeholder="e.g., Standard Intake Criteria 2025"/>
+                        </h1>
+                    </div>
+                    
+                    <group>
+                        <field name="active"/>
+                    </group>
+                    
+                    <group>
+                        <field name="description" placeholder="Describe the eligibility requirements..."/>
+                    </group>
+                    
+                    <group string="Age Requirements">
+                        <group>
+                            <field name="min_age"/>
+                        </group>
+                        <group>
+                            <field name="max_age" help="Set to 0 for no maximum age limit"/>
+                        </group>
+                    </group>
+                    
+                    <group string="Education Requirements">
+                        <field name="required_education_level" placeholder="e.g., High School, Bachelor, Master"/>
+                    </group>
+                    
+                    <group string="Academic Requirements">
+                        <field name="min_gpa" help="Minimum GPA on a scale of 0-100"/>
+                    </group>
+                    
+                    <group string="Language Requirements">
+                        <field name="required_english_level" placeholder="e.g., Beginner, Intermediate, Advanced"/>
+                    </group>
+                    
+                    <group string="Overall Requirements">
+                        <field name="required_pass_rate" help="Percentage of criteria that must be met for eligibility"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Eligibility Criteria List View -->
+    <record id="view_eligibility_criteria_list" model="ir.ui.view">
+        <field name="name">batch.intake.eligibility.criteria.list</field>
+        <field name="model">batch.intake.eligibility.criteria</field>
+        <field name="arch" type="xml">
+            <list string="Eligibility Criteria">
+                <field name="name"/>
+                <field name="min_age"/>
+                <field name="max_age"/>
+                <field name="required_education_level"/>
+                <field name="min_gpa"/>
+                <field name="required_english_level"/>
+                <field name="required_pass_rate"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Eligibility Criteria Action -->
+    <record id="action_eligibility_criteria" model="ir.actions.act_window">
+        <field name="name">Eligibility Criteria</field>
+        <field name="res_model">batch.intake.eligibility.criteria</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first eligibility criteria!
+            </p>
+            <p>
+                Define the requirements that applicants must meet to be considered eligible.
+            </p>
+        </field>
+    </record>
+</odoo>
+
