@@ -37,7 +37,7 @@
         # Security
         'security/grants_training_groups.xml',
         'security/ir.model.access.csv',
-        'security/ir.rule.xml',
+        # 'security/ir.rule.xml',
         'security/portal_security_rules.xml',
         
         # Data
