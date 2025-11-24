@@ -54,6 +54,7 @@
     'data': [
         # Security - Base access for portal documents
         'security/ir.model.access.csv',
+        'security/security_rules.xml',
         
         # Data
         'data/sequences.xml',
@@ -68,7 +69,7 @@
         
         # Security - Extended access (after models are registered)
         'security/ir.model.access.extended.csv',
-        'security/security_rules.xml',
+        'security/security_rules_extended.xml',
     ],
     'demo': [
         'data/demo_data.xml',
