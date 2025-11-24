@@ -5,9 +5,9 @@
         <record id="email_template_student_welcome" model="mail.template">
             <field name="name">Student Welcome Email</field>
             <field name="model_id" ref="model_gr_student"/>
-            <field name="subject">Welcome to Grants Training Portal - {{ object.name }}</field>
-            <field name="email_from">{{ (object.company_id.email or 'noreply@example.com') }}</field>
-            <field name="email_to">{{ object.email }}</field>
+            <field name="subject">Welcome to Grants Training Portal - ${object.name}</field>
+            <field name="email_from">${object.company_id.email or 'noreply@example.com'}</field>
+            <field name="email_to">${object.email}</field>
             <field name="body_html" type="html">
 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
     <div style="background-color: #007bff; color: white; padding: 20px; text-align: center;">
@@ -15,15 +15,15 @@
     </div>
     
     <div style="padding: 30px; background-color: #f8f9fa;">
-        <h2 style="color: #333;">Hello {{ object.name }}!</h2>
+        <h2 style="color: #333;">Hello ${object.name}!</h2>
         
         <p>Thank you for registering with Grants Training Portal. We're excited to have you on board!</p>
         
         <div style="background-color: white; padding: 20px; margin: 20px 0; border-left: 4px solid #007bff;">
             <h3 style="margin-top: 0; color: #007bff;">Your Account Details</h3>
-            <p><strong>Email:</strong> {{ object.email }}</p>
-            <p><strong>Phone:</strong> {{ object.phone }}</p>
-            <p><strong>Status:</strong> {{ object.state }}</p>
+            <p><strong>Email:</strong> ${object.email}</p>
+            <p><strong>Phone:</strong> ${object.phone}</p>
+            <p><strong>Status:</strong> ${object.state}</p>
         </div>
         
         <h3 style="color: #333;">What's Next?</h3>

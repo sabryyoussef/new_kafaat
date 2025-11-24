@@ -5,27 +5,27 @@
         <record id="email_template_batch_notification_generic" model="mail.template">
             <field name="name">Batch Notification - Generic</field>
             <field name="model_id" ref="grants_training_suite_v19.model_gr_intake_batch"/>
-            <field name="subject">Batch Notification: {{ object.name }}</field>
-            <field name="email_from">{{ (user.email_formatted if user.email else '') }}</field>
-            <field name="email_to">{{ email_to }}</field>
+            <field name="subject">Batch Notification: ${object.name}</field>
+            <field name="email_from">${(user.email_formatted if user.email else '')}</field>
+            <field name="email_to">${email_to}</field>
             <field name="body_html" type="html">
                 <div style="margin: 0px; padding: 0px; font-size: 13px;">
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
-                        Hello {{ recipient_name }},
+                        Hello ${recipient_name},
                     </p>
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
-                        This is a notification regarding batch <strong>{{ batch_name }}</strong>.
+                        This is a notification regarding batch <strong>${batch_name}</strong>.
                     </p>
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
-                        <strong>Message:</strong> {{ message }}
+                        <strong>Message:</strong> ${message}
                     </p>
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
-                        <strong>Batch ID:</strong> {{ batch_id }}<br/>
-                        <strong>Notification Type:</strong> {{ notification_type }}
+                        <strong>Batch ID:</strong> ${batch_id}<br/>
+                        <strong>Notification Type:</strong> ${notification_type}
                     </p>
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
                         Best regards,<br/>
-                        {{ user.name }}
+                        ${user.name}
                     </p>
                 </div>
             </field>
@@ -35,34 +35,34 @@
         <record id="email_template_batch_success" model="mail.template">
             <field name="name">Batch Notification - Success</field>
             <field name="model_id" ref="grants_training_suite_v19.model_gr_intake_batch"/>
-            <field name="subject">✅ Batch Processing Complete: {{ object.name }}</field>
-            <field name="email_from">{{ (user.email_formatted if user.email else '') }}</field>
-            <field name="email_to">{{ email_to }}</field>
+            <field name="subject">✅ Batch Processing Complete: ${object.name}</field>
+            <field name="email_from">${(user.email_formatted if user.email else '')}</field>
+            <field name="email_to">${email_to}</field>
             <field name="body_html" type="html">
                 <div style="margin: 0px; padding: 0px; font-size: 13px;">
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
-                        Hello {{ recipient_name }},
+                        Hello ${recipient_name},
                     </p>
                     <p style="margin: 0px; padding: 0px; font-size: 13px; color: #28a745;">
                         🎉 <strong>Great news!</strong> Batch processing has completed successfully.
                     </p>
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
-                        <strong>Batch:</strong> {{ batch_name }}<br/>
+                        <strong>Batch:</strong> ${batch_name}<br/>
                         <strong>Status:</strong> <span style="color: #28a745;">✅ Completed Successfully</span>
                     </p>
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
                         <strong>Processing Summary:</strong><br/>
-                        📊 Total Records: {{ details.total_records }}<br/>
-                        ✅ Students Created: {{ details.students_created }}<br/>
-                        🔄 Students Updated: {{ details.students_updated }}<br/>
-                        ⏱️ Processing Time: {{ details.processing_time }}
+                        📊 Total Records: ${details.total_records}<br/>
+                        ✅ Students Created: ${details.students_created}<br/>
+                        🔄 Students Updated: ${details.students_updated}<br/>
+                        ⏱️ Processing Time: ${details.processing_time}
                     </p>
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
-                        {{ message }}
+                        ${message}
                     </p>
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
                         Best regards,<br/>
-                        {{ user.name }}
+                        ${user.name}
                     </p>
                 </div>
             </field>
@@ -72,38 +72,38 @@
         <record id="email_template_batch_error" model="mail.template">
             <field name="name">Batch Notification - Error</field>
             <field name="model_id" ref="grants_training_suite_v19.model_gr_intake_batch"/>
-            <field name="subject">❌ Batch Processing Error: {{ object.name }}</field>
-            <field name="email_from">{{ (user.email_formatted if user.email else '') }}</field>
-            <field name="email_to">{{ email_to }}</field>
+            <field name="subject">❌ Batch Processing Error: ${object.name}</field>
+            <field name="email_from">${(user.email_formatted if user.email else '')}</field>
+            <field name="email_to">${email_to}</field>
             <field name="body_html" type="html">
                 <div style="margin: 0px; padding: 0px; font-size: 13px;">
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
-                        Hello {{ recipient_name }},
+                        Hello ${recipient_name},
                     </p>
                     <p style="margin: 0px; padding: 0px; font-size: 13px; color: #dc3545;">
                         ⚠️ <strong>Attention Required!</strong> Batch processing encountered an error.
                     </p>
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
-                        <strong>Batch:</strong> {{ batch_name }}<br/>
+                        <strong>Batch:</strong> ${batch_name}<br/>
                         <strong>Status:</strong> <span style="color: #dc3545;">❌ Error</span><br/>
-                        <strong>Error Type:</strong> {{ details.error_type }}
+                        <strong>Error Type:</strong> ${details.error_type}
                     </p>
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
                         <strong>Error Details:</strong><br/>
-                        <span style="color: #dc3545;">{{ details.error_message }}</span>
+                        <span style="color: #dc3545;">${details.error_message}</span>
                     </p>
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
                         <strong>Additional Information:</strong><br/>
-                        📅 Failed At: {{ details.failed_at }}<br/>
-                        📊 Total Records: {{ details.total_records }}
+                        📅 Failed At: ${details.failed_at}<br/>
+                        📊 Total Records: ${details.total_records}
                     </p>
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
-                        {{ message }}
+                        ${message}
                     </p>
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
                         Please review the batch and take appropriate action.<br/>
                         Best regards,<br/>
-                        {{ user.name }}
+                        ${user.name}
                     </p>
                 </div>
             </field>
@@ -113,36 +113,36 @@
         <record id="email_template_batch_warning" model="mail.template">
             <field name="name">Batch Notification - Warning</field>
             <field name="model_id" ref="grants_training_suite_v19.model_gr_intake_batch"/>
-            <field name="subject">⚠️ Batch Processing Warning: {{ object.name }}</field>
-            <field name="email_from">{{ (user.email_formatted if user.email else '') }}</field>
-            <field name="email_to">{{ email_to }}</field>
+            <field name="subject">⚠️ Batch Processing Warning: ${object.name}</field>
+            <field name="email_from">${(user.email_formatted if user.email else '')}</field>
+            <field name="email_to">${email_to}</field>
             <field name="body_html" type="html">
                 <div style="margin: 0px; padding: 0px; font-size: 13px;">
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
-                        Hello {{ recipient_name }},
+                        Hello ${recipient_name},
                     </p>
                     <p style="margin: 0px; padding: 0px; font-size: 13px; color: #ffc107;">
                         ⚠️ <strong>Warning!</strong> Batch processing completed with some issues.
                     </p>
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
-                        <strong>Batch:</strong> {{ batch_name }}<br/>
+                        <strong>Batch:</strong> ${batch_name}<br/>
                         <strong>Status:</strong> <span style="color: #ffc107;">⚠️ Completed with Warnings</span>
                     </p>
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
                         <strong>Processing Summary:</strong><br/>
-                        📊 Total Records: {{ details.total_records }}<br/>
-                        ✅ Students Created: {{ details.students_created }}<br/>
-                        🔄 Students Updated: {{ details.students_updated }}<br/>
-                        ❌ Errors: {{ details.errors }}<br/>
-                        ⏱️ Processing Time: {{ details.processing_time }}
+                        📊 Total Records: ${details.total_records}<br/>
+                        ✅ Students Created: ${details.students_created}<br/>
+                        🔄 Students Updated: ${details.students_updated}<br/>
+                        ❌ Errors: ${details.errors}<br/>
+                        ⏱️ Processing Time: ${details.processing_time}
                     </p>
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
-                        {{ message }}
+                        ${message}
                     </p>
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
                         Please review the errors and take appropriate action if needed.<br/>
                         Best regards,<br/>
-                        {{ user.name }}
+                        ${user.name}
                     </p>
                 </div>
             </field>
@@ -152,33 +152,33 @@
         <record id="email_template_batch_info" model="mail.template">
             <field name="name">Batch Notification - Info</field>
             <field name="model_id" ref="grants_training_suite_v19.model_gr_intake_batch"/>
-            <field name="subject">ℹ️ Batch Information: {{ object.name }}</field>
-            <field name="email_from">{{ (user.email_formatted if user.email else '') }}</field>
-            <field name="email_to">{{ email_to }}</field>
+            <field name="subject">ℹ️ Batch Information: ${object.name}</field>
+            <field name="email_from">${(user.email_formatted if user.email else '')}</field>
+            <field name="email_to">${email_to}</field>
             <field name="body_html" type="html">
                 <div style="margin: 0px; padding: 0px; font-size: 13px;">
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
-                        Hello {{ recipient_name }},
+                        Hello ${recipient_name},
                     </p>
                     <p style="margin: 0px; padding: 0px; font-size: 13px; color: #17a2b8;">
                         ℹ️ <strong>Information Update</strong> regarding batch processing.
                     </p>
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
-                        <strong>Batch:</strong> {{ batch_name }}<br/>
+                        <strong>Batch:</strong> ${batch_name}<br/>
                         <strong>Status:</strong> <span style="color: #17a2b8;">ℹ️ Information</span>
                     </p>
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
                         <strong>Details:</strong><br/>
-                        📊 Total Records: {{ details.total_records or 'N/A' }}<br/>
-                        📅 Batch Status: {{ details.batch_status or 'N/A' }}<br/>
-                        ⏱️ Processing Time: {{ details.processing_time or 'N/A' }}
+                        📊 Total Records: ${details.total_records or 'N/A'}<br/>
+                        📅 Batch Status: ${details.batch_status or 'N/A'}<br/>
+                        ⏱️ Processing Time: ${details.processing_time or 'N/A'}
                     </p>
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
-                        {{ message }}
+                        ${message}
                     </p>
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
                         Best regards,<br/>
-                        {{ user.name }}
+                        ${user.name}
                     </p>
                 </div>
             </field>
@@ -188,8 +188,8 @@
         <record id="email_template_enrollment_request_submitted" model="mail.template">
             <field name="name">Enrollment Request: Submitted (Admin Notification)</field>
             <field name="model_id" ref="model_course_enrollment_request"/>
-            <field name="subject">New Course Enrollment Request - {{ object.name }}</field>
-            <field name="email_from">{{ (object.company_id.email or 'noreply@example.com') }}</field>
+            <field name="subject">New Course Enrollment Request - ${object.name}</field>
+            <field name="email_from">${(object.company_id.email or 'noreply@example.com')}</field>
             <field name="body_html" type="html">
                 <div style="margin: 0px; padding: 0px; font-family: Arial, sans-serif;">
                     <table border="0" width="100%" cellpadding="0" bgcolor="#ededed" style="padding: 20px; background-color: #ededed">
@@ -204,19 +204,19 @@
                                                     <p>A student has submitted a new course enrollment request that requires your review.</p>
                                                     
                                                     <div style="background-color: #f8f9fa; padding: 15px; border-left: 4px solid #0d6efd; margin: 20px 0;">
-                                                        <p style="margin: 0;"><strong>Request Number:</strong> {{ object.name }}</p>
-                                                        <p style="margin: 5px 0 0 0;"><strong>Student:</strong> {{ object.student_id.name }}</p>
-                                                        <p style="margin: 5px 0 0 0;"><strong>Course:</strong> {{ object.course_name }}</p>
-                                                        <p style="margin: 5px 0 0 0;"><strong>Request Date:</strong> {{ format_datetime(object.request_date, dt_format='medium') }}</p>
+                                                        <p style="margin: 0;"><strong>Request Number:</strong> ${object.name}</p>
+                                                        <p style="margin: 5px 0 0 0;"><strong>Student:</strong> ${object.student_id.name}</p>
+                                                        <p style="margin: 5px 0 0 0;"><strong>Course:</strong> ${object.course_name}</p>
+                                                        <p style="margin: 5px 0 0 0;"><strong>Request Date:</strong> ${format_datetime(object.request_date, dt_format='medium')}</p>
                                                     </div>
                                                     
                                                     <div style="background-color: #fff3cd; padding: 15px; border-left: 4px solid #ffc107; margin: 20px 0;" t-if="object.notes">
                                                         <p style="margin: 0;"><strong>Student Notes:</strong></p>
-                                                        <p style="margin: 5px 0 0 0;">{{ object.notes }}</p>
+                                                        <p style="margin: 5px 0 0 0;">${object.notes}</p>
                                                     </div>
                                                     
                                                     <div style="text-align: center; margin: 30px 0;">
-                                                        <a t-attf-href="{{ object.get_base_url() }}/web#id={{ object.id }}&amp;model=course.enrollment.request&amp;view_type=form" 
+                                                        <a t-attf-href="${object.get_base_url()}/web#id=${object.id}&amp;model=course.enrollment.request&amp;view_type=form" 
                                                            style="background-color: #0d6efd; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block;">
                                                             Review Request
                                                         </a>
@@ -224,7 +224,7 @@
                                                     
                                                     <p style="margin-top: 30px;">
                                                         Best regards,<br/>
-                                                        <strong>{{ object.company_id.name }}</strong>
+                                                        <strong>${object.company_id.name}</strong>
                                                     </p>
                                                 </td>
                                             </tr>
@@ -243,9 +243,9 @@
         <record id="email_template_enrollment_request_approved" model="mail.template">
             <field name="name">Enrollment Request: Approved</field>
             <field name="model_id" ref="model_course_enrollment_request"/>
-            <field name="subject">Enrollment Approved - {{ object.course_name }}</field>
-            <field name="email_from">{{ (object.company_id.email or 'noreply@example.com') }}</field>
-            <field name="email_to">{{ object.student_email }}</field>
+            <field name="subject">Enrollment Approved - ${object.course_name}</field>
+            <field name="email_from">${(object.company_id.email or 'noreply@example.com')}</field>
+            <field name="email_to">${object.student_email}</field>
             <field name="body_html" type="html">
                 <div style="margin: 0px; padding: 0px; font-family: Arial, sans-serif;">
                     <table border="0" width="100%" cellpadding="0" bgcolor="#ededed" style="padding: 20px; background-color: #ededed">
@@ -257,20 +257,20 @@
                                             <tr>
                                                 <td valign="top" style="font-size: 13px;">
                                                     <h2 style="color: #198754; margin-top: 0px;">🎉 Enrollment Approved!</h2>
-                                                    <p>Dear <strong>{{ object.student_id.name }}</strong>,</p>
+                                                    <p>Dear <strong>${object.student_id.name}</strong>,</p>
                                                     <p>Great news! Your enrollment request has been approved.</p>
                                                     
                                                     <div style="background-color: #d1e7dd; padding: 15px; border-left: 4px solid #198754; margin: 20px 0;">
-                                                        <p style="margin: 0;"><strong>Request Number:</strong> {{ object.name }}</p>
-                                                        <p style="margin: 5px 0 0 0;"><strong>Course:</strong> {{ object.course_name }}</p>
-                                                        <p style="margin: 5px 0 0 0;"><strong>Approval Date:</strong> {{ format_datetime(object.approved_date, dt_format='medium') if object.approved_date else 'Today' }}</p>
+                                                        <p style="margin: 0;"><strong>Request Number:</strong> ${object.name}</p>
+                                                        <p style="margin: 5px 0 0 0;"><strong>Course:</strong> ${object.course_name}</p>
+                                                        <p style="margin: 5px 0 0 0;"><strong>Approval Date:</strong> ${format_datetime(object.approved_date, dt_format='medium') if object.approved_date else 'Today'}</p>
                                                     </div>
                                                     
                                                     <h3 style="color: #198754;">What's Next?</h3>
                                                     <p>A course session has been created for you. You can view your session details and course materials in your student portal.</p>
                                                     
                                                     <div style="text-align: center; margin: 30px 0;">
-                                                        <a href="{{ object.get_base_url() }}/my/student" 
+                                                        <a href="${object.get_base_url()}/my/student" 
                                                            style="background-color: #198754; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block;">
                                                             Go to My Dashboard
                                                         </a>
@@ -280,7 +280,7 @@
                                                     
                                                     <p style="margin-top: 30px;">
                                                         Best regards,<br/>
-                                                        <strong>{{ object.company_id.name }}</strong>
+                                                        <strong>${object.company_id.name}</strong>
                                                     </p>
                                                 </td>
                                             </tr>
@@ -299,9 +299,9 @@
         <record id="email_template_enrollment_request_rejected" model="mail.template">
             <field name="name">Enrollment Request: Rejected</field>
             <field name="model_id" ref="model_course_enrollment_request"/>
-            <field name="subject">Enrollment Request Status - {{ object.name }}</field>
-            <field name="email_from">{{ (object.company_id.email or 'noreply@example.com') }}</field>
-            <field name="email_to">{{ object.student_email }}</field>
+            <field name="subject">Enrollment Request Status - ${object.name}</field>
+            <field name="email_from">${(object.company_id.email or 'noreply@example.com')}</field>
+            <field name="email_to">${object.student_email}</field>
             <field name="body_html" type="html">
                 <div style="margin: 0px; padding: 0px; font-family: Arial, sans-serif;">
                     <table border="0" width="100%" cellpadding="0" bgcolor="#ededed" style="padding: 20px; background-color: #ededed">
@@ -313,14 +313,14 @@
                                             <tr>
                                                 <td valign="top" style="font-size: 13px;">
                                                     <h2 style="color: #dc3545; margin-top: 0px;">Enrollment Request Update</h2>
-                                                    <p>Dear <strong>{{ object.student_id.name }}</strong>,</p>
+                                                    <p>Dear <strong>${object.student_id.name}</strong>,</p>
                                                     <p>Thank you for your interest in our courses. After careful review, we are unable to approve your enrollment request at this time.</p>
                                                     
                                                     <div style="background-color: #f8d7da; padding: 15px; border-left: 4px solid #dc3545; margin: 20px 0;">
-                                                        <p style="margin: 0;"><strong>Request Number:</strong> {{ object.name }}</p>
-                                                        <p style="margin: 5px 0 0 0;"><strong>Course:</strong> {{ object.course_name }}</p>
+                                                        <p style="margin: 0;"><strong>Request Number:</strong> ${object.name}</p>
+                                                        <p style="margin: 5px 0 0 0;"><strong>Course:</strong> ${object.course_name}</p>
                                                         <p style="margin: 10px 0 0 0;"><strong>Reason:</strong></p>
-                                                        <p style="margin: 5px 0 0 0;">{{ object.rejection_reason or 'Please contact us for more details.' }}</p>
+                                                        <p style="margin: 5px 0 0 0;">${object.rejection_reason or 'Please contact us for more details.'}</p>
                                                     </div>
                                                     
                                                     <h3 style="color: #0d6efd;">What Can You Do?</h3>
@@ -331,7 +331,7 @@
                                                     </ul>
                                                     
                                                     <div style="text-align: center; margin: 30px 0;">
-                                                        <a href="{{ object.get_base_url() }}/my/available-courses" 
+                                                        <a href="${object.get_base_url()}/my/available-courses" 
                                                            style="background-color: #0d6efd; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block;">
                                                             Browse Other Courses
                                                         </a>
@@ -341,7 +341,7 @@
                                                     
                                                     <p style="margin-top: 30px;">
                                                         Best regards,<br/>
-                                                        <strong>{{ object.company_id.name }}</strong>
+                                                        <strong>${object.company_id.name}</strong>
                                                     </p>
                                                 </td>
                                             </tr>

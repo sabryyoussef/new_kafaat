@@ -6,9 +6,9 @@
         <record id="email_template_registration_confirmation" model="mail.template">
             <field name="name">Student Registration: Confirmation</field>
             <field name="model_id" ref="model_student_registration"/>
-            <field name="subject">Registration Confirmation - {{ object.name }}</field>
-            <field name="email_from">{{ (object.company_id.email or 'noreply@example.com') }}</field>
-            <field name="email_to">{{ object.email }}</field>
+            <field name="subject">Registration Confirmation - ${object.name}</field>
+            <field name="email_from">${(object.company_id.email or 'noreply@example.com')}</field>
+            <field name="email_to">${object.email}</field>
             <field name="body_html" type="html">
                 <div style="margin: 0px; padding: 0px; font-family: Arial, sans-serif;">
                     <table border="0" width="100%" cellpadding="0" bgcolor="#ededed" style="padding: 20px; background-color: #ededed" summary="o_mail_notification">
@@ -20,12 +20,12 @@
                                             <tr>
                                                 <td valign="top" style="font-size: 13px;">
                                                     <h2 style="color: #0d6efd; margin-top: 0px;">Registration Confirmation</h2>
-                                                    <p>Dear <strong>{{ object.student_name_english }}</strong>,</p>
+                                                    <p>Dear <strong>${object.student_name_english}</strong>,</p>
                                                     <p>Thank you for registering with us. We have received your registration and it is now being reviewed by our team.</p>
                                                     
                                                     <div style="background-color: #f8f9fa; padding: 15px; border-left: 4px solid #0d6efd; margin: 20px 0;">
-                                                        <p style="margin: 0;"><strong>Registration Number:</strong> {{ object.name }}</p>
-                                                        <p style="margin: 5px 0 0 0;"><strong>Submitted Date:</strong> {{ format_datetime(object.create_date, dt_format='medium') }}</p>
+                                                        <p style="margin: 0;"><strong>Registration Number:</strong> ${object.name}</p>
+                                                        <p style="margin: 5px 0 0 0;"><strong>Submitted Date:</strong> ${format_datetime(object.create_date, dt_format='medium')}</p>
                                                     </div>
                                                     
                                                     <h3 style="color: #0d6efd;">What's Next?</h3>
@@ -40,7 +40,7 @@
                                                     
                                                     <p style="margin-top: 30px;">
                                                         Best regards,<br/>
-                                                        <strong>{{ object.company_id.name }}</strong>
+                                                        <strong>${object.company_id.name}</strong>
                                                     </p>
                                                 </td>
                                             </tr>
@@ -59,9 +59,9 @@
         <record id="email_template_registration_rejected" model="mail.template">
             <field name="name">Student Registration: Rejected</field>
             <field name="model_id" ref="model_student_registration"/>
-            <field name="subject">Registration Status Update - {{ object.name }}</field>
-            <field name="email_from">{{ (object.company_id.email or 'noreply@example.com') }}</field>
-            <field name="email_to">{{ object.email }}</field>
+            <field name="subject">Registration Status Update - ${object.name}</field>
+            <field name="email_from">${(object.company_id.email or 'noreply@example.com')}</field>
+            <field name="email_to">${object.email}</field>
             <field name="body_html" type="html">
                 <div style="margin: 0px; padding: 0px; font-family: Arial, sans-serif;">
                     <table border="0" width="100%" cellpadding="0" bgcolor="#ededed" style="padding: 20px; background-color: #ededed" summary="o_mail_notification">
@@ -73,20 +73,20 @@
                                             <tr>
                                                 <td valign="top" style="font-size: 13px;">
                                                     <h2 style="color: #dc3545; margin-top: 0px;">Registration Status Update</h2>
-                                                    <p>Dear <strong>{{ object.student_name_english }}</strong>,</p>
+                                                    <p>Dear <strong>${object.student_name_english}</strong>,</p>
                                                     <p>Thank you for your interest in our programs. After careful review, we regret to inform you that we are unable to approve your registration at this time.</p>
                                                     
                                                     <div style="background-color: #fff3cd; padding: 15px; border-left: 4px solid #ffc107; margin: 20px 0;">
-                                                        <p style="margin: 0;"><strong>Registration Number:</strong> {{ object.name }}</p>
+                                                        <p style="margin: 0;"><strong>Registration Number:</strong> ${object.name}</p>
                                                         <p style="margin: 10px 0 0 0;"><strong>Reason:</strong></p>
-                                                        <p style="margin: 5px 0 0 0;">{{ object.rejection_reason or 'Please contact us for more details.' }}</p>
+                                                        <p style="margin: 5px 0 0 0;">${object.rejection_reason or 'Please contact us for more details.'}</p>
                                                     </div>
                                                     
                                                     <p>If you have any questions or would like to discuss this decision, please feel free to contact us. We would be happy to provide more information or discuss alternative options.</p>
                                                     
                                                     <p style="margin-top: 30px;">
                                                         Best regards,<br/>
-                                                        <strong>{{ object.company_id.name }}</strong>
+                                                        <strong>${object.company_id.name}</strong>
                                                     </p>
                                                 </td>
                                             </tr>
@@ -105,9 +105,9 @@
         <record id="email_template_registration_approved" model="mail.template">
             <field name="name">Student Registration: Approved</field>
             <field name="model_id" ref="model_student_registration"/>
-            <field name="subject">Congratulations! Your Registration is Approved - {{ object.name }}</field>
-            <field name="email_from">{{ (object.company_id.email or 'noreply@example.com') }}</field>
-            <field name="email_to">{{ object.email }}</field>
+            <field name="subject">Congratulations! Your Registration is Approved - ${object.name}</field>
+            <field name="email_from">${(object.company_id.email or 'noreply@example.com')}</field>
+            <field name="email_to">${object.email}</field>
             <field name="body_html" type="html">
                 <div style="margin: 0px; padding: 0px; font-family: Arial, sans-serif;">
                     <table border="0" width="100%" cellpadding="0" bgcolor="#ededed" style="padding: 20px; background-color: #ededed" summary="o_mail_notification">
@@ -119,21 +119,21 @@
                                             <tr>
                                                 <td valign="top" style="font-size: 13px;">
                                                     <h2 style="color: #198754; margin-top: 0px;">🎉 Congratulations!</h2>
-                                                    <p>Dear <strong>{{ object.student_name_english }}</strong>,</p>
+                                                    <p>Dear <strong>${object.student_name_english}</strong>,</p>
                                                     <p>We are pleased to inform you that your registration has been approved! Welcome to our academy.</p>
                                                     
                                                     <div style="background-color: #d1e7dd; padding: 15px; border-left: 4px solid #198754; margin: 20px 0;">
-                                                        <p style="margin: 0;"><strong>Registration Number:</strong> {{ object.name }}</p>
-                                                        <p style="margin: 5px 0 0 0;"><strong>Student ID:</strong> {{ object.student_id.name if object.student_id else 'Being created' }}</p>
-                                                        <p style="margin: 5px 0 0 0;"><strong>Approval Date:</strong> {{ format_datetime(object.approved_date, dt_format='medium') if object.approved_date else 'Today' }}</p>
+                                                        <p style="margin: 0;"><strong>Registration Number:</strong> ${object.name}</p>
+                                                        <p style="margin: 5px 0 0 0;"><strong>Student ID:</strong> ${object.student_id.name if object.student_id else 'Being created'}</p>
+                                                        <p style="margin: 5px 0 0 0;"><strong>Approval Date:</strong> ${format_datetime(object.approved_date, dt_format='medium') if object.approved_date else 'Today'}</p>
                                                     </div>
                                                     
                                                     <h3 style="color: #198754;">Your Portal Access</h3>
                                                     <p>A student portal account has been created for you. You will receive a separate email with instructions to set your password and access your portal.</p>
                                                     
                                                     <div style="background-color: #cfe2ff; padding: 15px; border-left: 4px solid #0d6efd; margin: 20px 0;">
-                                                        <p style="margin: 0;"><strong>Login Email:</strong> {{ object.email }}</p>
-                                                        <p style="margin: 10px 0 0 0;">You can access your portal at: <a href="{{ object.get_base_url() }}/my">Student Portal</a></p>
+                                                        <p style="margin: 0;"><strong>Login Email:</strong> ${object.email}</p>
+                                                        <p style="margin: 10px 0 0 0;">You can access your portal at: <a href="${object.get_base_url()}/my">Student Portal</a></p>
                                                     </div>
                                                     
                                                     <h3 style="color: #198754;">What's Next?</h3>
@@ -148,7 +148,7 @@
                                                     
                                                     <p style="margin-top: 30px;">
                                                         Best regards,<br/>
-                                                        <strong>{{ object.company_id.name }}</strong>
+                                                        <strong>${object.company_id.name}</strong>
                                                     </p>
                                                 </td>
                                             </tr>
@@ -167,9 +167,9 @@
         <record id="email_template_enrollment_confirmation" model="mail.template">
             <field name="name">Student Registration: Enrollment Confirmation</field>
             <field name="model_id" ref="model_student_registration"/>
-            <field name="subject">Course Enrollment Confirmation - {{ object.name }}</field>
-            <field name="email_from">{{ (object.company_id.email or 'noreply@example.com') }}</field>
-            <field name="email_to">{{ object.email }}</field>
+            <field name="subject">Course Enrollment Confirmation - ${object.name}</field>
+            <field name="email_from">${(object.company_id.email or 'noreply@example.com')}</field>
+            <field name="email_to">${object.email}</field>
             <field name="body_html" type="html">
                 <div style="margin: 0px; padding: 0px; font-family: Arial, sans-serif;">
                     <table border="0" width="100%" cellpadding="0" bgcolor="#ededed" style="padding: 20px; background-color: #ededed" summary="o_mail_notification">
@@ -181,12 +181,12 @@
                                             <tr>
                                                 <td valign="top" style="font-size: 13px;">
                                                     <h2 style="color: #0d6efd; margin-top: 0px;">Course Enrollment Confirmation</h2>
-                                                    <p>Dear <strong>{{ object.student_name_english }}</strong>,</p>
+                                                    <p>Dear <strong>${object.student_name_english}</strong>,</p>
                                                     <p>You have been successfully enrolled in your courses!</p>
                                                     
                                                     <div style="background-color: #d1e7dd; padding: 15px; border-left: 4px solid #198754; margin: 20px 0;">
-                                                        <p style="margin: 0;"><strong>Student ID:</strong> {{ object.student_id.name if object.student_id else object.name }}</p>
-                                                        <p style="margin: 5px 0 0 0;"><strong>Enrollment Date:</strong> {{ format_datetime(now(), dt_format='medium') }}</p>
+                                                        <p style="margin: 0;"><strong>Student ID:</strong> ${object.student_id.name if object.student_id else object.name}</p>
+                                                        <p style="margin: 5px 0 0 0;"><strong>Enrollment Date:</strong> ${format_datetime(now(), dt_format='medium')}</p>
                                                     </div>
                                                     
                                                     <h3 style="color: #0d6efd;">Next Steps</h3>
@@ -198,14 +198,14 @@
                                                     </ul>
                                                     
                                                     <div style="text-align: center; margin: 30px 0;">
-                                                        <a href="{{ object.get_base_url() }}/my" style="background-color: #0d6efd; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block;">Access Student Portal</a>
+                                                        <a href="${object.get_base_url()}/my" style="background-color: #0d6efd; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block;">Access Student Portal</a>
                                                     </div>
                                                     
                                                     <p>We look forward to seeing you in class!</p>
                                                     
                                                     <p style="margin-top: 30px;">
                                                         Best regards,<br/>
-                                                        <strong>{{ object.company_id.name }}</strong>
+                                                        <strong>${object.company_id.name}</strong>
                                                     </p>
                                                 </td>
                                             </tr>
