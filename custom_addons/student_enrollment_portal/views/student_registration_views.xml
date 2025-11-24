@@ -236,7 +236,8 @@
     <!-- Menu Items -->
     <menuitem id="menu_student_registrations_root" 
               name="Student Registrations" 
-              sequence="50"/>
+              sequence="50"
+              web_icon="student_enrollment_portal,static/description/icon.png"/>
     
     <menuitem id="menu_student_registration_new" 
               name="New Registrations" 
