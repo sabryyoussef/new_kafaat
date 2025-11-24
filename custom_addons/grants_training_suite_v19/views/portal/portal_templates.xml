@@ -295,12 +295,62 @@
                                 <a href="/my/certificates" class="btn btn-success">
                                     <i class="fa fa-certificate me-2"></i>My Certificates
                                 </a>
-                                <a href="/grants/courses/catalog" class="btn btn-info">
+                                <a href="/my/available-courses" class="btn btn-info">
                                     <i class="fa fa-search me-2"></i>Browse Courses
+                                </a>
+                                <a href="/my/enrollment-requests" class="btn btn-warning">
+                                    <i class="fa fa-list me-2"></i>My Requests
+                                    <t t-if="pending_requests">
+                                        <span class="badge bg-danger ms-2"><t t-esc="len(pending_requests)"/></span>
+                                    </t>
                                 </a>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            
+            <!-- Enrollment Requests Section -->
+            <div class="row mb-4" t-if="pending_requests">
+                <div class="col-12">
+                    <div class="alert alert-warning">
+                        <h5 class="alert-heading">
+                            <i class="fa fa-clock-o"></i> Pending Enrollment Requests
+                        </h5>
+                        <p>You have <strong><t t-esc="len(pending_requests)"/></strong> pending enrollment request(s).</p>
+                        <a href="/my/enrollment-requests" class="btn btn-sm btn-warning">
+                            View All Requests <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Available Courses Section -->
+            <div class="row mb-4" t-if="available_courses">
+                <div class="col-12">
+                    <h4 class="mb-3">
+                        <i class="fa fa-graduation-cap"></i> Recommended Courses
+                    </h4>
+                </div>
+                <t t-foreach="available_courses" t-as="course">
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h6 class="card-title"><t t-esc="course.name"/></h6>
+                                <p class="card-text text-muted small" t-if="course.elearning_course_id">
+                                    <t t-esc="course.elearning_course_id.description[:100] if course.elearning_course_id.description else 'No description'"/>...
+                                </p>
+                                <a t-attf-href="/my/courses/request/{{ course.id }}" class="btn btn-sm btn-primary">
+                                    <i class="fa fa-paper-plane"></i> Request Enrollment
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+                <div class="col-12 mt-2">
+                    <a href="/my/available-courses" class="btn btn-outline-primary">
+                        View All Available Courses <i class="fa fa-arrow-right"></i>
+                    </a>
                 </div>
             </div>
             
@@ -572,7 +622,12 @@
                                                 <p class="card-text" t-if="course.description">
                                                     <t t-esc="course.description[:150]"/>...
                                                 </p>
-                                                <a t-attf-href="/grants/courses/#{course.id}" class="btn btn-primary">Learn More</a>
+                                                <div class="d-grid gap-2">
+                                                    <a t-attf-href="/grants/courses/#{course.id}" class="btn btn-primary">Learn More</a>
+                                                    <a t-attf-href="/my/courses/request/#{course.id}" class="btn btn-outline-success">
+                                                        <i class="fa fa-paper-plane"></i> Request Enrollment
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -627,9 +682,18 @@
                                 <div class="card border-0 shadow-sm sticky-top" style="top: 100px;">
                                     <div class="card-body">
                                         <h5 class="card-title">Ready to Enroll?</h5>
-                                        <p class="card-text">Register now to start your learning journey.</p>
-                                        <a href="/grants/register" class="btn btn-primary btn-lg w-100 mb-2">Register</a>
-                                        <a href="/grants/login" class="btn btn-outline-primary btn-lg w-100">Login</a>
+                                        <p class="card-text">Request enrollment in this course to start your learning journey.</p>
+                                        <div class="d-grid gap-2">
+                                            <a t-attf-href="/my/courses/request/{{ course.id }}" class="btn btn-success btn-lg">
+                                                <i class="fa fa-paper-plane"></i> Request Enrollment
+                                            </a>
+                                            <a href="/grants/login" class="btn btn-outline-primary">
+                                                <i class="fa fa-sign-in"></i> Login
+                                            </a>
+                                            <a href="/student/register" class="btn btn-outline-secondary">
+                                                <i class="fa fa-user-plus"></i> New Student? Register
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -853,5 +917,285 @@
         </xpath>
     </template>
     -->
+    
+    <!-- Course Enrollment Request Templates -->
+    
+    <!-- Available Courses Page -->
+    <template id="portal_available_courses" name="Available Courses">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Available Courses</t>
+            </t>
+            
+            <div class="container mt-4">
+                <div class="row">
+                    <div class="col-12">
+                        <h3>Available Courses</h3>
+                        <p class="text-muted">Browse and request enrollment in available courses</p>
+                    </div>
+                </div>
+                
+                <div class="row mt-4">
+                    <t t-if="not courses">
+                        <div class="col-12">
+                            <div class="alert alert-info">
+                                <i class="fa fa-info-circle"/> No courses available at this time.
+                            </div>
+                        </div>
+                    </t>
+                    
+                    <t t-foreach="courses" t-as="course">
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <t t-esc="course.name"/>
+                                    </h5>
+                                    <p class="card-text text-muted" t-if="course.elearning_course_id">
+                                        <t t-esc="course.elearning_course_id.description or 'No description available'"/>
+                                    </p>
+                                    <div class="mt-3">
+                                        <t t-if="course.id in pending_course_ids">
+                                            <span class="badge bg-warning">
+                                                <i class="fa fa-clock-o"/> Request Pending
+                                            </span>
+                                        </t>
+                                        <t t-else="">
+                                            <a t-attf-href="/my/courses/request/{{ course.id }}" 
+                                               class="btn btn-primary btn-sm">
+                                                <i class="fa fa-paper-plane"/> Request Enrollment
+                                            </a>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+    
+    <!-- Enrollment Request Form -->
+    <template id="portal_enrollment_request_form" name="Enrollment Request Form">
+        <t t-call="portal.portal_layout">
+            <div class="container mt-4">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Request Course Enrollment</h3>
+                                <hr/>
+                                
+                                <div class="alert alert-info">
+                                    <strong>Course:</strong> <t t-esc="course.name"/>
+                                </div>
+                                
+                                <form action="/my/courses/request/submit" method="POST">
+                                    <input type="hidden" name="course_id" t-att-value="course.id"/>
+                                    
+                                    <div class="mb-3">
+                                        <label for="notes" class="form-label">
+                                            Why do you want to enroll in this course?
+                                        </label>
+                                        <textarea class="form-control" id="notes" name="notes" 
+                                                  rows="5" placeholder="Tell us about your interest in this course..."></textarea>
+                                        <small class="form-text text-muted">
+                                            Optional: Share your motivation and goals for taking this course
+                                        </small>
+                                    </div>
+                                    
+                                    <div class="d-flex justify-content-between">
+                                        <a href="/my/available-courses" class="btn btn-secondary">
+                                            <i class="fa fa-arrow-left"/> Back
+                                        </a>
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fa fa-paper-plane"/> Submit Request
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    
+    <!-- Enrollment Request Success -->
+    <template id="portal_enrollment_request_success" name="Enrollment Request Success">
+        <t t-call="portal.portal_layout">
+            <div class="container mt-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 text-center">
+                        <div class="card">
+                            <div class="card-body p-5">
+                                <i class="fa fa-check-circle fa-5x text-success mb-4"></i>
+                                <h2 class="mb-4">Request Submitted!</h2>
+                                <p class="lead">Your enrollment request has been submitted successfully.</p>
+                                
+                                <div class="alert alert-info text-start mt-4">
+                                    <p class="mb-2"><strong>Request Number:</strong> <t t-esc="request.name"/></p>
+                                    <p class="mb-2"><strong>Course:</strong> <t t-esc="course.name"/></p>
+                                    <p class="mb-0"><strong>Status:</strong> <span class="badge bg-warning">Pending Review</span></p>
+                                </div>
+                                
+                                <p class="mt-4">
+                                    Our team will review your request and notify you via email once it's been processed.
+                                </p>
+                                
+                                <div class="mt-5">
+                                    <a href="/my/enrollment-requests" class="btn btn-primary me-2">
+                                        <i class="fa fa-list"/> View My Requests
+                                    </a>
+                                    <a href="/my/student" class="btn btn-secondary">
+                                        <i class="fa fa-home"/> Back to Dashboard
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    
+    <!-- Enrollment Request Error -->
+    <template id="portal_enrollment_request_error" name="Enrollment Request Error">
+        <t t-call="portal.portal_layout">
+            <div class="container mt-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 text-center">
+                        <div class="card">
+                            <div class="card-body p-5">
+                                <i class="fa fa-exclamation-triangle fa-5x text-danger mb-4"></i>
+                                <h2 class="mb-4">Request Failed</h2>
+                                
+                                <div class="alert alert-danger text-start">
+                                    <t t-esc="error"/>
+                                </div>
+                                
+                                <div class="mt-5">
+                                    <a href="/my/available-courses" class="btn btn-primary me-2">
+                                        <i class="fa fa-arrow-left"/> Back to Courses
+                                    </a>
+                                    <a href="/my/student" class="btn btn-secondary">
+                                        <i class="fa fa-home"/> Dashboard
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    
+    <!-- My Enrollment Requests -->
+    <template id="portal_my_enrollment_requests" name="My Enrollment Requests">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">My Enrollment Requests</t>
+            </t>
+            
+            <div class="container mt-4">
+                <div class="row">
+                    <div class="col-12">
+                        <h3>My Enrollment Requests</h3>
+                        <p class="text-muted">Track the status of your course enrollment requests</p>
+                    </div>
+                </div>
+                
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <t t-if="not requests">
+                            <div class="alert alert-info">
+                                <i class="fa fa-info-circle"/> You haven't submitted any enrollment requests yet.
+                                <a href="/my/available-courses" class="alert-link">Browse available courses</a>
+                            </div>
+                        </t>
+                        
+                        <t t-else="">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Request #</th>
+                                            <th>Course</th>
+                                            <th>Request Date</th>
+                                            <th>Status</th>
+                                            <th>Notes</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="requests" t-as="req">
+                                            <tr>
+                                                <td><t t-esc="req.name"/></td>
+                                                <td><strong><t t-esc="req.course_name"/></strong></td>
+                                                <td><t t-esc="req.request_date" t-options="{'widget': 'date'}"/></td>
+                                                <td>
+                                                    <t t-if="req.state == 'draft'">
+                                                        <span class="badge bg-secondary">Draft</span>
+                                                    </t>
+                                                    <t t-elif="req.state == 'pending'">
+                                                        <span class="badge bg-warning">Pending</span>
+                                                    </t>
+                                                    <t t-elif="req.state == 'approved'">
+                                                        <span class="badge bg-success">Approved</span>
+                                                    </t>
+                                                    <t t-elif="req.state == 'rejected'">
+                                                        <span class="badge bg-danger">Rejected</span>
+                                                    </t>
+                                                </td>
+                                                <td>
+                                                    <t t-if="req.state == 'approved' and req.session_id">
+                                                        <a t-attf-href="/my/courses/{{ req.session_id.id }}" 
+                                                           class="btn btn-sm btn-primary">
+                                                            <i class="fa fa-eye"/> View Session
+                                                        </a>
+                                                    </t>
+                                                    <t t-elif="req.state == 'rejected' and req.rejection_reason">
+                                                        <button type="button" class="btn btn-sm btn-outline-danger" 
+                                                                data-bs-toggle="popover" 
+                                                                t-att-data-bs-content="req.rejection_reason"
+                                                                title="Rejection Reason">
+                                                            <i class="fa fa-info-circle"/> Reason
+                                                        </button>
+                                                    </t>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+                
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <a href="/my/available-courses" class="btn btn-primary">
+                            <i class="fa fa-plus"/> Request New Course
+                        </a>
+                        <a href="/my/student" class="btn btn-secondary">
+                            <i class="fa fa-home"/> Back to Dashboard
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <script>
+                // Initialize Bootstrap popovers
+                var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+                var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+                    return new bootstrap.Popover(popoverTriggerEl)
+                })
+            </script>
+        </t>
+    </template>
     
 </odoo>

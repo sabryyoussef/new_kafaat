@@ -44,12 +44,29 @@ class StudentPortal(CustomerPortal):
         if not student:
             return request.render('grants_training_suite_v19.portal_no_student')
         
+        # Get enrollment requests
+        enrollment_requests = request.env['course.enrollment.request'].search([
+            ('student_id', '=', student.id)
+        ], order='request_date desc', limit=5)
+        
+        pending_requests = enrollment_requests.filtered(lambda r: r.state == 'pending')
+        
+        # Get available courses (top 5)
+        all_courses = request.env['gr.course.integration'].sudo().search([
+            ('status', '=', 'active')
+        ], limit=5)
+        enrolled_course_ids = student.course_session_ids.mapped('course_integration_id').ids
+        available_courses = all_courses.filtered(lambda c: c.id not in enrolled_course_ids)[:3]
+        
         values = {
             'page_name': 'student_dashboard',
             'student': student,
             'courses': student.course_session_ids,
             'progress': student.progress_percentage,
             'certificates': student.certificate_ids,
+            'enrollment_requests': enrollment_requests,
+            'pending_requests': pending_requests,
+            'available_courses': available_courses,
         }
         
         return request.render('grants_training_suite_v19.portal_student_dashboard', values)
@@ -267,3 +284,146 @@ class StudentPortal(CustomerPortal):
         }
         
         return request.render('grants_training_suite_v19.portal_course_detail_public', values)
+    
+    # Course Enrollment Request Routes
+    
+    @http.route(['/my/available-courses'], type='http', auth='user', website=True)
+    def portal_available_courses(self, **kw):
+        """Available courses page for authenticated students"""
+        student = self._get_student_for_portal_user()
+        
+        if not student:
+            return request.render('grants_training_suite_v19.portal_no_student')
+        
+        # Get all active course integrations
+        all_courses = request.env['gr.course.integration'].sudo().search([
+            ('status', '=', 'active')
+        ])
+        
+        # Get courses student is already enrolled in
+        enrolled_course_ids = student.course_session_ids.mapped('course_integration_id').ids
+        
+        # Filter out enrolled courses
+        available_courses = all_courses.filtered(lambda c: c.id not in enrolled_course_ids)
+        
+        # Get pending enrollment requests
+        pending_requests = request.env['course.enrollment.request'].search([
+            ('student_id', '=', student.id),
+            ('state', 'in', ['draft', 'pending'])
+        ])
+        pending_course_ids = pending_requests.mapped('course_integration_id').ids
+        
+        values = {
+            'page_name': 'available_courses',
+            'student': student,
+            'courses': available_courses,
+            'pending_course_ids': pending_course_ids,
+        }
+        
+        return request.render('grants_training_suite_v19.portal_available_courses', values)
+    
+    @http.route(['/my/courses/request/<int:course_id>'], type='http', auth='user', website=True)
+    def portal_enrollment_request_form(self, course_id, **kw):
+        """Enrollment request form"""
+        student = self._get_student_for_portal_user()
+        
+        if not student:
+            return request.render('grants_training_suite_v19.portal_no_student')
+        
+        course = request.env['gr.course.integration'].sudo().browse(course_id)
+        
+        if not course.exists() or course.status != 'active':
+            return request.render('website.404')
+        
+        # Check if already enrolled
+        existing_session = request.env['gr.course.session'].search([
+            ('student_id', '=', student.id),
+            ('course_integration_id', '=', course.id)
+        ], limit=1)
+        
+        if existing_session:
+            return request.render('grants_training_suite_v19.portal_enrollment_request_error', {
+                'error': _('You are already enrolled in this course.')
+            })
+        
+        # Check if already has pending request
+        existing_request = request.env['course.enrollment.request'].search([
+            ('student_id', '=', student.id),
+            ('course_integration_id', '=', course.id),
+            ('state', 'in', ['draft', 'pending'])
+        ], limit=1)
+        
+        if existing_request:
+            return request.render('grants_training_suite_v19.portal_enrollment_request_error', {
+                'error': _('You already have a pending request for this course.')
+            })
+        
+        values = {
+            'page_name': 'enrollment_request',
+            'student': student,
+            'course': course,
+        }
+        
+        return request.render('grants_training_suite_v19.portal_enrollment_request_form', values)
+    
+    @http.route(['/my/courses/request/submit'], type='http', auth='user', website=True, methods=['POST'], csrf=False)
+    def portal_enrollment_request_submit(self, **post):
+        """Handle enrollment request submission"""
+        try:
+            student = self._get_student_for_portal_user()
+            
+            if not student:
+                return request.render('grants_training_suite_v19.portal_no_student')
+            
+            course_id = int(post.get('course_id'))
+            course = request.env['gr.course.integration'].sudo().browse(course_id)
+            
+            if not course.exists():
+                raise ValidationError(_('Invalid course selected.'))
+            
+            # Create enrollment request
+            request_vals = {
+                'student_id': student.id,
+                'course_integration_id': course.id,
+                'notes': post.get('notes', ''),
+                'state': 'draft',
+            }
+            
+            enrollment_request = request.env['course.enrollment.request'].create(request_vals)
+            
+            # Submit the request
+            enrollment_request.action_submit()
+            
+            _logger.info(f'Enrollment request {enrollment_request.name} created and submitted by student {student.name}')
+            
+            return request.render('grants_training_suite_v19.portal_enrollment_request_success', {
+                'request': enrollment_request,
+                'student': student,
+                'course': course,
+            })
+            
+        except Exception as e:
+            _logger.error(f'Enrollment request submission error: {str(e)}')
+            return request.render('grants_training_suite_v19.portal_enrollment_request_error', {
+                'error': _('Failed to submit enrollment request. Please try again or contact support.')
+            })
+    
+    @http.route(['/my/enrollment-requests'], type='http', auth='user', website=True)
+    def portal_my_enrollment_requests(self, **kw):
+        """List of enrollment requests for student"""
+        student = self._get_student_for_portal_user()
+        
+        if not student:
+            return request.render('grants_training_suite_v19.portal_no_student')
+        
+        requests = request.env['course.enrollment.request'].search([
+            ('student_id', '=', student.id)
+        ], order='request_date desc')
+        
+        values = {
+            'page_name': 'enrollment_requests',
+            'student': student,
+            'requests': requests,
+        }
+        
+        return request.render('grants_training_suite_v19.portal_my_enrollment_requests', values)
