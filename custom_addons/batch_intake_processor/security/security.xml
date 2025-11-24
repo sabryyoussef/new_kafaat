@@ -3,12 +3,10 @@
     <!-- Security Groups -->
     <record id="group_batch_intake_user" model="res.groups">
         <field name="name">Batch Intake User</field>
-        <field name="category_id" ref="base.module_category_human_resources"/>
     </record>
     
     <record id="group_batch_intake_manager" model="res.groups">
         <field name="name">Batch Intake Manager</field>
-        <field name="category_id" ref="base.module_category_human_resources"/>
         <field name="implied_ids" eval="[(4, ref('group_batch_intake_user'))]"/>
     </record>
 </odoo>
