@@ -1,7 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_document_request_manager,document.request.manager,model_gr_document_request,grants_training_suite_v19.group_manager,1,1,1,1
-access_document_request_agent,document.request.agent,model_gr_document_request,grants_training_suite_v19.group_agent,1,1,1,1
 access_document_request_portal_manager,document.request.portal.manager,model_gr_document_request_portal,grants_training_suite_v19.group_manager,1,1,1,1
 access_document_request_portal_agent,document.request.portal.agent,model_gr_document_request_portal,grants_training_suite_v19.group_agent,1,1,1,1
 access_document_request_portal_user,document.request.portal.user,model_gr_document_request_portal,base.group_portal,1,1,1,0
+
 
