@@ -75,8 +75,8 @@
         'views/salesperson_dashboard_views_minimal.xml',  # MINIMAL TEST - MOVED BEFORE contact_pool_views
         'views/contact_pool_views.xml',
         # 'views/salesperson_dashboard_views.xml',  # Full dashboard - COMMENTED OUT for debugging
-        'views/activity_tracking_views.xml',  # COMMENTED OUT: Has view errors
-        'views/pool_utilization_report_views.xml',  # COMMENTED OUT: May have issues
+        # 'views/activity_tracking_views.xml',  # COMMENTED OUT: Has view errors
+        # 'views/pool_utilization_report_views.xml',  # COMMENTED OUT: May have issues
         'views/menu_views.xml',
         
         # Security (Phase 2 - load after views to ensure models are registered)
