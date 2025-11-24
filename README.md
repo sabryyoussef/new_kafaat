@@ -211,14 +211,14 @@ environment:
 
 ### Complete Route Reference
 
-See **[PORTAL_ENDPOINTS.md](PORTAL_ENDPOINTS.md)** for:
+See **[PORTAL_ENDPOINTS.md](custom_addons/documentation/PORTAL_ENDPOINTS.md)** for:
 - All 20+ portal routes
 - Detailed parameter descriptions
 - cURL examples
 - User journey workflows
 - Security notes
 
-See **[QUICK_REFERENCE.md](QUICK_REFERENCE.md)** for:
+See **[QUICK_REFERENCE.md](custom_addons/documentation/QUICK_REFERENCE.md)** for:
 - One-page lookup table
 - Quick links
 - Common workflows
@@ -232,9 +232,10 @@ See **[QUICK_REFERENCE.md](QUICK_REFERENCE.md)** for:
 
 | File | Description |
 |------|-------------|
-| **[PORTAL_ENDPOINTS.md](PORTAL_ENDPOINTS.md)** | Complete portal routes reference |
-| **[QUICK_REFERENCE.md](QUICK_REFERENCE.md)** | Quick lookup guide |
-| **[DOCUMENT_CONSOLIDATION_SUMMARY.md](DOCUMENT_CONSOLIDATION_SUMMARY.md)** | Module architecture |
+| **[PORTAL_ENDPOINTS.md](custom_addons/documentation/PORTAL_ENDPOINTS.md)** | Complete portal routes reference |
+| **[QUICK_REFERENCE.md](custom_addons/documentation/QUICK_REFERENCE.md)** | Quick lookup guide |
+| **[DOCUMENTATION_INDEX.md](custom_addons/documentation/DOCUMENTATION_INDEX.md)** | Documentation guide |
+| **[DOCUMENT_CONSOLIDATION_SUMMARY.md](custom_addons/documentation/DOCUMENT_CONSOLIDATION_SUMMARY.md)** | Module architecture |
 
 ### Module-Specific Documentation
 
@@ -289,14 +290,17 @@ See **[QUICK_REFERENCE.md](QUICK_REFERENCE.md)** for:
 ```
 kafaat-main/
 ├── custom_addons/
+│   ├── documentation/                   # 📚 All documentation
+│   │   ├── PORTAL_ENDPOINTS.md         # Route reference
+│   │   ├── QUICK_REFERENCE.md          # Quick lookup
+│   │   ├── DOCUMENTATION_INDEX.md      # Doc guide
+│   │   └── DOCUMENT_CONSOLIDATION_SUMMARY.md  # Architecture
 │   ├── grants_training_suite_v19/      # Base module
 │   ├── student_enrollment_portal/      # Registration
 │   ├── student_documents_portal/       # Documents
 │   └── batch_intake_processor/         # Batch processing
 ├── odoo_enterprise19/                   # Odoo enterprise
 ├── docker-compose.yml                   # Docker config
-├── PORTAL_ENDPOINTS.md                  # Route documentation
-├── QUICK_REFERENCE.md                   # Quick reference
 └── README.md                            # This file
 ```
 
