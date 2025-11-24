@@ -59,40 +59,50 @@
             <field name="name">Python Programming Fundamentals</field>
             <field name="elearning_course_id" ref="demo_elearning_python"/>
             <field name="training_program_id" ref="demo_training_program_programming"/>
-            <field name="description">Learn Python from scratch! This comprehensive course covers variables, data types, loops, functions, object-oriented programming, and practical projects. Perfect for beginners with no prior programming experience.</field>
             <field name="status">active</field>
+            <field name="auto_enroll_eligible">True</field>
+            <field name="completion_threshold">80.0</field>
+            <field name="min_elearning_progress">75.0</field>
         </record>
         
         <record id="demo_course_web" model="gr.course.integration">
             <field name="name">Web Development Bootcamp</field>
             <field name="elearning_course_id" ref="demo_elearning_web"/>
             <field name="training_program_id" ref="demo_training_program_web"/>
-            <field name="description">Master modern web development! Build responsive websites using HTML5, CSS3, JavaScript, and popular frameworks. Learn best practices, accessibility, and deployment strategies.</field>
             <field name="status">active</field>
+            <field name="auto_enroll_eligible">True</field>
+            <field name="completion_threshold">80.0</field>
+            <field name="min_elearning_progress">75.0</field>
         </record>
         
         <record id="demo_course_database" model="gr.course.integration">
             <field name="name">Database Design and SQL Mastery</field>
             <field name="elearning_course_id" ref="demo_elearning_database"/>
             <field name="training_program_id" ref="demo_training_program_data"/>
-            <field name="description">Become a database expert! Learn SQL queries, database design principles, normalization, indexing, and performance optimization. Includes hands-on projects with real-world scenarios.</field>
             <field name="status">active</field>
+            <field name="auto_enroll_eligible">True</field>
+            <field name="completion_threshold">85.0</field>
+            <field name="min_elearning_progress">80.0</field>
         </record>
         
         <record id="demo_course_git" model="gr.course.integration">
             <field name="name">Git Version Control for Teams</field>
             <field name="elearning_course_id" ref="demo_elearning_git"/>
             <field name="training_program_id" ref="demo_training_program_programming"/>
-            <field name="description">Master Git and GitHub! Learn branching strategies, pull requests, code reviews, conflict resolution, and collaborative development workflows used by professional teams.</field>
             <field name="status">active</field>
+            <field name="auto_enroll_eligible">True</field>
+            <field name="completion_threshold">80.0</field>
+            <field name="min_elearning_progress">75.0</field>
         </record>
         
         <record id="demo_course_react" model="gr.course.integration">
             <field name="name">React.js Modern Web Apps</field>
             <field name="elearning_course_id" ref="demo_elearning_react"/>
             <field name="training_program_id" ref="demo_training_program_web"/>
-            <field name="description">Build cutting-edge web applications with React! Learn components, hooks, state management, routing, API integration, and deployment. Create real-world projects from scratch.</field>
             <field name="status">active</field>
+            <field name="auto_enroll_eligible">True</field>
+            <field name="completion_threshold">85.0</field>
+            <field name="min_elearning_progress">80.0</field>
         </record>
         
     </data>
