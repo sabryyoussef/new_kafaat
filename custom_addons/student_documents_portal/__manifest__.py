@@ -52,20 +52,23 @@
         'mail',
     ],
     'data': [
-        # Security
+        # Security - Base access for portal documents
         'security/ir.model.access.csv',
-        'security/security_rules.xml',
         
         # Data
         'data/sequences.xml',
         'data/email_templates.xml',
         
-        # Views
+        # Views - Must load before extended security (creates model records)
         'views/document_request_views.xml',  # Admin-initiated document requests
         'views/document_request_portal_views.xml',  # Student-initiated document requests
         'views/registration_document_views.xml',  # Registration document requests
         'views/student_registration_extension_views.xml',  # Extend student registration form
         'views/portal_templates.xml',
+        
+        # Security - Extended access (after models are registered)
+        'security/ir.model.access.extended.csv',
+        'security/security_rules.xml',
     ],
     'demo': [
         'data/demo_data.xml',
