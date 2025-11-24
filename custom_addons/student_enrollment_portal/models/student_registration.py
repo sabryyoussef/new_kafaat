@@ -384,7 +384,7 @@ class StudentRegistration(models.Model):
         self.ensure_one()
         
         # Check if user already exists
-        existing_user = self.env['res.users'].search([('login', '=', self.email)], limit=1)
+        existing_user = self.env['res.users'].sudo().search([('login', '=', self.email)], limit=1)
         if existing_user:
             _logger.warning(f'User with email {self.email} already exists')
             return existing_user
@@ -392,15 +392,15 @@ class StudentRegistration(models.Model):
         # Get portal group
         portal_group = self.env.ref('base.group_portal')
         
-        # Create partner
+        # Create partner with sudo to bypass security rules
         partner_vals = {
             'name': self.student_name_english,
             'email': self.email,
             'phone': self.phone,
         }
-        partner = self.env['res.partner'].create(partner_vals)
+        partner = self.env['res.partner'].sudo().create(partner_vals)
         
-        # Create user
+        # Create user with sudo to bypass security rules
         user_vals = {
             'name': self.student_name_english,
             'login': self.email,
@@ -408,10 +408,10 @@ class StudentRegistration(models.Model):
             'groups_id': [(6, 0, [portal_group.id])],
         }
         
-        user = self.env['res.users'].create(user_vals)
+        user = self.env['res.users'].sudo().create(user_vals)
         
         # Send password reset email
-        user.action_reset_password()
+        user.sudo().action_reset_password()
         
         _logger.info(f'Created portal user {user.id} for registration {self.name}')
         
