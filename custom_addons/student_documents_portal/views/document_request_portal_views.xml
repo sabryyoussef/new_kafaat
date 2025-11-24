@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Document Request Portal Tree View -->
+    <record id="view_document_request_portal_tree" model="ir.ui.view">
+        <field name="name">gr.document.request.portal.tree</field>
+        <field name="model">gr.document.request.portal</field>
+        <field name="arch" type="xml">
+            <list string="Student Document Requests">
+                <field name="name"/>
+                <field name="student_id"/>
+                <field name="request_type"/>
+                <field name="document_type"/>
+                <field name="status"/>
+                <field name="create_date"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Document Request Portal Form View -->
+    <record id="view_document_request_portal_form" model="ir.ui.view">
+        <field name="name">gr.document.request.portal.form</field>
+        <field name="model">gr.document.request.portal</field>
+        <field name="arch" type="xml">
+            <form string="Student Document Request">
+                <header>
+                    <button name="action_submit" string="Submit" type="object" 
+                            invisible="status != 'draft'" class="oe_highlight"/>
+                    <button name="action_set_in_progress" string="Set In Progress" type="object" 
+                            invisible="status != 'submitted'" class="oe_highlight"/>
+                    <button name="action_complete" string="Complete" type="object" 
+                            invisible="status not in ['submitted', 'in_progress']" class="oe_highlight"/>
+                    <button name="action_reject" string="Reject" type="object" 
+                            invisible="status not in ['submitted', 'in_progress']"/>
+                    <field name="status" widget="statusbar" statusbar_visible="draft,submitted,in_progress,completed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="student_id"/>
+                            <field name="request_type"/>
+                            <field name="document_type"/>
+                        </group>
+                        <group>
+                            <field name="create_date"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="description" placeholder="Additional details about the request..."/>
+                    </group>
+                    <group string="Attachments">
+                        <field name="attachment_ids" widget="many2many_binary" nolabel="1"/>
+                    </group>
+                    <group string="Admin Response">
+                        <field name="response_note" placeholder="Response from administration..."/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Document Request Portal Search View -->
+    <record id="view_document_request_portal_search" model="ir.ui.view">
+        <field name="name">gr.document.request.portal.search</field>
+        <field name="model">gr.document.request.portal</field>
+        <field name="arch" type="xml">
+            <search string="Student Document Requests">
+                <field name="name"/>
+                <field name="student_id"/>
+                <field name="request_type"/>
+                <field name="document_type"/>
+                <filter string="Draft" name="draft" domain="[('status', '=', 'draft')]"/>
+                <filter string="Submitted" name="submitted" domain="[('status', '=', 'submitted')]"/>
+                <filter string="In Progress" name="in_progress" domain="[('status', '=', 'in_progress')]"/>
+                <filter string="Completed" name="completed" domain="[('status', '=', 'completed')]"/>
+                <filter string="Rejected" name="rejected" domain="[('status', '=', 'rejected')]"/>
+                <group string="Group By">
+                    <filter string="Student" name="group_student" context="{'group_by': 'student_id'}"/>
+                    <filter string="Status" name="group_status" context="{'group_by': 'status'}"/>
+                    <filter string="Request Type" name="group_request_type" context="{'group_by': 'request_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Document Request Portal Action -->
+    <record id="action_document_request_portal" model="ir.actions.act_window">
+        <field name="name">Student Document Requests</field>
+        <field name="res_model">gr.document.request.portal</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_submitted': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No document requests yet
+            </p>
+            <p>
+                Students can submit document requests through the portal.
+            </p>
+        </field>
+    </record>
+
+    <!-- Main Menu -->
+    <menuitem id="menu_student_documents_root"
+              name="Student Documents"
+              sequence="60"
+              web_icon="student_documents_portal,static/description/icon.png"/>
+
+    <!-- Document Requests Menu -->
+    <menuitem id="menu_document_requests"
+              name="Document Requests"
+              parent="menu_student_documents_root"
+              action="action_document_request_portal"
+              sequence="10"/>
+
+</odoo>
+

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        
+        <!-- Document Request Submitted Email Template -->
+        <record id="email_template_document_request_submitted" model="mail.template">
+            <field name="name">Document Request Submitted</field>
+            <field name="model_id" ref="model_gr_document_request_portal"/>
+            <field name="subject">New Document Request: ${object.name}</field>
+            <field name="email_from">${object.company_id.email or 'noreply@example.com'}</field>
+            <field name="email_to">${object.student_id.email}</field>
+            <field name="body_html" type="html">
+                <div style="font-family: Arial, sans-serif; padding: 20px;">
+                    <h2 style="color: #2c3e50;">Document Request Submitted</h2>
+                    <p>Dear ${object.student_id.name},</p>
+                    <p>Your document request has been successfully submitted and is being reviewed by our team.</p>
+                    
+                    <div style="background-color: #f8f9fa; padding: 15px; border-left: 4px solid #007bff; margin: 20px 0;">
+                        <h3 style="margin-top: 0;">Request Details:</h3>
+                        <p><strong>Request Number:</strong> ${object.name}</p>
+                        <p><strong>Request Type:</strong> ${dict(object._fields['request_type'].selection).get(object.request_type)}</p>
+                        <p><strong>Document Type:</strong> ${dict(object._fields['document_type'].selection).get(object.document_type)}</p>
+                        <p><strong>Status:</strong> Submitted</p>
+                    </div>
+                    
+                    <p>We will review your request and get back to you as soon as possible.</p>
+                    
+                    <p>
+                        <a href="/my/documents" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">
+                            View My Requests
+                        </a>
+                    </p>
+                    
+                    <p>Best regards,<br/>${object.company_id.name}</p>
+                </div>
+            </field>
+        </record>
+        
+        <!-- Document Request Completed Email Template -->
+        <record id="email_template_document_request_completed" model="mail.template">
+            <field name="name">Document Request Completed</field>
+            <field name="model_id" ref="model_gr_document_request_portal"/>
+            <field name="subject">Document Request Completed: ${object.name}</field>
+            <field name="email_from">${object.company_id.email or 'noreply@example.com'}</field>
+            <field name="email_to">${object.student_id.email}</field>
+            <field name="body_html" type="html">
+                <div style="font-family: Arial, sans-serif; padding: 20px;">
+                    <h2 style="color: #28a745;">Document Request Completed</h2>
+                    <p>Dear ${object.student_id.name},</p>
+                    <p>Great news! Your document request has been completed.</p>
+                    
+                    <div style="background-color: #d4edda; padding: 15px; border-left: 4px solid #28a745; margin: 20px 0;">
+                        <h3 style="margin-top: 0;">Request Details:</h3>
+                        <p><strong>Request Number:</strong> ${object.name}</p>
+                        <p><strong>Request Type:</strong> ${dict(object._fields['request_type'].selection).get(object.request_type)}</p>
+                        <p><strong>Document Type:</strong> ${dict(object._fields['document_type'].selection).get(object.document_type)}</p>
+                        <p><strong>Status:</strong> Completed</p>
+                    </div>
+                    
+                    % if object.response_note:
+                    <div style="background-color: #e7f3ff; padding: 15px; margin: 20px 0;">
+                        <h4>Admin Response:</h4>
+                        <p>${object.response_note}</p>
+                    </div>
+                    % endif
+                    
+                    <p>
+                        <a href="/my/documents/${object.id}" style="display: inline-block; padding: 10px 20px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px;">
+                            View Request Details
+                        </a>
+                    </p>
+                    
+                    <p>Best regards,<br/>${object.company_id.name}</p>
+                </div>
+            </field>
+        </record>
+        
+        <!-- Document Request Rejected Email Template -->
+        <record id="email_template_document_request_rejected" model="mail.template">
+            <field name="name">Document Request Rejected</field>
+            <field name="model_id" ref="model_gr_document_request_portal"/>
+            <field name="subject">Document Request Update: ${object.name}</field>
+            <field name="email_from">${object.company_id.email or 'noreply@example.com'}</field>
+            <field name="email_to">${object.student_id.email}</field>
+            <field name="body_html" type="html">
+                <div style="font-family: Arial, sans-serif; padding: 20px;">
+                    <h2 style="color: #dc3545;">Document Request Status Update</h2>
+                    <p>Dear ${object.student_id.name},</p>
+                    <p>We regret to inform you that your document request could not be processed as submitted.</p>
+                    
+                    <div style="background-color: #f8d7da; padding: 15px; border-left: 4px solid #dc3545; margin: 20px 0;">
+                        <h3 style="margin-top: 0;">Request Details:</h3>
+                        <p><strong>Request Number:</strong> ${object.name}</p>
+                        <p><strong>Request Type:</strong> ${dict(object._fields['request_type'].selection).get(object.request_type)}</p>
+                        <p><strong>Document Type:</strong> ${dict(object._fields['document_type'].selection).get(object.document_type)}</p>
+                        <p><strong>Status:</strong> Rejected</p>
+                    </div>
+                    
+                    % if object.response_note:
+                    <div style="background-color: #fff3cd; padding: 15px; margin: 20px 0;">
+                        <h4>Reason:</h4>
+                        <p>${object.response_note}</p>
+                    </div>
+                    % endif
+                    
+                    <p>If you have any questions or need clarification, please don't hesitate to contact us or submit a new request.</p>
+                    
+                    <p>
+                        <a href="/my/documents/new" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">
+                            Submit New Request
+                        </a>
+                    </p>
+                    
+                    <p>Best regards,<br/>${object.company_id.name}</p>
+                </div>
+            </field>
+        </record>
+        
+        <!-- Sequence for Document Requests -->
+        <record id="sequence_document_request_portal" model="ir.sequence">
+            <field name="name">Document Request Portal</field>
+            <field name="code">gr.document.request.portal</field>
+            <field name="prefix">DOC</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+        
+    </data>
+</odoo>
+
