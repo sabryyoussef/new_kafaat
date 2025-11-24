@@ -86,6 +86,7 @@
         
         # Portal Views
         'views/portal/portal_templates.xml',
+        'views/portal/demo_portal_templates.xml',
         
         # Note: Phase 4 security (document_request_portal) moved to student_documents_portal module
     ],

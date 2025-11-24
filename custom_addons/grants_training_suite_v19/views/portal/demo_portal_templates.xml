@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Demo Portal Index -->
+    <template id="demo_portal_index" name="Demo Portal Index">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty">
+                <section class="s_cover parallax s_parallax_is_fixed pt96 pb96" data-vcss="001" data-snippet="s_cover" data-scroll-background-ratio="1" style="background-image: url('/web/image/website.s_cover_default');">
+                    <span class="s_parallax_bg oe_img_bg" style="background-image: url('/web/image/website.s_cover_default'); background-position: 50% 0;"></span>
+                    <div class="o_we_bg_filter bg-black-50"></div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 text-center">
+                                <h1 class="text-white">🎓 Kafaat Student Portal Demo</h1>
+                                <p class="lead text-white">
+                                    Explore all portal features without login - Demo Mode
+                                </p>
+                                <p class="text-warning">
+                                    <i class="fa fa-exclamation-triangle"/> This is a demo environment. All data shown is sample data.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="s_text_block pt32 pb32" data-snippet="s_text_block">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h2 class="text-center mb-4">📋 Available Demo Pages</h2>
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-4">
+                            <!-- Student Dashboard -->
+                            <div class="col-md-4 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="fa fa-dashboard text-primary"/> Student Dashboard
+                                        </h5>
+                                        <p class="card-text">
+                                            View student overview, enrolled courses, progress, and recent activity.
+                                        </p>
+                                        <a href="/demo/student" class="btn btn-primary">
+                                            View Dashboard
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- My Courses -->
+                            <div class="col-md-4 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="fa fa-book text-success"/> My Courses
+                                        </h5>
+                                        <p class="card-text">
+                                            Browse enrolled courses and track progress for each course.
+                                        </p>
+                                        <a href="/demo/courses" class="btn btn-success">
+                                            View Courses
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Certificates -->
+                            <div class="col-md-4 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="fa fa-certificate text-warning"/> Certificates
+                                        </h5>
+                                        <p class="card-text">
+                                            View and download earned certificates and achievements.
+                                        </p>
+                                        <a href="/demo/certificates" class="btn btn-warning">
+                                            View Certificates
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Available Courses -->
+                            <div class="col-md-4 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="fa fa-search text-info"/> Browse Courses
+                                        </h5>
+                                        <p class="card-text">
+                                            Explore available courses and request enrollment.
+                                        </p>
+                                        <a href="/demo/available-courses" class="btn btn-info">
+                                            Browse Courses
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Enrollment Requests -->
+                            <div class="col-md-4 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="fa fa-file-text text-danger"/> Enrollment Requests
+                                        </h5>
+                                        <p class="card-text">
+                                            Track your course enrollment requests and their status.
+                                        </p>
+                                        <a href="/demo/enrollment-requests" class="btn btn-danger">
+                                            View Requests
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Documents -->
+                            <div class="col-md-4 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="fa fa-files-o text-secondary"/> Documents
+                                        </h5>
+                                        <p class="card-text">
+                                            Manage student documents, uploads, and requests.
+                                        </p>
+                                        <a href="/demo/documents" class="btn btn-secondary">
+                                            View Documents
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Registration Status -->
+                            <div class="col-md-4 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="fa fa-user-plus text-primary"/> Registration Status
+                                        </h5>
+                                        <p class="card-text">
+                                            Check registration application status and progress.
+                                        </p>
+                                        <a href="/demo/registration" class="btn btn-primary">
+                                            View Registration
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Course Catalog (Already Public) -->
+                            <div class="col-md-4 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="fa fa-list text-success"/> Course Catalog
+                                        </h5>
+                                        <p class="card-text">
+                                            Public course catalog - browse all available courses.
+                                        </p>
+                                        <a href="/grants/courses/catalog" class="btn btn-success">
+                                            View Catalog
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Student Registration (Already Public) -->
+                            <div class="col-md-4 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="fa fa-pencil text-warning"/> Student Registration
+                                        </h5>
+                                        <p class="card-text">
+                                            New student registration form - start your journey!
+                                        </p>
+                                        <a href="/student/register" class="btn btn-warning">
+                                            Register Now
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Info Section -->
+                        <div class="row mt-5">
+                            <div class="col-lg-12">
+                                <div class="alert alert-info" role="alert">
+                                    <h4 class="alert-heading">
+                                        <i class="fa fa-info-circle"/> About This Demo
+                                    </h4>
+                                    <hr/>
+                                    <p>
+                                        This demo environment allows you to explore all student portal features without authentication.
+                                        All routes starting with <code>/demo/</code> are publicly accessible and show sample data.
+                                    </p>
+                                    <p class="mb-0">
+                                        <strong>Note:</strong> In production, routes under <code>/my/</code> require student login.
+                                        Demo routes (<code>/demo/</code>) should be disabled in production environments.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Production Routes Info -->
+                        <div class="row mt-4">
+                            <div class="col-lg-12">
+                                <div class="alert alert-secondary" role="alert">
+                                    <h5><i class="fa fa-lock"/> Production Routes (Require Login)</h5>
+                                    <ul class="mb-0">
+                                        <li><code>/my/student</code> - Student Dashboard</li>
+                                        <li><code>/my/courses</code> - My Courses</li>
+                                        <li><code>/my/certificates</code> - My Certificates</li>
+                                        <li><code>/my/documents</code> - Document Management</li>
+                                        <li><code>/my/available-courses</code> - Browse & Request Courses</li>
+                                        <li><code>/my/enrollment-requests</code> - Track Requests</li>
+                                        <li><code>/my/registration</code> - Registration Status</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Links -->
+                        <div class="row mt-4 text-center">
+                            <div class="col-lg-12">
+                                <h4>Quick Access</h4>
+                                <div class="btn-group mt-2" role="group">
+                                    <a href="/demo" class="btn btn-outline-primary">
+                                        <i class="fa fa-home"/> Demo Home
+                                    </a>
+                                    <a href="/grants/courses/catalog" class="btn btn-outline-success">
+                                        <i class="fa fa-book"/> Course Catalog
+                                    </a>
+                                    <a href="/student/register" class="btn btn-outline-warning">
+                                        <i class="fa fa-user-plus"/> Register
+                                    </a>
+                                    <a href="/grants/login" class="btn btn-outline-info">
+                                        <i class="fa fa-sign-in"/> Login
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <!-- Demo No Data Template -->
+    <template id="demo_no_data" name="Demo No Data">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure">
+                <section class="s_text_block pt96 pb96">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 text-center">
+                                <h1><i class="fa fa-exclamation-triangle text-warning"/> No Demo Data Available</h1>
+                                <p class="lead mt-4">
+                                    <t t-esc="message or 'Demo data has not been installed yet.'"/>
+                                </p>
+                                <p class="mt-4">
+                                    To enable demo data:
+                                </p>
+                                <ol class="text-left" style="max-width: 600px; margin: 0 auto;">
+                                    <li>Go to Apps menu in Odoo backend</li>
+                                    <li>Find the module and click "Upgrade"</li>
+                                    <li>Make sure "Demo data" is enabled during installation</li>
+                                </ol>
+                                <div class="mt-5">
+                                    <a href="/demo" class="btn btn-primary">
+                                        <i class="fa fa-arrow-left"/> Back to Demo Home
+                                    </a>
+                                    <a href="/grants/courses/catalog" class="btn btn-success">
+                                        <i class="fa fa-book"/> Browse Courses
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>
+
