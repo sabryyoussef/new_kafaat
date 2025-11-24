@@ -14,6 +14,22 @@ class StudentRegistrationExtension(models.Model):
     """
     _inherit = 'student.registration'
     
+    # Deprecate old attachment fields (replaced by structured document requests)
+    attachment_ids = fields.Many2many(
+        'ir.attachment',
+        'student_registration_attachment_rel',
+        'registration_id',
+        'attachment_id',
+        string='Documents (Deprecated)',
+        help='This field is deprecated. Use Registration Documents instead.'
+    )
+    
+    attachment_count = fields.Integer(
+        string='Attachment Count (Deprecated)',
+        compute='_compute_attachment_count',
+        help='This field is deprecated. Use registration_document_count instead.'
+    )
+    
     # Replace simple attachments with structured document requests
     registration_document_ids = fields.One2many(
         'gr.registration.document',
