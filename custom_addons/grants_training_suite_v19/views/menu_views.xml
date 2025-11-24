@@ -78,11 +78,13 @@
                 name="Document Requests"
                 action="action_gr_document_request"
                 sequence="10"/>
+            <!-- COMMENTED OUT - Phase 4: Student Document Requests menu - can be enabled after testing
             <menuitem
                 id="menu_grants_training_student_document_requests"
                 name="Student Document Requests"
                 action="grants_training_suite_v19.action_document_request_portal"
                 sequence="20"/>
+            -->
         </menuitem>
         
         <!-- Training Management -->
