@@ -2,6 +2,13 @@
 <odoo>
     
     <!-- Ensure parent menu exists (in case menu_views.xml not loaded yet) -->
+    <!-- Main menu root -->
+    <menuitem id="menu_grants_training_main"
+              name="Grants Training"
+              sequence="10"
+              web_icon="grants_training_suite_v19,static/description/icon.png"/>
+    
+    <!-- Student Management submenu -->
     <menuitem id="menu_grants_training_students"
               name="Student Management"
               parent="menu_grants_training_main"
