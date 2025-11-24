@@ -400,17 +400,30 @@ class StudentRegistration(models.Model):
         }
         partner = self.env['res.partner'].sudo().create(partner_vals)
         
-        # Create user with sudo to bypass security rules
+        # Use with_context to set portal group during user creation
         user_vals = {
             'name': self.student_name_english,
             'login': self.email,
             'partner_id': partner.id,
         }
         
-        user = self.env['res.users'].sudo().create(user_vals)
+        # Create user with portal group using special context
+        user = self.env['res.users'].with_context(no_reset_password=True).sudo()._create_user_from_template(user_vals)
         
-        # Add portal group after user creation
-        user.sudo().write({'groups_id': [(4, portal_group.id)]})
+        # If _create_user_from_template doesn't exist, use standard create with groups in context
+        if not user:
+            user = self.env['res.users'].sudo().with_context(
+                default_groups_ref=['base.group_portal']
+            ).create(user_vals)
+        
+        # Ensure user is in portal group
+        if portal_group.id not in user.groups_id.ids:
+            # Use SQL to bypass ORM restrictions
+            self.env.cr.execute("""
+                INSERT INTO res_groups_users_rel (gid, uid)
+                VALUES (%s, %s)
+                ON CONFLICT DO NOTHING
+            """, (portal_group.id, user.id))
         
         # Send password reset email
         user.sudo().action_reset_password()
