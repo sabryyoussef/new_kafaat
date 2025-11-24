@@ -60,6 +60,7 @@
         'views/student_views.xml',
         'views/assignment_views.xml',
         'views/document_request_views.xml',
+        'views/document_request_portal_views.xml',
         'views/course_session_views.xml',
         'views/certificate_views.xml',
         'views/certificate_template_views.xml',

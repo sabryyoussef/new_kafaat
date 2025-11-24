@@ -71,3 +71,6 @@ from . import contact_pool_batch_assignment_wizard
 from . import salesperson_dashboard
 from . import pool_utilization_report
 
+# Phase 4: Student Portal Enhancement
+from . import document_request_portal
+

@@ -57,4 +57,16 @@
             <field name="perm_unlink" eval="False"/>
         </record>
 
+        <!-- Phase 4: Document Request Portal Rules -->
+        <record id="document_request_portal_rule" model="ir.rule">
+            <field name="name">Portal: Students can only see their own document requests</field>
+            <field name="model_id" ref="model_gr_document_request_portal"/>
+            <field name="domain_force">[('student_id.email', '=', user.email)]</field>
+            <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
 </odoo>

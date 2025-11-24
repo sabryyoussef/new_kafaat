@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import base64
 import logging
 from odoo import http, _
 from odoo.http import request
@@ -106,6 +107,128 @@ class StudentPortal(CustomerPortal):
         }
         
         return request.render('grants_training_suite_v19.portal_my_certificates', values)
+    
+    @http.route(['/my/enrollments'], type='http', auth='user', website=True)
+    def portal_my_enrollments(self, **kw):
+        """Enhanced enrollment tracking with basic info"""
+        student = self._get_student_for_portal_user()
+        if not student:
+            return request.render('grants_training_suite_v19.portal_no_student')
+        
+        # Get all course sessions with status
+        sessions = student.course_session_ids
+        
+        # Calculate completion percentage per session
+        enrollment_data = []
+        for session in sessions:
+            enrollment_data.append({
+                'session': session,
+                'completion': session.progress_percentage or 0,
+                'status': session.status,
+                'course_name': session.course_integration_id.name if session.course_integration_id else 'N/A',
+            })
+        
+        values = {
+            'page_name': 'enrollments',
+            'student': student,
+            'enrollments': enrollment_data,
+            'total_courses': len(sessions),
+            'active_courses': len(sessions.filtered(lambda s: s.status == 'in_progress')),
+            'completed_courses': len(sessions.filtered(lambda s: s.status == 'completed')),
+        }
+        
+        return request.render('grants_training_suite_v19.portal_enrollments', values)
+    
+    @http.route(['/my/certificates/<int:cert_id>/download'], type='http', auth='user')
+    def portal_certificate_download(self, cert_id, **kw):
+        """Download certificate PDF"""
+        student = self._get_student_for_portal_user()
+        if not student:
+            return request.redirect('/web/login')
+        
+        certificate = request.env['gr.certificate'].sudo().browse(cert_id)
+        
+        # Security check
+        if certificate.student_id != student:
+            return request.render('website.403')
+        
+        # Generate/return PDF
+        try:
+            pdf = request.env.ref('grants_training_suite_v19.action_report_certificate').sudo()._render_qweb_pdf([cert_id])[0]
+            
+            pdfhttpheaders = [
+                ('Content-Type', 'application/pdf'),
+                ('Content-Length', len(pdf)),
+                ('Content-Disposition', f'attachment; filename="Certificate_{certificate.name}.pdf"')
+            ]
+            return request.make_response(pdf, headers=pdfhttpheaders)
+        except Exception as e:
+            _logger.error('Certificate download error: %s', str(e))
+            return request.render('website.404')
+    
+    @http.route(['/my/documents'], type='http', auth='user', website=True)
+    def portal_my_documents(self, **kw):
+        """List all document requests"""
+        student = self._get_student_for_portal_user()
+        if not student:
+            return request.render('grants_training_suite_v19.portal_no_student')
+        
+        doc_requests = request.env['gr.document.request.portal'].search([
+            ('student_id', '=', student.id)
+        ], order='create_date desc')
+        
+        values = {
+            'page_name': 'documents',
+            'student': student,
+            'document_requests': doc_requests,
+        }
+        return request.render('grants_training_suite_v19.portal_documents', values)
+    
+    @http.route(['/my/documents/new'], type='http', auth='user', website=True, methods=['GET', 'POST'], csrf=False)
+    def portal_document_request_new(self, **kw):
+        """Create new document request"""
+        student = self._get_student_for_portal_user()
+        if not student:
+            return request.render('grants_training_suite_v19.portal_no_student')
+        
+        if request.httprequest.method == 'POST':
+            try:
+                # Create document request
+                vals = {
+                    'student_id': student.id,
+                    'request_type': kw.get('request_type'),
+                    'document_type': kw.get('document_type'),
+                    'description': kw.get('description'),
+                    'status': 'submitted',
+                }
+                doc_request = request.env['gr.document.request.portal'].sudo().create(vals)
+                
+                # Handle file upload if present
+                uploaded_file = request.httprequest.files.get('file')
+                if uploaded_file and uploaded_file.filename:
+                    file_content = uploaded_file.read()
+                    attachment = request.env['ir.attachment'].sudo().create({
+                        'name': uploaded_file.filename,
+                        'datas': base64.b64encode(file_content),
+                        'res_model': 'gr.document.request.portal',
+                        'res_id': doc_request.id,
+                    })
+                    doc_request.attachment_ids = [(4, attachment.id)]
+                
+                return request.redirect('/my/documents')
+            except Exception as e:
+                _logger.error('Document request creation error: %s', str(e))
+                return request.render('grants_training_suite_v19.portal_document_request_form', {
+                    'page_name': 'new_document_request',
+                    'student': student,
+                    'error': _('Failed to create document request. Please try again.')
+                })
+        
+        values = {
+            'page_name': 'new_document_request',
+            'student': student,
+        }
+        return request.render('grants_training_suite_v19.portal_document_request_form', values)
     
     @http.route(['/grants/register'], type='http', auth='public', website=True, sitemap=False)
     def student_registration(self, **kw):

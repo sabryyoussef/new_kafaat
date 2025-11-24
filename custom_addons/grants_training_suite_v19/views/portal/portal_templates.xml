@@ -642,4 +642,237 @@
             </div>
         </t>
     </template>
+    
+    <!-- Phase 4: Enhanced Portal Templates -->
+    
+    <!-- Enrollment Tracking Template -->
+    <template id="portal_enrollments" name="My Enrollments">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar"/>
+            
+            <div class="container mt-4">
+                <h2>My Course Enrollments</h2>
+                
+                <!-- Summary Cards -->
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h3 t-esc="total_courses"/>
+                                <p>Total Courses</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h3 t-esc="active_courses"/>
+                                <p>Active Courses</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h3 t-esc="completed_courses"/>
+                                <p>Completed</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Enrollment List -->
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Course</th>
+                                <th>Status</th>
+                                <th>Completion</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="enrollments" t-as="enrollment">
+                                <tr>
+                                    <td t-esc="enrollment['course_name']"/>
+                                    <td><span class="badge" t-att-class="'badge-' + enrollment['status']" t-esc="enrollment['status']"/></td>
+                                    <td>
+                                        <div class="progress">
+                                            <div class="progress-bar" t-att-style="'width: %s%%' % enrollment['completion']" t-esc="'%s%%' % enrollment['completion']"/>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <a t-attf-href="/my/courses/#{enrollment['session'].id}" class="btn btn-sm btn-primary">View Details</a>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </t>
+    </template>
+    
+    <!-- Certificate List with Download -->
+    <template id="portal_my_certificates_enhanced" name="My Certificates Enhanced" inherit_id="grants_training_suite_v19.portal_my_certificates">
+        <xpath expr="//div[@class='container mt-4']" position="replace">
+            <div class="container mt-4">
+                <h2>My Certificates</h2>
+                
+                <t t-if="not certificates">
+                    <div class="alert alert-info">
+                        <p>You don't have any certificates yet. Complete your courses to earn certificates!</p>
+                    </div>
+                </t>
+                
+                <div class="row">
+                    <t t-foreach="certificates" t-as="cert">
+                        <div class="col-md-6 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 t-esc="cert.name"/>
+                                    <p><strong>Type:</strong> <span t-esc="cert.certificate_type"/></p>
+                                    <p><strong>Issue Date:</strong> <span t-field="cert.issue_date"/></p>
+                                    <a t-attf-href="/my/certificates/#{cert.id}/download" class="btn btn-primary">
+                                        <i class="fa fa-download"/> Download PDF
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </xpath>
+    </template>
+    
+    <!-- Document Requests List -->
+    <template id="portal_documents" name="My Document Requests">
+        <t t-call="portal.portal_layout">
+            <div class="container mt-4">
+                <div class="d-flex justify-content-between mb-3">
+                    <h2>Document Requests</h2>
+                    <a href="/my/documents/new" class="btn btn-primary">New Request</a>
+                </div>
+                
+                <t t-if="not document_requests">
+                    <div class="alert alert-info">
+                        <p>You haven't made any document requests yet.</p>
+                    </div>
+                </t>
+                
+                <t t-if="document_requests">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Request #</th>
+                                <th>Type</th>
+                                <th>Document</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="document_requests" t-as="req">
+                                <tr>
+                                    <td t-esc="req.name"/>
+                                    <td>
+                                        <span t-if="req.request_type == 'upload'" class="badge badge-info">Upload</span>
+                                        <span t-if="req.request_type == 'download'" class="badge badge-warning">Request</span>
+                                    </td>
+                                    <td t-esc="req.document_type"/>
+                                    <td>
+                                        <span t-if="req.status == 'draft'" class="badge badge-secondary">Draft</span>
+                                        <span t-if="req.status == 'submitted'" class="badge badge-primary">Submitted</span>
+                                        <span t-if="req.status == 'in_progress'" class="badge badge-info">In Progress</span>
+                                        <span t-if="req.status == 'completed'" class="badge badge-success">Completed</span>
+                                        <span t-if="req.status == 'rejected'" class="badge badge-danger">Rejected</span>
+                                    </td>
+                                    <td t-field="req.create_date"/>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </t>
+            </div>
+        </t>
+    </template>
+    
+    <!-- Document Request Form -->
+    <template id="portal_document_request_form" name="New Document Request">
+        <t t-call="portal.portal_layout">
+            <div class="container mt-4">
+                <h2>New Document Request</h2>
+                
+                <t t-if="error">
+                    <div class="alert alert-danger" role="alert">
+                        <t t-esc="error"/>
+                    </div>
+                </t>
+                
+                <form action="/my/documents/new" method="post" enctype="multipart/form-data" class="mt-4">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    
+                    <div class="form-group">
+                        <label for="request_type">Request Type *</label>
+                        <select name="request_type" id="request_type" class="form-control" required="1">
+                            <option value="">-- Select Type --</option>
+                            <option value="upload">Upload Document</option>
+                            <option value="download">Request Academy Document</option>
+                        </select>
+                        <small class="form-text text-muted">
+                            Choose "Upload" to submit your documents, or "Request" to ask for academy documents.
+                        </small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="document_type">Document Type *</label>
+                        <select name="document_type" id="document_type" class="form-control" required="1">
+                            <option value="">-- Select Document Type --</option>
+                            <option value="id">ID/Passport</option>
+                            <option value="transcript">Transcript</option>
+                            <option value="certificate">Certificate</option>
+                            <option value="attendance">Attendance Record</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea name="description" id="description" class="form-control" rows="3" placeholder="Provide additional details about your request..."/>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="file">Attach File (for uploads)</label>
+                        <input type="file" name="file" id="file" class="form-control-file"/>
+                        <small class="form-text text-muted">
+                            Only attach a file if you are uploading a document. Maximum file size: 10MB.
+                        </small>
+                    </div>
+                    
+                    <div class="form-group mt-4">
+                        <button type="submit" class="btn btn-primary">Submit Request</button>
+                        <a href="/my/documents" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+    
+    <!-- Portal Menu Enhancement -->
+    <template id="portal_my_home_menu_student" name="Portal My Home Menu - Student" inherit_id="portal.portal_my_home_menu">
+        <xpath expr="//div[hasclass('o_portal_my_home_menu')]" position="inside">
+            <a href="/my/enrollments" class="list-group-item list-group-item-action">
+                <i class="fa fa-graduation-cap"/> My Enrollments
+            </a>
+            <a href="/my/certificates" class="list-group-item list-group-item-action">
+                <i class="fa fa-certificate"/> My Certificates
+            </a>
+            <a href="/my/documents" class="list-group-item list-group-item-action">
+                <i class="fa fa-file"/> Document Requests
+            </a>
+        </xpath>
+    </template>
+    
 </odoo>
