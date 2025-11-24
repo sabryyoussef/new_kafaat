@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_student_registration_manager,student.registration.manager,model_student_registration,grants_training_suite_v19.group_manager,1,1,1,1
+access_student_registration_agent,student.registration.agent,model_student_registration,grants_training_suite_v19.group_agent,1,1,1,1
+access_student_registration_portal,student.registration.portal,model_student_registration,base.group_portal,1,1,1,0
+

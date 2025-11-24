@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- Sequence for Student Registration Numbers -->
+        <record id="seq_student_registration" model="ir.sequence">
+            <field name="name">Student Registration Sequence</field>
+            <field name="code">student.registration</field>
+            <field name="prefix">REG</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">1</field>
+            <field name="implementation">standard</field>
+        </record>
+        
+    </data>
+</odoo>
+

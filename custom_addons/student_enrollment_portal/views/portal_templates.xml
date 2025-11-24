@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- Student Registration Form -->
+    <template id="portal_student_registration_form" name="Student Registration Form">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty">
+                <section class="s_cover pt96 pb96" style="background-color: #f8f9fa;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-8 offset-lg-2">
+                                <div class="card shadow-lg">
+                                    <div class="card-header bg-primary text-white">
+                                        <h3 class="mb-0">
+                                            <i class="fa fa-graduation-cap"/> Student Registration
+                                        </h3>
+                                    </div>
+                                    <div class="card-body p-4">
+                                        
+                                        <!-- Error Messages -->
+                                        <t t-if="error_message">
+                                            <div class="alert alert-danger" role="alert">
+                                                <t t-foreach="error_message" t-as="err">
+                                                    <p class="mb-0"><t t-esc="err"/></p>
+                                                </t>
+                                            </div>
+                                        </t>
+                                        
+                                        <form action="/student/register/submit" method="post" enctype="multipart/form-data" class="needs-validation">
+                                            
+                                            <!-- Personal Information -->
+                                            <h5 class="text-primary mb-3">
+                                                <i class="fa fa-user"/> Personal Information
+                                            </h5>
+                                            <div class="row">
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="student_name_english" class="form-label">Full Name (English) <span class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control" id="student_name_english" name="student_name_english" 
+                                                           t-att-value="post.get('student_name_english', '')" required="required"/>
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="student_name_arabic" class="form-label">Full Name (Arabic) <span class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control" id="student_name_arabic" name="student_name_arabic" 
+                                                           t-att-value="post.get('student_name_arabic', '')" required="required" dir="rtl"/>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="row">
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="birth_date" class="form-label">Birth Date <span class="text-danger">*</span></label>
+                                                    <input type="date" class="form-control" id="birth_date" name="birth_date" 
+                                                           t-att-value="post.get('birth_date', '')" required="required"/>
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="gender" class="form-label">Gender <span class="text-danger">*</span></label>
+                                                    <select class="form-select" id="gender" name="gender" required="required">
+                                                        <option value="">Select Gender</option>
+                                                        <option value="male" t-att-selected="'selected' if post.get('gender') == 'male' else None">Male</option>
+                                                        <option value="female" t-att-selected="'selected' if post.get('gender') == 'female' else None">Female</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="row">
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="nationality" class="form-label">Nationality <span class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control" id="nationality" name="nationality" 
+                                                           t-att-value="post.get('nationality', '')" required="required"/>
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="native_language" class="form-label">Native Language</label>
+                                                    <input type="text" class="form-control" id="native_language" name="native_language" 
+                                                           t-att-value="post.get('native_language', 'Arabic')"/>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Contact Information -->
+                                            <h5 class="text-primary mb-3 mt-4">
+                                                <i class="fa fa-envelope"/> Contact Information
+                                            </h5>
+                                            <div class="row">
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                                                    <input type="email" class="form-control" id="email" name="email" 
+                                                           t-att-value="post.get('email', '')" required="required"/>
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="phone" class="form-label">Phone <span class="text-danger">*</span></label>
+                                                    <input type="tel" class="form-control" id="phone" name="phone" 
+                                                           t-att-value="post.get('phone', '')" required="required"/>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Educational Background -->
+                                            <h5 class="text-primary mb-3 mt-4">
+                                                <i class="fa fa-book"/> Educational Background
+                                            </h5>
+                                            <div class="row">
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="english_level" class="form-label">English Level <span class="text-danger">*</span></label>
+                                                    <select class="form-select" id="english_level" name="english_level" required="required">
+                                                        <option value="">Select Level</option>
+                                                        <option value="beginner" t-att-selected="'selected' if post.get('english_level') == 'beginner' else None">Beginner</option>
+                                                        <option value="intermediate" t-att-selected="'selected' if post.get('english_level') == 'intermediate' else None">Intermediate</option>
+                                                        <option value="advanced" t-att-selected="'selected' if post.get('english_level') == 'advanced' else None">Advanced</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <div class="form-check mt-4">
+                                                        <input class="form-check-input" type="checkbox" id="has_previous_certificate" 
+                                                               name="has_previous_certificate" value="1"
+                                                               t-att-checked="'checked' if post.get('has_previous_certificate') else None"/>
+                                                        <label class="form-check-label" for="has_previous_certificate">
+                                                            I have a previous certificate
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="row" id="certificate_type_row" style="display: none;">
+                                                <div class="col-md-12 mb-3">
+                                                    <label for="certificate_type" class="form-label">Certificate Type</label>
+                                                    <input type="text" class="form-control" id="certificate_type" name="certificate_type" 
+                                                           t-att-value="post.get('certificate_type', '')"/>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Course Request -->
+                                            <h5 class="text-primary mb-3 mt-4">
+                                                <i class="fa fa-list"/> Course Request
+                                            </h5>
+                                            <div class="mb-3">
+                                                <label for="requested_courses" class="form-label">Courses You Want to Enroll In</label>
+                                                <textarea class="form-control" id="requested_courses" name="requested_courses" 
+                                                          rows="3" placeholder="Please list the courses you are interested in..."><t t-esc="post.get('requested_courses', '')"/></textarea>
+                                            </div>
+                                            
+                                            <!-- Document Upload -->
+                                            <h5 class="text-primary mb-3 mt-4">
+                                                <i class="fa fa-file"/> Documents
+                                            </h5>
+                                            <div class="mb-3">
+                                                <label for="documents" class="form-label">Upload Documents (ID, Certificates, etc.)</label>
+                                                <input type="file" class="form-control" id="documents" name="documents" multiple="multiple"/>
+                                                <small class="form-text text-muted">You can upload multiple files. Accepted formats: PDF, JPG, PNG</small>
+                                            </div>
+                                            
+                                            <!-- Terms and Conditions -->
+                                            <div class="form-check mb-4">
+                                                <input class="form-check-input" type="checkbox" id="terms" required="required"/>
+                                                <label class="form-check-label" for="terms">
+                                                    I agree to the terms and conditions <span class="text-danger">*</span>
+                                                </label>
+                                            </div>
+                                            
+                                            <!-- Submit Button -->
+                                            <div class="text-center">
+                                                <button type="submit" class="btn btn-primary btn-lg px-5">
+                                                    <i class="fa fa-paper-plane"/> Submit Registration
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            
+            <script type="text/javascript">
+                // Show/hide certificate type field
+                document.getElementById('has_previous_certificate').addEventListener('change', function() {
+                    var certTypeRow = document.getElementById('certificate_type_row');
+                    if (this.checked) {
+                        certTypeRow.style.display = 'block';
+                    } else {
+                        certTypeRow.style.display = 'none';
+                    }
+                });
+                
+                // Initialize on page load
+                if (document.getElementById('has_previous_certificate').checked) {
+                    document.getElementById('certificate_type_row').style.display = 'block';
+                }
+            </script>
+        </t>
+    </template>
+    
+    <!-- Registration Success Page -->
+    <template id="portal_registration_success" name="Registration Success">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty">
+                <section class="s_cover pt96 pb96" style="background-color: #f8f9fa;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6 offset-lg-3">
+                                <div class="card shadow-lg text-center">
+                                    <div class="card-body p-5">
+                                        <div class="mb-4">
+                                            <i class="fa fa-check-circle text-success" style="font-size: 80px;"/>
+                                        </div>
+                                        <h2 class="text-success mb-3">Registration Submitted Successfully!</h2>
+                                        <p class="lead mb-4">Thank you for registering with us.</p>
+                                        
+                                        <div class="alert alert-info">
+                                            <h5>Your Registration Number:</h5>
+                                            <h3 class="mb-0"><strong><t t-esc="registration_number"/></strong></h3>
+                                        </div>
+                                        
+                                        <div class="mt-4">
+                                            <h5>What's Next?</h5>
+                                            <ul class="list-unstyled text-start">
+                                                <li class="mb-2"><i class="fa fa-check text-success"/> Our team will review your eligibility</li>
+                                                <li class="mb-2"><i class="fa fa-check text-success"/> We will verify your documents</li>
+                                                <li class="mb-2"><i class="fa fa-check text-success"/> You will receive an email with your login credentials once approved</li>
+                                                <li class="mb-2"><i class="fa fa-check text-success"/> You can then enroll in your chosen courses</li>
+                                            </ul>
+                                        </div>
+                                        
+                                        <div class="mt-4">
+                                            <a href="/" class="btn btn-primary">
+                                                <i class="fa fa-home"/> Return to Home
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+    
+    <!-- My Registration Status Page -->
+    <template id="portal_my_registration" name="My Registration Status">
+        <t t-call="portal.portal_layout">
+            <t t-set="additional_title">My Registration</t>
+            <div id="wrap" class="o_portal_wrap">
+                <div class="container mt-4">
+                    <div class="row">
+                        <div class="col-lg-8 offset-lg-2">
+                            <div class="card shadow">
+                                <div class="card-header bg-primary text-white">
+                                    <h3 class="mb-0">
+                                        <i class="fa fa-file-text"/> Registration Status
+                                    </h3>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    <!-- Registration Info -->
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <h5>Registration Number:</h5>
+                                            <p class="lead"><strong><t t-esc="registration.name"/></strong></p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h5>Current Status:</h5>
+                                            <p>
+                                                <span t-if="registration.state == 'draft'" class="badge bg-info">New Registration</span>
+                                                <span t-if="registration.state == 'submitted'" class="badge bg-warning">Submitted</span>
+                                                <span t-if="registration.state == 'eligibility_review'" class="badge bg-primary">Eligibility Review</span>
+                                                <span t-if="registration.state == 'document_review'" class="badge bg-primary">Document Review</span>
+                                                <span t-if="registration.state == 'approved'" class="badge bg-success">Approved</span>
+                                                <span t-if="registration.state == 'rejected'" class="badge bg-danger">Rejected</span>
+                                                <span t-if="registration.state == 'enrolled'" class="badge bg-success">Enrolled</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Progress Indicator -->
+                                    <div class="mb-4">
+                                        <h5>Review Progress:</h5>
+                                        <div class="progress" style="height: 30px;">
+                                            <div class="progress-bar" role="progressbar" 
+                                                 t-att-style="'width: %s%%' % (20 if registration.state == 'submitted' else 40 if registration.state == 'eligibility_review' else 60 if registration.state == 'document_review' else 80 if registration.state == 'approved' else 100 if registration.state == 'enrolled' else 0)"
+                                                 t-att-aria-valuenow="20 if registration.state == 'submitted' else 40 if registration.state == 'eligibility_review' else 60 if registration.state == 'document_review' else 80 if registration.state == 'approved' else 100 if registration.state == 'enrolled' else 0"
+                                                 aria-valuemin="0" aria-valuemax="100">
+                                                <t t-if="registration.state == 'submitted'">Submitted</t>
+                                                <t t-if="registration.state == 'eligibility_review'">Eligibility Review</t>
+                                                <t t-if="registration.state == 'document_review'">Document Review</t>
+                                                <t t-if="registration.state == 'approved'">Approved</t>
+                                                <t t-if="registration.state == 'enrolled'">Enrolled</t>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Review Notes -->
+                                    <t t-if="registration.eligibility_notes or registration.document_notes">
+                                        <div class="alert alert-info">
+                                            <h5><i class="fa fa-info-circle"/> Review Notes:</h5>
+                                            <p t-if="registration.eligibility_notes">
+                                                <strong>Eligibility:</strong> <t t-esc="registration.eligibility_notes"/>
+                                            </p>
+                                            <p t-if="registration.document_notes">
+                                                <strong>Documents:</strong> <t t-esc="registration.document_notes"/>
+                                            </p>
+                                        </div>
+                                    </t>
+                                    
+                                    <!-- Rejection Reason -->
+                                    <t t-if="registration.state == 'rejected'">
+                                        <div class="alert alert-danger">
+                                            <h5><i class="fa fa-exclamation-triangle"/> Rejection Reason:</h5>
+                                            <p><t t-esc="registration.rejection_reason"/></p>
+                                        </div>
+                                    </t>
+                                    
+                                    <!-- Document Upload Section -->
+                                    <t t-if="registration.state in ['submitted', 'eligibility_review', 'document_review']">
+                                        <div class="mt-4">
+                                            <h5>Upload Additional Documents:</h5>
+                                            <form t-attf-action="/my/registration/#{registration.id}/upload" method="post" enctype="multipart/form-data">
+                                                <div class="mb-3">
+                                                    <input type="file" class="form-control" name="documents" multiple="multiple"/>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">
+                                                    <i class="fa fa-upload"/> Upload Documents
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </t>
+                                    
+                                    <!-- Contact Support -->
+                                    <div class="mt-4 text-center">
+                                        <a href="/contactus" class="btn btn-outline-primary">
+                                            <i class="fa fa-envelope"/> Contact Support
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    
+    <!-- Add Registration Link to Portal Menu -->
+    <template id="portal_my_home_registration" name="Portal My Home: Registration" inherit_id="portal.portal_my_home" priority="30">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">My Registration</t>
+                <t t-set="url" t-value="'/my/registration'"/>
+                <t t-set="placeholder_count" t-value="'registration_count'"/>
+            </t>
+        </xpath>
+    </template>
+    
+</odoo>
+
