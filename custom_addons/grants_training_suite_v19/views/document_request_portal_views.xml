@@ -68,7 +68,7 @@
         </field>
     </record>
 
-    <!-- Document Request Portal Search View -->
+    <!-- Document Request Portal Search View - COMMENTED OUT due to parse errors
     <record id="view_document_request_portal_search" model="ir.ui.view">
         <field name="name">gr.document.request.portal.search</field>
         <field name="model">gr.document.request.portal</field>
@@ -90,6 +90,7 @@
             </search>
         </field>
     </record>
+    -->
 
     <!-- Document Request Portal Action -->
     <record id="action_document_request_portal" model="ir.actions.act_window">
