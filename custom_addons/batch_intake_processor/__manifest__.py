@@ -47,15 +47,17 @@
         # Data
         'data/sequences.xml',
         
-        # Views
+        # Views (actions must be defined before menus reference them)
         'views/batch_intake_views.xml',
         'views/applicant_views.xml',
         'views/eligibility_criteria_views.xml',
-        'views/menu_views.xml',
         
         # Wizards
         'wizard/batch_upload_wizard_views.xml',
         'wizard/export_results_wizard_views.xml',
+        
+        # Menus (load last, after all actions are defined)
+        'views/menu_views.xml',
     ],
     'demo': [
         'data/demo_data.xml',
