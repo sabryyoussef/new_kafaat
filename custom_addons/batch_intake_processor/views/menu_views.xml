@@ -9,19 +9,19 @@
     <menuitem id="menu_batch_intake_batches"
               name="Batches"
               parent="menu_batch_intake_root"
-              action="action_batch_intake"
+              action="batch_intake_processor.action_batch_intake"
               sequence="10"/>
     
     <menuitem id="menu_batch_intake_applicants"
               name="All Applicants"
               parent="menu_batch_intake_root"
-              action="action_batch_intake_applicant"
+              action="batch_intake_processor.action_batch_intake_applicant"
               sequence="20"/>
     
     <menuitem id="menu_batch_intake_upload"
               name="Upload Batch"
               parent="menu_batch_intake_root"
-              action="action_batch_upload_wizard"
+              action="batch_intake_processor.action_batch_upload_wizard"
               sequence="5"/>
     
     <!-- Configuration Menu -->
@@ -33,6 +33,6 @@
     <menuitem id="menu_batch_intake_criteria"
               name="Eligibility Criteria"
               parent="menu_batch_intake_config"
-              action="action_eligibility_criteria"
+              action="batch_intake_processor.action_eligibility_criteria"
               sequence="10"/>
 </odoo>

@@ -10,7 +10,8 @@ import logging
 _logger = logging.getLogger(__name__)
 
 
-class StudentPortal(CustomerPortal):
+class StudentEnrollmentPortal(CustomerPortal):
+    """Portal controller for student enrollment/registration"""
     
     @http.route(['/student/register'], type='http', auth='public', website=True, sitemap=False)
     def student_registration_form(self, course_id=None, **kw):
@@ -231,17 +232,7 @@ class StudentPortal(CustomerPortal):
         
         return request.redirect('/my/registration/%s' % reg_id)
     
-    def _prepare_home_portal_values(self, counters):
-        """Add registration count to portal home"""
-        values = super()._prepare_home_portal_values(counters)
-        
-        user = request.env.user
-        
-        if 'registration_count' in counters:
-            registration_count = request.env['student.registration'].search_count([
-                ('email', '=', user.email)
-            ]) if user.email else 0
-            values['registration_count'] = registration_count
-        
-        return values
+    # NOTE: _prepare_home_portal_values moved to grants_training_suite_v19
+    # to avoid method override conflicts. Registration counter is now
+    # handled in the main student portal controller.
 

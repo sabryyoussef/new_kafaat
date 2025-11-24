@@ -10,17 +10,27 @@ from odoo.addons.portal.controllers.portal import CustomerPortal, pager as porta
 _logger = logging.getLogger(__name__)
 
 
-class StudentPortal(CustomerPortal):
-    """Student Portal Controller"""
+class GrantsStudentPortal(CustomerPortal):
+    """Student Portal Controller for Grants Training Suite"""
     
     def _prepare_home_portal_values(self, counters):
         """Add student-related counters to portal home"""
         values = super()._prepare_home_portal_values(counters)
         
+        user = request.env.user
+        
+        # Add course count for enrolled students
         if 'course_count' in counters:
             student = self._get_student_for_portal_user()
             if student:
                 values['course_count'] = len(student.course_session_ids)
+        
+        # Add registration count (from student_enrollment_portal)
+        if 'registration_count' in counters:
+            registration_count = request.env['student.registration'].search_count([
+                ('email', '=', user.email)
+            ]) if user.email else 0
+            values['registration_count'] = registration_count
         
         return values
     
