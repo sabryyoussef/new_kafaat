@@ -88,3 +88,10 @@ access_contact_pool_distribution_wizard_line_manager,contact.pool.distribution.w
 access_contact_pool_distribution_wizard_line_agent,contact.pool.distribution.wizard.line.agent,model_contact_pool_distribution_wizard_line,grants_training_suite_v19.group_agent,1,1,1,0
 access_contact_pool_batch_assignment_wizard_manager,contact.pool.batch.assignment.wizard.manager,model_contact_pool_batch_assignment_wizard,grants_training_suite_v19.group_manager,1,1,1,1
 access_contact_pool_batch_assignment_wizard_agent,contact.pool.batch.assignment.wizard.agent,model_contact_pool_batch_assignment_wizard,grants_training_suite_v19.group_agent,1,1,1,0
+access_gr_course_category_manager,gr.course.category.manager,model_gr_course_category,grants_training_suite_v19.group_manager,1,1,1,1
+access_gr_course_category_agent,gr.course.category.agent,model_gr_course_category,grants_training_suite_v19.group_agent,1,0,0,0
+access_gr_course_category_public,gr.course.category.public,model_gr_course_category,base.group_public,1,0,0,0
+access_gr_course_review_manager,gr.course.review.manager,model_gr_course_review,grants_training_suite_v19.group_manager,1,1,1,1
+access_gr_course_review_agent,gr.course.review.agent,model_gr_course_review,grants_training_suite_v19.group_agent,1,0,0,0
+access_gr_course_review_portal,gr.course.review.portal,model_gr_course_review,base.group_portal,1,1,1,0
+access_gr_course_review_public,gr.course.review.public,model_gr_course_review,base.group_public,1,0,0,0

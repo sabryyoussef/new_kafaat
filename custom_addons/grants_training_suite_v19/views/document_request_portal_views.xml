@@ -83,7 +83,6 @@
                 <filter string="In Progress" name="in_progress" domain="[('status', '=', 'in_progress')]"/>
                 <filter string="Completed" name="completed" domain="[('status', '=', 'completed')]"/>
                 <filter string="Rejected" name="rejected" domain="[('status', '=', 'rejected')]"/>
-                <separator/>
                 <filter string="Upload Requests" name="upload" domain="[('request_type', '=', 'upload')]"/>
                 <filter string="Download Requests" name="download" domain="[('request_type', '=', 'download')]"/>
                 <group expand="0" string="Group By">

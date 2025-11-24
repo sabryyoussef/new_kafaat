@@ -40,6 +40,13 @@ from . import training_program
 # Model 10: Progress Tracker
 from . import progress_tracker
 
+# Phase 5: Enhanced Course Features
+# Model: Course Category
+from . import course_category
+
+# Model: Course Review
+from . import course_review
+
 # Phase 3: Advanced Analytics Models
 # Model 11: Training Dashboard
 from . import training_dashboard
