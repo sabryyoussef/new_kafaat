@@ -837,7 +837,7 @@
         </t>
     </template>
     
-    <!-- Portal Menu Enhancement -->
+    <!-- COMMENTED OUT - Portal Menu Enhancement - portal.portal_my_home_menu may not exist in this Odoo version
     <template id="portal_my_home_menu_student" name="Portal My Home Menu - Student" inherit_id="portal.portal_my_home_menu">
         <xpath expr="//div[hasclass('o_portal_my_home_menu')]" position="inside">
             <a href="/my/enrollments" class="list-group-item list-group-item-action">
@@ -851,5 +851,6 @@
             </a>
         </xpath>
     </template>
+    -->
     
 </odoo>
