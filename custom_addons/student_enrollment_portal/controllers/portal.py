@@ -21,6 +21,7 @@ class StudentPortal(CustomerPortal):
         
         values = {
             'courses': courses,
+            'post': kw,  # Pass form data for repopulation
             'error': {},
             'error_message': []
         }
@@ -85,10 +86,10 @@ class StudentPortal(CustomerPortal):
             registration = request.env['student.registration'].sudo().create(registration_vals)
             
             # Handle file uploads
-            if post.get('documents'):
+            if 'documents' in request.httprequest.files:
                 attachments = request.httprequest.files.getlist('documents')
                 for attachment in attachments:
-                    if attachment:
+                    if attachment and attachment.filename:
                         attached_file = attachment.read()
                         request.env['ir.attachment'].sudo().create({
                             'name': attachment.filename,
