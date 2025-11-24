@@ -420,23 +420,35 @@ class StudentRegistration(models.Model):
         """Send notification to admins when registration is submitted"""
         self.ensure_one()
         
-        # Get manager and agent groups
-        manager_group = self.env.ref('grants_training_suite_v19.group_manager')
-        agent_group = self.env.ref('grants_training_suite_v19.group_agent')
-        
-        # Get all users in these groups
-        admin_users = self.env['res.users'].search([
-            ('groups_id', 'in', [manager_group.id, agent_group.id])
-        ])
-        
-        # Send notification
-        if admin_users:
-            self.message_subscribe(partner_ids=admin_users.mapped('partner_id').ids)
-            self.message_post(
-                body=_('New student registration submitted: %s') % self.name,
-                message_type='notification',
-                partner_ids=admin_users.mapped('partner_id').ids
-            )
+        try:
+            # Get manager and agent groups
+            manager_group = self.env.ref('grants_training_suite_v19.group_manager', raise_if_not_found=False)
+            agent_group = self.env.ref('grants_training_suite_v19.group_agent', raise_if_not_found=False)
+            
+            if not manager_group or not agent_group:
+                _logger.warning('Manager or Agent group not found, skipping admin notification')
+                return
+            
+            # Get all users that belong to these groups
+            # Search through the many2many relationship
+            admin_users = self.env['res.users'].search([
+                '|',
+                ('groups_id', '=', manager_group.id),
+                ('groups_id', '=', agent_group.id)
+            ])
+            
+            # Send notification
+            if admin_users:
+                partner_ids = admin_users.mapped('partner_id').ids
+                if partner_ids:
+                    self.message_subscribe(partner_ids=partner_ids)
+                    self.message_post(
+                        body=_('New student registration submitted: %s') % self.name,
+                        message_type='notification',
+                        partner_ids=partner_ids
+                    )
+        except Exception as e:
+            _logger.error(f'Error sending admin notification: {str(e)}')
     
     def _send_rejection_email(self):
         """Send rejection email to student"""
