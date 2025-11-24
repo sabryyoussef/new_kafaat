@@ -14,6 +14,11 @@ _logger = logging.getLogger(__name__)
 class PublicDemoPortal(http.Controller):
     """Public Demo Portal - No authentication required"""
     
+    @http.route(['/demo/test'], type='http', auth='public', website=True, sitemap=False)
+    def demo_test(self, **kw):
+        """Simple test route to verify controller is loaded"""
+        return "<h1>Demo Controller is Working!</h1><p>If you see this, the controller is loaded.</p><a href='/demo'>Go to Demo Index</a>"
+    
     def _get_demo_student(self):
         """Get or create a demo student for public viewing"""
         # Try to get the first student with demo data
@@ -225,15 +230,31 @@ class PublicDemoPortal(http.Controller):
         
         return request.render('student_enrollment_portal.portal_my_registration', values)
     
-    @http.route(['/demo'], type='http', auth='public', website=True)
+    @http.route(['/demo', '/demo/'], type='http', auth='public', website=True, sitemap=False)
     def demo_index(self, **kw):
         """Demo portal index with links to all demo pages"""
-        student = self._get_demo_student()
-        
-        values = {
-            'page_name': 'demo_index',
-            'student': student,
-        }
-        
-        return request.render('grants_training_suite_v19.demo_portal_index', values)
+        try:
+            student = self._get_demo_student()
+            
+            values = {
+                'page_name': 'demo_index',
+                'student': student,
+            }
+            
+            return request.render('grants_training_suite_v19.demo_portal_index', values)
+        except Exception as e:
+            _logger.error('Demo portal error: %s', str(e))
+            import traceback
+            _logger.error(traceback.format_exc())
+            # Return simple HTML with error info
+            return f"""
+            <html>
+                <body>
+                    <h1>Demo Portal Error</h1>
+                    <p>Error: {str(e)}</p>
+                    <p>Check Odoo logs for details.</p>
+                    <p><a href="/demo/test">Test Route</a></p>
+                </body>
+            </html>
+            """
 
