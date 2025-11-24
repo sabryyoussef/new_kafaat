@@ -425,7 +425,9 @@ class StudentRegistration(models.Model):
         agent_group = self.env.ref('grants_training_suite_v19.group_agent')
         
         # Get all users in these groups
-        admin_users = manager_group.users | agent_group.users
+        admin_users = self.env['res.users'].search([
+            ('groups_id', 'in', [manager_group.id, agent_group.id])
+        ])
         
         # Send notification
         if admin_users:
