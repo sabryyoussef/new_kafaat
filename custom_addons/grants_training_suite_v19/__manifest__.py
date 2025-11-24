@@ -60,8 +60,8 @@
         'views/homework_attempt_enhanced_views.xml',
         'views/student_views.xml',
         'views/assignment_views.xml',
-        # 'views/document_request_views.xml',  # MOVED TO student_documents_portal module
-        # 'views/document_request_portal_views.xml',  # MOVED TO student_documents_portal module
+        'views/document_request_views.xml',  # Admin tool for gr.document.request
+        # document_request_portal_views.xml DELETED - moved to student_documents_portal module
         'views/course_session_views.xml',
         'views/certificate_views.xml',
         'views/certificate_template_views.xml',
@@ -87,8 +87,7 @@
         # Portal Views
         'views/portal/portal_templates.xml',
         
-        # Security (Phase 4 - load after views to ensure models are registered)
-        # 'security/ir.model.access.phase4.xml',  # MOVED TO student_documents_portal module
+        # Note: Phase 4 security (document_request_portal) moved to student_documents_portal module
     ],
     'demo': [
         'demo/simple_demo_data.xml',
