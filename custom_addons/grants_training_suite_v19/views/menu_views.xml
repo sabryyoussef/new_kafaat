@@ -46,6 +46,26 @@
                 name="Contact Pools"
                 action="action_contact_pool"
                 sequence="20"/>
+            <!-- COMMENTED OUT - Dashboard action not loading properly, will fix later
+            <menuitem
+                id="menu_grants_training_sales_dashboard"
+                name="Sales Dashboard"
+                action="action_salesperson_dashboard"
+                sequence="30"
+                groups="sales_team.group_sale_salesman"/>
+            -->
+            <menuitem
+                id="menu_grants_training_my_contacts"
+                name="My Contacts"
+                action="grants_training_suite_v19.action_my_contacts"
+                sequence="40"
+                groups="sales_team.group_sale_salesman"/>
+            <menuitem
+                id="menu_grants_training_my_leads"
+                name="My Leads"
+                action="grants_training_suite_v19.action_my_leads"
+                sequence="50"
+                groups="sales_team.group_sale_salesman"/>
         </menuitem>
         
         <!-- Document Management -->
@@ -168,6 +188,18 @@
                 name="Integration Reports"
                 action="action_integration_dashboard"
                 sequence="10"/>
+            <!-- Temporarily commented out - models not registered yet
+            <menuitem
+                id="menu_grants_training_pool_utilization_report"
+                name="Pool Utilization Report"
+                action="grants_training_suite_v19.action_pool_utilization_report_wizard"
+                sequence="20"/>
+            <menuitem
+                id="menu_grants_training_sales_rep_performance"
+                name="Sales Rep Performance"
+                action="grants_training_suite_v19.action_sales_rep_performance"
+                sequence="30"/>
+            -->
         </menuitem>
         
         <!-- Configuration -->

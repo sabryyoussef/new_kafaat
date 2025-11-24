@@ -83,6 +83,11 @@
                     <separator/>
                     <filter string="With Contacts" name="with_contacts" domain="[('contact_count', '>', 0)]"/>
                     <filter string="Empty Pools" name="empty_pools" domain="[('contact_count', '=', 0)]"/>
+                    <separator/>
+                    <group>
+                        <filter string="Sales Person" name="group_by_sales_person" context="{'group_by': 'sales_person_id'}"/>
+                        <filter string="Created By" name="group_by_created_by" context="{'group_by': 'created_by'}"/>
+                    </group>
                 </search>
             </field>
         </record>
@@ -216,5 +221,29 @@
             <field name="view_mode">form</field>
             <field name="target">new</field>
         </record>
-</odoo>
 
+        <!-- My Contacts Action -->
+        <record id="action_my_contacts" model="ir.actions.act_window">
+            <field name="name">My Contacts</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- My Leads Action -->
+        <record id="action_my_leads" model="ir.actions.act_window">
+            <field name="name">My Leads</field>
+            <field name="res_model">crm.lead</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- Salesperson Dashboard Action - COMMENTED OUT: Model doesn't exist -->
+        <!--
+        <record id="action_salesperson_dashboard" model="ir.actions.act_window">
+            <field name="name">Sales Dashboard</field>
+            <field name="res_model">salesperson.dashboard</field>
+            <field name="view_mode">form</field>
+            <field name="target">current</field>
+            <field name="context">{'create': False}</field>
+        </record>
+        -->
+</odoo>

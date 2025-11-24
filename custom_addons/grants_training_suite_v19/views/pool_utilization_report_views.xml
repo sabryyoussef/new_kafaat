@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- Pool Utilization Report Form View (Wizard) -->
+    <record id="view_pool_utilization_report_form" model="ir.ui.view">
+        <field name="name">pool.utilization.report.form</field>
+        <field name="model">pool.utilization.report</field>
+        <field name="arch" type="xml">
+            <form string="Pool Utilization Report">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="pool_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                        </group>
+                        <group>
+                            <field name="leads_distributed" readonly="1"/>
+                            <field name="leads_won" readonly="1"/>
+                            <field name="conversion_rate" readonly="1"/>
+                            <field name="idle_leads_count" readonly="1"/>
+                        </group>
+                    </group>
+                    
+                    <notebook>
+                        <page string="Sales Rep Performance" name="sales_rep_performance">
+                            <field name="sales_rep_performance" nolabel="1">
+                                <list>
+                                    <field name="sales_rep_id"/>
+                                    <field name="pool_id"/>
+                                    <field name="leads_assigned"/>
+                                    <field name="leads_won"/>
+                                    <field name="conversion_rate"/>
+                                    <field name="total_revenue"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <footer>
+                    <button string="Generate Report" name="action_view_report" type="object" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Pool Utilization Report Tree View -->
+    <record id="view_pool_utilization_report_tree" model="ir.ui.view">
+        <field name="name">pool.utilization.report.tree</field>
+        <field name="model">pool.utilization.report</field>
+        <field name="arch" type="xml">
+            <list string="Pool Utilization Summary">
+                <field name="pool_id"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="leads_distributed"/>
+                <field name="leads_won"/>
+                <field name="conversion_rate"/>
+                <field name="idle_leads_count"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Pool Utilization Report Graph View - Leads Distributed -->
+    <record id="view_pool_utilization_report_graph_leads" model="ir.ui.view">
+        <field name="name">pool.utilization.report.graph.leads</field>
+        <field name="model">pool.utilization.report</field>
+        <field name="arch" type="xml">
+            <graph string="Leads Distributed per Pool" type="bar">
+                <field name="pool_id" type="row"/>
+                <field name="leads_distributed" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Pool Utilization Report Graph View - Conversion Rate -->
+    <record id="view_pool_utilization_report_graph_conversion" model="ir.ui.view">
+        <field name="name">pool.utilization.report.graph.conversion</field>
+        <field name="model">pool.utilization.report</field>
+        <field name="arch" type="xml">
+            <graph string="Conversion Rate per Pool" type="line">
+                <field name="pool_id" type="row"/>
+                <field name="conversion_rate" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Sales Rep Performance Graph View -->
+    <record id="view_sales_rep_performance_graph" model="ir.ui.view">
+        <field name="name">pool.sales.rep.performance.graph</field>
+        <field name="model">pool.sales.rep.performance</field>
+        <field name="arch" type="xml">
+            <graph string="Sales Rep Performance Comparison" type="bar">
+                <field name="sales_rep_id" type="row"/>
+                <field name="leads_won" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Sales Rep Performance Pivot View -->
+    <record id="view_sales_rep_performance_pivot" model="ir.ui.view">
+        <field name="name">pool.sales.rep.performance.pivot</field>
+        <field name="model">pool.sales.rep.performance</field>
+        <field name="arch" type="xml">
+            <pivot string="Sales Rep Performance Analysis">
+                <field name="sales_rep_id" type="row"/>
+                <field name="pool_id" type="col"/>
+                <field name="leads_assigned" type="measure"/>
+                <field name="leads_won" type="measure"/>
+                <field name="conversion_rate" type="measure"/>
+                <field name="total_revenue" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- Pool Utilization Report Action -->
+    <record id="action_pool_utilization_report" model="ir.actions.act_window">
+        <field name="name">Pool Utilization Report</field>
+        <field name="res_model">pool.utilization.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'create': True}</field>
+    </record>
+
+    <!-- Sales Rep Performance Action -->
+    <record id="action_sales_rep_performance" model="ir.actions.act_window">
+        <field name="name">Sales Rep Performance</field>
+        <field name="res_model">pool.sales.rep.performance</field>
+        <field name="view_mode">list,graph,pivot</field>
+        <field name="context">{}</field>
+    </record>
+
+    <!-- Pool Utilization Report Wizard Action (for menu) -->
+    <record id="action_pool_utilization_report_wizard" model="ir.actions.act_window">
+        <field name="name">Pool Utilization Report</field>
+        <field name="res_model">pool.utilization.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'create': True}</field>
+    </record>
+
+</odoo>
+

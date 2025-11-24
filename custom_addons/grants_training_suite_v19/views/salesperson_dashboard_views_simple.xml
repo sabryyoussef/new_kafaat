@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- My Contacts Action -->
+    <record id="action_my_contacts" model="ir.actions.act_window">
+        <field name="name">My Contacts</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- My Leads Action -->
+    <record id="action_my_leads" model="ir.actions.act_window">
+        <field name="name">My Leads</field>
+        <field name="res_model">crm.lead</field>
+        <field name="view_mode">list,form,kanban</field>
+        <field name="domain">[('partner_id.pool_id.sales_person_id', '=', uid)]</field>
+        <field name="context">{'search_default_my_leads': 1}</field>
+    </record>
+
+</odoo>
+

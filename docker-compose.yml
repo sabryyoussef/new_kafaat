@@ -1,0 +1,50 @@
+services:
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data/pgdata
+    # Port not exposed externally - only accessible from Odoo container
+    # If you need external access, uncomment and change port:
+    # ports:
+    #   - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U odoo"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  odoo:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "10019:8069"
+    environment:
+      - HOST=db
+      - USER=odoo
+      - PASSWORD=odoo
+    volumes:
+      - ./custom_addons:/mnt/extra-addons
+      - ./odoo_enterprise19:/mnt/enterprise-addons
+      - odoo-web-data:/var/lib/odoo
+      - odoo-config:/etc/odoo
+    command: >
+      --addons-path=/mnt/extra-addons,/mnt/enterprise-addons,/usr/lib/python3/dist-packages/odoo/addons
+      --db_host=db
+      --db_user=odoo
+      --db_password=odoo
+      --db_port=5432
+      --without-demo
+    restart: unless-stopped
+
+volumes:
+  odoo-db-data:
+  odoo-web-data:
+  odoo-config:
+

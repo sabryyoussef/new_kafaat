@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- Enhanced Contact Form View with Activity Timeline -->
+    <record id="view_partner_form_activity_tracking" model="ir.ui.view">
+        <field name="name">res.partner.form.activity.tracking</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <!-- Add activity fields to form -->
+            <xpath expr="//field[@name='category_id']" position="after">
+                <field name="pool_id"/>
+                <field name="last_activity_date" readonly="1"/>
+                <field name="days_since_activity" readonly="1"/>
+            </xpath>
+            
+            <!-- Add smart button for activities -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_activities" type="object" class="oe_stat_button" icon="fa-calendar">
+                    <field name="activity_count" widget="statinfo" string="Activities"/>
+                </button>
+            </xpath>
+            
+            <!-- Add activity button in header -->
+            <xpath expr="//header" position="inside">
+                <button name="action_schedule_followup" string="Schedule Activity" type="object" class="btn-primary"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Enhanced Contact List View with Activity Status -->
+    <record id="view_partner_list_activity_tracking" model="ir.ui.view">
+        <field name="name">res.partner.list.activity.tracking</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="pool_id"/>
+                <field name="last_activity_date"/>
+                <field name="days_since_activity" widget="badge" decoration-success="days_since_activity &lt;= 7" decoration-warning="days_since_activity &gt; 7 and days_since_activity &lt;= 30" decoration-danger="days_since_activity &gt; 30"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Enhanced Lead Form View with Activity Timeline -->
+    <record id="view_crm_lead_form_activity_tracking" model="ir.ui.view">
+        <field name="name">crm.lead.form.activity.tracking</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <!-- Add pool and activity fields -->
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="pool_id" readonly="1"/>
+                <field name="last_activity_date" readonly="1"/>
+                <field name="days_since_activity" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Enhanced Lead List View with Activity Status -->
+    <record id="view_crm_lead_list_activity_tracking" model="ir.ui.view">
+        <field name="name">crm.lead.list.activity.tracking</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="pool_id"/>
+                <field name="days_since_activity" widget="badge" decoration-success="days_since_activity &lt;= 7" decoration-warning="days_since_activity &gt; 7 and days_since_activity &lt;= 30" decoration-danger="days_since_activity &gt; 30"/>
+                <field name="last_activity_date"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Activity Timeline View for Contacts -->
+    <record id="view_partner_activity_timeline" model="ir.ui.view">
+        <field name="name">res.partner.activity.timeline</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Activity Timeline" name="activity_timeline">
+                    <field name="activity_ids" nolabel="1">
+                        <list>
+                            <field name="activity_type_id"/>
+                            <field name="summary"/>
+                            <field name="date_deadline"/>
+                            <field name="user_id"/>
+                            <field name="state"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Activity Timeline View for Leads -->
+    <record id="view_crm_lead_activity_timeline" model="ir.ui.view">
+        <field name="name">crm.lead.activity.timeline</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Activity Timeline" name="activity_timeline">
+                    <field name="activity_ids" nolabel="1">
+                        <list>
+                            <field name="activity_type_id"/>
+                            <field name="summary"/>
+                            <field name="date_deadline"/>
+                            <field name="user_id"/>
+                            <field name="state"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
+

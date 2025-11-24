@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- Salesperson Dashboard Access Rules -->
+        <record id="access_salesperson_dashboard_manager" model="ir.model.access">
+            <field name="name">salesperson.dashboard.manager</field>
+            <field name="model_id" ref="model_salesperson_dashboard"/>
+            <field name="group_id" ref="grants_training_suite_v19.group_manager"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+        
+        <record id="access_salesperson_dashboard_salesman" model="ir.model.access">
+            <field name="name">salesperson.dashboard.salesman</field>
+            <field name="model_id" ref="model_salesperson_dashboard"/>
+            <field name="group_id" ref="sales_team.group_sale_salesman"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+        
+        <!-- Pool Utilization Report Access Rules -->
+        <record id="access_pool_utilization_report_manager" model="ir.model.access">
+            <field name="name">pool.utilization.report.manager</field>
+            <field name="model_id" ref="model_pool_utilization_report"/>
+            <field name="group_id" ref="grants_training_suite_v19.group_manager"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+        
+        <record id="access_pool_utilization_report_salesman" model="ir.model.access">
+            <field name="name">pool.utilization.report.salesman</field>
+            <field name="model_id" ref="model_pool_utilization_report"/>
+            <field name="group_id" ref="sales_team.group_sale_salesman"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+        
+        <!-- Pool Sales Rep Performance Access Rules -->
+        <record id="access_pool_sales_rep_performance_manager" model="ir.model.access">
+            <field name="name">pool.sales.rep.performance.manager</field>
+            <field name="model_id" ref="model_pool_sales_rep_performance"/>
+            <field name="group_id" ref="grants_training_suite_v19.group_manager"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+        
+        <record id="access_pool_sales_rep_performance_salesman" model="ir.model.access">
+            <field name="name">pool.sales.rep.performance.salesman</field>
+            <field name="model_id" ref="model_pool_sales_rep_performance"/>
+            <field name="group_id" ref="sales_team.group_sale_salesman"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+        
+    </data>
+</odoo>
+

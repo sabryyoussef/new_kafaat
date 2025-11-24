@@ -37,6 +37,7 @@
         # Security
         'security/grants_training_groups.xml',
         'security/ir.model.access.csv',
+        'security/ir.rule.xml',
         'security/portal_security_rules.xml',
         
         # Data
@@ -70,8 +71,15 @@
         'views/training_dashboard_views.xml',
         'views/notification_system_views.xml',
         'views/certificate_automation_views.xml',
+        'views/salesperson_dashboard_views_minimal.xml',  # MINIMAL TEST - MOVED BEFORE contact_pool_views
         'views/contact_pool_views.xml',
+        # 'views/salesperson_dashboard_views.xml',  # Full dashboard - COMMENTED OUT for debugging
+        'views/activity_tracking_views.xml',  # COMMENTED OUT: Has view errors
+        'views/pool_utilization_report_views.xml',  # COMMENTED OUT: May have issues
         'views/menu_views.xml',
+        
+        # Security (Phase 2 - load after views to ensure models are registered)
+        # 'security/ir.model.access.phase2.xml',  # TEMPORARILY COMMENTED OUT for debugging
         
         # Portal Views
         'views/portal/portal_templates.xml',

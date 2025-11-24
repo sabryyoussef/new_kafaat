@@ -67,3 +67,7 @@ from . import crm_lead
 from . import contact_pool_distribution_wizard
 from . import contact_pool_batch_assignment_wizard
 
+# Phase 2: Sales Pools Phase 2
+from . import salesperson_dashboard
+from . import pool_utilization_report
+

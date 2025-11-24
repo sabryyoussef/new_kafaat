@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- Salesperson Dashboard Kanban View -->
+    <record id="view_salesperson_dashboard_kanban" model="ir.ui.view">
+        <field name="name">salesperson.dashboard.kanban</field>
+        <field name="model">salesperson.dashboard</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_dashboard">
+                <field name="id"/>
+                <field name="total_contacts"/>
+                <field name="total_leads"/>
+                <field name="active_leads"/>
+                <field name="won_leads"/>
+                <field name="recent_activities"/>
+                <field name="idle_contacts"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-6 mb-3">
+                                        <div class="card text-center">
+                                            <div class="card-body">
+                                                <h3 class="card-title" t-esc="record.total_contacts.raw_value"/>
+                                                <p class="card-text">Total Contacts</p>
+                                                <button class="btn btn-primary btn-sm" t-attf-data-action="action_view_my_contacts">
+                                                    View Contacts
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <div class="card text-center">
+                                            <div class="card-body">
+                                                <h3 class="card-title" t-esc="record.total_leads.raw_value"/>
+                                                <p class="card-text">Total Leads</p>
+                                                <button class="btn btn-primary btn-sm" t-attf-data-action="action_view_my_leads">
+                                                    View Leads
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <div class="card text-center">
+                                            <div class="card-body">
+                                                <h3 class="card-title" t-esc="record.active_leads.raw_value"/>
+                                                <p class="card-text">Active Leads</p>
+                                                <button class="btn btn-info btn-sm" t-attf-data-action="action_view_active_leads">
+                                                    View Active
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <div class="card text-center">
+                                            <div class="card-body">
+                                                <h3 class="card-title text-success" t-esc="record.won_leads.raw_value"/>
+                                                <p class="card-text">Won Leads</p>
+                                                <button class="btn btn-success btn-sm" t-attf-data-action="action_view_won_leads">
+                                                    View Won
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <div class="card text-center">
+                                            <div class="card-body">
+                                                <h3 class="card-title" t-esc="record.recent_activities.raw_value"/>
+                                                <p class="card-text">Recent Activities (7 days)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <div class="card text-center">
+                                            <div class="card-body">
+                                                <h3 class="card-title text-warning" t-esc="record.idle_contacts.raw_value"/>
+                                                <p class="card-text">Idle Contacts (30 days)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Salesperson Dashboard Form View -->
+    <record id="view_salesperson_dashboard_form" model="ir.ui.view">
+        <field name="name">salesperson.dashboard.form</field>
+        <field name="model">salesperson.dashboard</field>
+        <field name="arch" type="xml">
+            <form string="Sales Dashboard">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="total_contacts" readonly="1"/>
+                            <field name="total_leads" readonly="1"/>
+                            <field name="active_leads" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="won_leads" readonly="1"/>
+                            <field name="recent_activities" readonly="1"/>
+                            <field name="idle_contacts" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Quick Actions">
+                        <button name="action_view_my_contacts" string="View My Contacts" type="object" class="oe_highlight"/>
+                        <button name="action_view_my_leads" string="View My Leads" type="object" class="oe_highlight"/>
+                        <button name="action_view_active_leads" string="View Active Leads" type="object"/>
+                        <button name="action_view_won_leads" string="View Won Leads" type="object"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Salesperson Dashboard Action -->
+    <record id="action_salesperson_dashboard" model="ir.actions.act_window">
+        <field name="name">Sales Dashboard</field>
+        <field name="res_model">salesperson.dashboard</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="target">current</field>
+        <field name="context">{'create': False}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Sales Dashboard
+            </p>
+            <p>
+                View your assigned contacts, leads, and activity metrics.
+            </p>
+        </field>
+    </record>
+
+    <!-- My Contacts Action -->
+    <record id="action_my_contacts" model="ir.actions.act_window">
+        <field name="name">My Contacts</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">list,form,kanban</field>
+        <field name="domain">[('pool_id.sales_person_id', '=', uid)]</field>
+        <field name="context">{'search_default_my_contacts': 1, 'default_is_company': False}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No contacts assigned
+            </p>
+            <p>
+                Contacts from pools assigned to you will appear here.
+            </p>
+        </field>
+    </record>
+
+    <!-- My Leads Action -->
+    <record id="action_my_leads" model="ir.actions.act_window">
+        <field name="name">My Leads</field>
+        <field name="res_model">crm.lead</field>
+        <field name="view_mode">list,form,kanban</field>
+        <field name="domain">[('partner_id.pool_id.sales_person_id', '=', uid)]</field>
+        <field name="context">{'search_default_my_leads': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No leads assigned
+            </p>
+            <p>
+                Leads from contacts in your assigned pools will appear here.
+            </p>
+        </field>
+    </record>
+
+    <!-- My Contacts List View -->
+    <record id="view_my_contacts_list" model="ir.ui.view">
+        <field name="name">res.partner.my.contacts.list</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="pool_id"/>
+                <field name="last_activity_date"/>
+                <field name="days_since_activity"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- My Contacts Search View -->
+    <record id="view_my_contacts_search" model="ir.ui.view">
+        <field name="name">res.partner.my.contacts.search</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='supplier']" position="after">
+                <filter string="My Contacts" name="my_contacts" domain="[('pool_id.sales_person_id', '=', uid)]"/>
+                <filter string="Idle Contacts" name="idle_contacts" domain="[('days_since_activity', '&gt;', 30)]"/>
+                <filter string="Recent Activity" name="recent_activity" domain="[('days_since_activity', '&lt;=', 7)]"/>
+            </xpath>
+            <xpath expr="//group" position="inside">
+                <filter string="Last Activity Date" name="group_by_last_activity" context="{'group_by': 'last_activity_date'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- My Leads List View -->
+    <record id="view_my_leads_list" model="ir.ui.view">
+        <field name="name">crm.lead.my.leads.list</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="pool_id"/>
+                <field name="days_since_activity"/>
+                <field name="last_activity_date"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- My Leads Search View -->
+    <record id="view_my_leads_search" model="ir.ui.view">
+        <field name="name">crm.lead.my.leads.search</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.view_crm_lead_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='my_pipeline']" position="after">
+                <filter string="My Leads" name="my_leads" domain="[('partner_id.pool_id.sales_person_id', '=', uid)]"/>
+                <filter string="Active" name="active" domain="[('probability', '&lt;', 100), ('probability', '&gt;', 0)]"/>
+                <filter string="Won" name="won" domain="[('probability', '=', 100)]"/>
+                <filter string="Idle Leads" name="idle_leads" domain="[('days_since_activity', '&gt;', 30)]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Graph View: Lead Conversion Trends -->
+    <record id="view_my_leads_graph" model="ir.ui.view">
+        <field name="name">crm.lead.my.leads.graph</field>
+        <field name="model">crm.lead</field>
+        <field name="arch" type="xml">
+            <graph string="Lead Conversion Trends" type="bar">
+                <field name="stage_id" type="row"/>
+                <field name="probability" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+</odoo>
+
