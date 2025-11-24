@@ -393,7 +393,8 @@ class GrantsStudentPortal(CustomerPortal):
     @http.route(['/demo/test'], type='http', auth='public', website=True, sitemap=False)
     def demo_test(self, **kw):
         """Simple test route to verify controller is loaded"""
-        return "<h1>Demo Controller is Working!</h1><p>If you see this, the controller is loaded.</p><a href='/demo'>Go to Demo Index</a>"
+        html = "<html><body><h1>✅ Demo Controller is Working!</h1><p>If you see this, the controller is loaded.</p><a href='/demo'>Go to Demo Index</a></body></html>"
+        return request.make_response(html, headers=[('Content-Type', 'text/html')])
     
     @http.route(['/demo', '/demo/'], type='http', auth='public', website=True, sitemap=False)
     def demo_index(self, **kw):
