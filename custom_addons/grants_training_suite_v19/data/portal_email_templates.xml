@@ -6,7 +6,7 @@
             <field name="name">Student Welcome Email</field>
             <field name="model_id" ref="model_gr_student"/>
             <field name="subject">Welcome to Grants Training Portal - {{ object.name }}</field>
-            <field name="email_from">{{ (object.company_id.email or user.email) }}</field>
+            <field name="email_from">{{ (object.company_id.email or 'noreply@example.com') }}</field>
             <field name="email_to">{{ object.email }}</field>
             <field name="body_html" type="html">
 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
