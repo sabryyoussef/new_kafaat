@@ -47,6 +47,7 @@
         'data/email_templates.xml',
         'data/portal_email_templates.xml',
         'data/contact_pool_won_leads.xml',
+        'data/demo_courses.xml',  # Sample courses for testing
         
         # Views
         'views/intake_batch_views.xml',

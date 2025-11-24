@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- Sample eLearning Courses (slide.channel) -->
+        <record id="demo_elearning_python" model="slide.channel">
+            <field name="name">Python Programming Course</field>
+            <field name="description">Complete Python programming course from beginner to advanced level</field>
+            <field name="channel_type">training</field>
+            <field name="website_published">True</field>
+        </record>
+        
+        <record id="demo_elearning_web" model="slide.channel">
+            <field name="name">Web Development Course</field>
+            <field name="description">Learn HTML, CSS, JavaScript and modern web frameworks</field>
+            <field name="channel_type">training</field>
+            <field name="website_published">True</field>
+        </record>
+        
+        <record id="demo_elearning_database" model="slide.channel">
+            <field name="name">Database Management Course</field>
+            <field name="description">Master SQL, database design, and optimization techniques</field>
+            <field name="channel_type">training</field>
+            <field name="website_published">True</field>
+        </record>
+        
+        <record id="demo_elearning_git" model="slide.channel">
+            <field name="name">Git Version Control Course</field>
+            <field name="description">Learn Git and GitHub for professional software development</field>
+            <field name="channel_type">training</field>
+            <field name="website_published">True</field>
+        </record>
+        
+        <record id="demo_elearning_react" model="slide.channel">
+            <field name="name">React.js Development Course</field>
+            <field name="description">Build modern web applications with React.js</field>
+            <field name="channel_type">training</field>
+            <field name="website_published">True</field>
+        </record>
+        
+        <!-- Sample Training Programs -->
+        <record id="demo_training_program_programming" model="gr.training.program">
+            <field name="name">Programming Fundamentals</field>
+            <field name="description">Foundation courses for programming and software development</field>
+        </record>
+        
+        <record id="demo_training_program_web" model="gr.training.program">
+            <field name="name">Web Development Track</field>
+            <field name="description">Complete web development training program</field>
+        </record>
+        
+        <record id="demo_training_program_data" model="gr.training.program">
+            <field name="name">Data Management Track</field>
+            <field name="description">Database and data management courses</field>
+        </record>
+        
+        <!-- Sample Course Integrations (These will appear in the catalog) -->
+        <record id="demo_course_python" model="gr.course.integration">
+            <field name="name">Python Programming Fundamentals</field>
+            <field name="elearning_course_id" ref="demo_elearning_python"/>
+            <field name="training_program_id" ref="demo_training_program_programming"/>
+            <field name="description">Learn Python from scratch! This comprehensive course covers variables, data types, loops, functions, object-oriented programming, and practical projects. Perfect for beginners with no prior programming experience.</field>
+            <field name="status">active</field>
+        </record>
+        
+        <record id="demo_course_web" model="gr.course.integration">
+            <field name="name">Web Development Bootcamp</field>
+            <field name="elearning_course_id" ref="demo_elearning_web"/>
+            <field name="training_program_id" ref="demo_training_program_web"/>
+            <field name="description">Master modern web development! Build responsive websites using HTML5, CSS3, JavaScript, and popular frameworks. Learn best practices, accessibility, and deployment strategies.</field>
+            <field name="status">active</field>
+        </record>
+        
+        <record id="demo_course_database" model="gr.course.integration">
+            <field name="name">Database Design and SQL Mastery</field>
+            <field name="elearning_course_id" ref="demo_elearning_database"/>
+            <field name="training_program_id" ref="demo_training_program_data"/>
+            <field name="description">Become a database expert! Learn SQL queries, database design principles, normalization, indexing, and performance optimization. Includes hands-on projects with real-world scenarios.</field>
+            <field name="status">active</field>
+        </record>
+        
+        <record id="demo_course_git" model="gr.course.integration">
+            <field name="name">Git Version Control for Teams</field>
+            <field name="elearning_course_id" ref="demo_elearning_git"/>
+            <field name="training_program_id" ref="demo_training_program_programming"/>
+            <field name="description">Master Git and GitHub! Learn branching strategies, pull requests, code reviews, conflict resolution, and collaborative development workflows used by professional teams.</field>
+            <field name="status">active</field>
+        </record>
+        
+        <record id="demo_course_react" model="gr.course.integration">
+            <field name="name">React.js Modern Web Apps</field>
+            <field name="elearning_course_id" ref="demo_elearning_react"/>
+            <field name="training_program_id" ref="demo_training_program_web"/>
+            <field name="description">Build cutting-edge web applications with React! Learn components, hooks, state management, routing, API integration, and deployment. Create real-world projects from scratch.</field>
+            <field name="status">active</field>
+        </record>
+        
+    </data>
+</odoo>
+
