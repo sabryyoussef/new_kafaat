@@ -38,7 +38,7 @@
         </record>
         
         <!-- Record Rule: Sales Reps see only pools where they are assigned -->
-        <record id="contact_pool_salesperson_rule" model="ir.rule">
+        <!-- <record id="contact_pool_salesperson_rule" model="ir.rule">
             <field name="name">Contact Pool: Salesperson Access</field>
             <field name="model_id" ref="grants_training_suite_v19.model_contact_pool"/>
             <field name="domain_force">[
@@ -51,7 +51,7 @@
             <field name="perm_write" eval="False"/>
             <field name="perm_create" eval="False"/>
             <field name="perm_unlink" eval="False"/>
-        </record>
+        </record> -->
         
     </data>
 </odoo>
