@@ -405,10 +405,12 @@ class StudentRegistration(models.Model):
             'name': self.student_name_english,
             'login': self.email,
             'partner_id': partner.id,
-            'groups_id': [(6, 0, [portal_group.id])],
         }
         
         user = self.env['res.users'].sudo().create(user_vals)
+        
+        # Add portal group after user creation
+        user.sudo().write({'groups_id': [(4, portal_group.id)]})
         
         # Send password reset email
         user.sudo().action_reset_password()
