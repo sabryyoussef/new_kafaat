@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_batch_intake_user,batch.intake.user,model_batch_intake,group_batch_intake_user,1,1,1,0
+access_batch_intake_manager,batch.intake.manager,model_batch_intake,group_batch_intake_manager,1,1,1,1
+access_batch_intake_applicant_user,batch.intake.applicant.user,model_batch_intake_applicant,group_batch_intake_user,1,1,1,0
+access_batch_intake_applicant_manager,batch.intake.applicant.manager,model_batch_intake_applicant,group_batch_intake_manager,1,1,1,1
+access_eligibility_criteria_user,eligibility.criteria.user,model_batch_intake_eligibility_criteria,group_batch_intake_user,1,0,0,0
+access_eligibility_criteria_manager,eligibility.criteria.manager,model_batch_intake_eligibility_criteria,group_batch_intake_manager,1,1,1,1
+access_upload_wizard_user,upload.wizard.user,model_batch_intake_upload_wizard,group_batch_intake_user,1,1,1,1
+access_export_wizard_user,export.wizard.user,model_batch_intake_export_wizard,group_batch_intake_user,1,1,1,1
+

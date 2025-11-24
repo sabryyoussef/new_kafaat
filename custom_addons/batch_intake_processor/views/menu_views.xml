@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Root Menu -->
+    <menuitem id="menu_batch_intake_root"
+              name="Batch Intake"
+              sequence="100"
+              web_icon="batch_intake_processor,static/description/icon.png"/>
+    
+    <!-- Main Menus -->
+    <menuitem id="menu_batch_intake_batches"
+              name="Batches"
+              parent="menu_batch_intake_root"
+              action="action_batch_intake"
+              sequence="10"/>
+    
+    <menuitem id="menu_batch_intake_applicants"
+              name="All Applicants"
+              parent="menu_batch_intake_root"
+              action="action_batch_intake_applicant"
+              sequence="20"/>
+    
+    <menuitem id="menu_batch_intake_upload"
+              name="Upload Batch"
+              parent="menu_batch_intake_root"
+              action="action_batch_upload_wizard"
+              sequence="5"/>
+    
+    <!-- Configuration Menu -->
+    <menuitem id="menu_batch_intake_config"
+              name="Configuration"
+              parent="menu_batch_intake_root"
+              sequence="90"/>
+    
+    <menuitem id="menu_batch_intake_criteria"
+              name="Eligibility Criteria"
+              parent="menu_batch_intake_config"
+              action="action_eligibility_criteria"
+              sequence="10"/>
+</odoo>
