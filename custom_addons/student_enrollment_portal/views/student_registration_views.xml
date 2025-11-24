@@ -192,9 +192,9 @@
         <field name="name">student.registration.search</field>
         <field name="model">student.registration</field>
         <field name="arch" type="xml">
-            <search string="Search Student Registrations">
-                <field name="name" string="Registration Number"/>
-                <field name="student_name_english" string="Student Name"/>
+            <search>
+                <field name="name"/>
+                <field name="student_name_english"/>
                 <field name="email"/>
                 <field name="phone"/>
                 <field name="reviewer_id"/>
@@ -206,8 +206,7 @@
                 <filter string="Rejected" name="filter_rejected" domain="[('state', '=', 'rejected')]"/>
                 <filter string="Enrolled" name="filter_enrolled" domain="[('state', '=', 'enrolled')]"/>
                 <separator/>
-                <filter string="In Review" name="filter_in_review" domain="[('state', 'in', ['eligibility_review', 'document_review'])]"/>
-                <filter string="My Reviews" name="filter_my_reviews" domain="[('reviewer_id', '=', uid)]"/>
+                <filter string="In Review" name="filter_in_review" domain="[('state', 'in', ('eligibility_review', 'document_review'))]"/>
                 <group expand="0" string="Group By">
                     <filter string="Status" name="group_state" context="{'group_by': 'state'}"/>
                     <filter string="Reviewer" name="group_reviewer" context="{'group_by': 'reviewer_id'}"/>
