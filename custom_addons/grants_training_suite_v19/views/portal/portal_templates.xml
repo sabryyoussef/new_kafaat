@@ -58,8 +58,9 @@
         </t>
     </template>
 
+    <!-- OLD REGISTRATION TEMPLATES - REMOVED (Use student_enrollment_portal module instead) -->
     <!-- Student Registration Page -->
-    <template id="portal_student_registration" name="Student Registration">
+    <!-- <template id="portal_student_registration" name="Student Registration">
         <t t-call="website.layout">
             <div id="wrap" class="oe_structure">
                 <section class="pt48 pb48">
@@ -180,10 +181,10 @@
                 </section>
             </div>
         </t>
-    </template>
+    </template> -->
 
     <!-- Registration Success Page -->
-    <template id="portal_registration_success" name="Registration Success">
+    <!-- <template id="portal_registration_success" name="Registration Success">
         <t t-call="website.layout">
             <div id="wrap" class="oe_structure">
                 <section class="pt96 pb96">
@@ -204,10 +205,10 @@
                 </section>
             </div>
         </t>
-    </template>
+    </template> -->
 
     <!-- Registration Error Page -->
-    <template id="portal_registration_error" name="Registration Error">
+    <!-- <template id="portal_registration_error" name="Registration Error">
         <t t-call="website.layout">
             <div id="wrap" class="oe_structure">
                 <section class="pt96 pb96">
@@ -229,7 +230,7 @@
                 </section>
             </div>
         </t>
-    </template>
+    </template> -->
 
     <!-- Student Dashboard -->
     <template id="portal_student_dashboard" name="Student Dashboard">
