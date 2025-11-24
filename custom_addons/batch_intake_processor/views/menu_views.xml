@@ -3,8 +3,7 @@
     <!-- Root Menu -->
     <menuitem id="menu_batch_intake_root"
               name="Batch Intake"
-              sequence="100"
-              web_icon="batch_intake_processor,static/description/icon.png"/>
+              sequence="100"/>
     
     <!-- Main Menus -->
     <menuitem id="menu_batch_intake_batches"
