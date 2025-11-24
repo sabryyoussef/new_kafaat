@@ -39,7 +39,9 @@
         'views/document_request_portal_views.xml',
         'views/portal_templates.xml',
     ],
-    'demo': [],
+    'demo': [
+        'data/demo_data.xml',
+    ],
     'installable': True,
     'auto_install': False,
     'application': True,

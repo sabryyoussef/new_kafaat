@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- Demo Document Requests -->
+        <!-- Note: These use demo students from grants_training_suite_v19 -->
+        
+        <record id="demo_doc_request_1" model="gr.document.request.portal">
+            <field name="name">DOC00001</field>
+            <field name="student_id" ref="grants_training_suite_v19.demo_student_1"/>
+            <field name="request_type">upload</field>
+            <field name="document_type">id</field>
+            <field name="description">Uploading my passport copy for verification</field>
+            <field name="status">completed</field>
+            <field name="response_note">Document received and verified. Thank you!</field>
+        </record>
+        
+        <record id="demo_doc_request_2" model="gr.document.request.portal">
+            <field name="name">DOC00002</field>
+            <field name="student_id" ref="grants_training_suite_v19.demo_student_1"/>
+            <field name="request_type">download</field>
+            <field name="document_type">certificate</field>
+            <field name="description">Requesting course completion certificate for Python Programming course</field>
+            <field name="status">in_progress</field>
+            <field name="response_note">Your certificate is being prepared and will be ready soon.</field>
+        </record>
+        
+        <record id="demo_doc_request_3" model="gr.document.request.portal">
+            <field name="name">DOC00003</field>
+            <field name="student_id" ref="grants_training_suite_v19.demo_student_2"/>
+            <field name="request_type">upload</field>
+            <field name="document_type">transcript</field>
+            <field name="description">Academic transcript from previous institution</field>
+            <field name="status">submitted</field>
+        </record>
+        
+        <record id="demo_doc_request_4" model="gr.document.request.portal">
+            <field name="name">DOC00004</field>
+            <field name="student_id" ref="grants_training_suite_v19.demo_student_2"/>
+            <field name="request_type">download</field>
+            <field name="document_type">attendance</field>
+            <field name="description">Need attendance record for visa application</field>
+            <field name="status">completed</field>
+            <field name="response_note">Attendance record attached. Valid for 30 days.</field>
+        </record>
+        
+        <record id="demo_doc_request_5" model="gr.document.request.portal">
+            <field name="name">DOC00005</field>
+            <field name="student_id" ref="grants_training_suite_v19.demo_student_3"/>
+            <field name="request_type">upload</field>
+            <field name="document_type">other</field>
+            <field name="description">Medical certificate for course exemption request</field>
+            <field name="status">rejected</field>
+            <field name="response_note">The medical certificate format is not acceptable. Please provide a certificate from an accredited medical institution.</field>
+        </record>
+        
+        <record id="demo_doc_request_6" model="gr.document.request.portal">
+            <field name="name">DOC00006</field>
+            <field name="student_id" ref="grants_training_suite_v19.demo_student_3"/>
+            <field name="request_type">download</field>
+            <field name="document_type">transcript</field>
+            <field name="description">Official transcript for job application</field>
+            <field name="status">submitted</field>
+        </record>
+        
+    </data>
+</odoo>
+
