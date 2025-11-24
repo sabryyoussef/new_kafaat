@@ -24,7 +24,7 @@ services:
       db:
         condition: service_healthy
     ports:
-      - "10019:8069"
+      - "10020:8069"
     environment:
       - HOST=db
       - USER=odoo
