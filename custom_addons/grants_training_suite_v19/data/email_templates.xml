@@ -184,5 +184,177 @@
             </field>
         </record>
 
+        <!-- Course Enrollment Request Submitted - Notify Admins -->
+        <record id="email_template_enrollment_request_submitted" model="mail.template">
+            <field name="name">Enrollment Request: Submitted (Admin Notification)</field>
+            <field name="model_id" ref="model_course_enrollment_request"/>
+            <field name="subject">New Course Enrollment Request - {{ object.name }}</field>
+            <field name="email_from">{{ (object.company_id.email or 'noreply@example.com') }}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px; font-family: Arial, sans-serif;">
+                    <table border="0" width="100%" cellpadding="0" bgcolor="#ededed" style="padding: 20px; background-color: #ededed">
+                        <tbody>
+                            <tr>
+                                <td align="center" style="min-width: 590px;">
+                                    <table border="0" width="590" cellpadding="0" bgcolor="#ffffff" style="min-width: 590px; background-color: rgb(255, 255, 255); padding: 20px;">
+                                        <tbody>
+                                            <tr>
+                                                <td valign="top" style="font-size: 13px;">
+                                                    <h2 style="color: #0d6efd; margin-top: 0px;">New Enrollment Request</h2>
+                                                    <p>A student has submitted a new course enrollment request that requires your review.</p>
+                                                    
+                                                    <div style="background-color: #f8f9fa; padding: 15px; border-left: 4px solid #0d6efd; margin: 20px 0;">
+                                                        <p style="margin: 0;"><strong>Request Number:</strong> {{ object.name }}</p>
+                                                        <p style="margin: 5px 0 0 0;"><strong>Student:</strong> {{ object.student_id.name }}</p>
+                                                        <p style="margin: 5px 0 0 0;"><strong>Course:</strong> {{ object.course_name }}</p>
+                                                        <p style="margin: 5px 0 0 0;"><strong>Request Date:</strong> {{ format_datetime(object.request_date, dt_format='medium') }}</p>
+                                                    </div>
+                                                    
+                                                    <div style="background-color: #fff3cd; padding: 15px; border-left: 4px solid #ffc107; margin: 20px 0;" t-if="object.notes">
+                                                        <p style="margin: 0;"><strong>Student Notes:</strong></p>
+                                                        <p style="margin: 5px 0 0 0;">{{ object.notes }}</p>
+                                                    </div>
+                                                    
+                                                    <div style="text-align: center; margin: 30px 0;">
+                                                        <a t-attf-href="{{ object.get_base_url() }}/web#id={{ object.id }}&amp;model=course.enrollment.request&amp;view_type=form" 
+                                                           style="background-color: #0d6efd; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block;">
+                                                            Review Request
+                                                        </a>
+                                                    </div>
+                                                    
+                                                    <p style="margin-top: 30px;">
+                                                        Best regards,<br/>
+                                                        <strong>{{ object.company_id.name }}</strong>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </field>
+            <field name="auto_delete" eval="False"/>
+        </record>
+
+        <!-- Course Enrollment Request Approved -->
+        <record id="email_template_enrollment_request_approved" model="mail.template">
+            <field name="name">Enrollment Request: Approved</field>
+            <field name="model_id" ref="model_course_enrollment_request"/>
+            <field name="subject">Enrollment Approved - {{ object.course_name }}</field>
+            <field name="email_from">{{ (object.company_id.email or 'noreply@example.com') }}</field>
+            <field name="email_to">{{ object.student_email }}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px; font-family: Arial, sans-serif;">
+                    <table border="0" width="100%" cellpadding="0" bgcolor="#ededed" style="padding: 20px; background-color: #ededed">
+                        <tbody>
+                            <tr>
+                                <td align="center" style="min-width: 590px;">
+                                    <table border="0" width="590" cellpadding="0" bgcolor="#ffffff" style="min-width: 590px; background-color: rgb(255, 255, 255); padding: 20px;">
+                                        <tbody>
+                                            <tr>
+                                                <td valign="top" style="font-size: 13px;">
+                                                    <h2 style="color: #198754; margin-top: 0px;">🎉 Enrollment Approved!</h2>
+                                                    <p>Dear <strong>{{ object.student_id.name }}</strong>,</p>
+                                                    <p>Great news! Your enrollment request has been approved.</p>
+                                                    
+                                                    <div style="background-color: #d1e7dd; padding: 15px; border-left: 4px solid #198754; margin: 20px 0;">
+                                                        <p style="margin: 0;"><strong>Request Number:</strong> {{ object.name }}</p>
+                                                        <p style="margin: 5px 0 0 0;"><strong>Course:</strong> {{ object.course_name }}</p>
+                                                        <p style="margin: 5px 0 0 0;"><strong>Approval Date:</strong> {{ format_datetime(object.approved_date, dt_format='medium') if object.approved_date else 'Today' }}</p>
+                                                    </div>
+                                                    
+                                                    <h3 style="color: #198754;">What's Next?</h3>
+                                                    <p>A course session has been created for you. You can view your session details and course materials in your student portal.</p>
+                                                    
+                                                    <div style="text-align: center; margin: 30px 0;">
+                                                        <a href="{{ object.get_base_url() }}/my/student" 
+                                                           style="background-color: #198754; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block;">
+                                                            Go to My Dashboard
+                                                        </a>
+                                                    </div>
+                                                    
+                                                    <p>We look forward to seeing you in class!</p>
+                                                    
+                                                    <p style="margin-top: 30px;">
+                                                        Best regards,<br/>
+                                                        <strong>{{ object.company_id.name }}</strong>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </field>
+            <field name="auto_delete" eval="False"/>
+        </record>
+
+        <!-- Course Enrollment Request Rejected -->
+        <record id="email_template_enrollment_request_rejected" model="mail.template">
+            <field name="name">Enrollment Request: Rejected</field>
+            <field name="model_id" ref="model_course_enrollment_request"/>
+            <field name="subject">Enrollment Request Status - {{ object.name }}</field>
+            <field name="email_from">{{ (object.company_id.email or 'noreply@example.com') }}</field>
+            <field name="email_to">{{ object.student_email }}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px; font-family: Arial, sans-serif;">
+                    <table border="0" width="100%" cellpadding="0" bgcolor="#ededed" style="padding: 20px; background-color: #ededed">
+                        <tbody>
+                            <tr>
+                                <td align="center" style="min-width: 590px;">
+                                    <table border="0" width="590" cellpadding="0" bgcolor="#ffffff" style="min-width: 590px; background-color: rgb(255, 255, 255); padding: 20px;">
+                                        <tbody>
+                                            <tr>
+                                                <td valign="top" style="font-size: 13px;">
+                                                    <h2 style="color: #dc3545; margin-top: 0px;">Enrollment Request Update</h2>
+                                                    <p>Dear <strong>{{ object.student_id.name }}</strong>,</p>
+                                                    <p>Thank you for your interest in our courses. After careful review, we are unable to approve your enrollment request at this time.</p>
+                                                    
+                                                    <div style="background-color: #f8d7da; padding: 15px; border-left: 4px solid #dc3545; margin: 20px 0;">
+                                                        <p style="margin: 0;"><strong>Request Number:</strong> {{ object.name }}</p>
+                                                        <p style="margin: 5px 0 0 0;"><strong>Course:</strong> {{ object.course_name }}</p>
+                                                        <p style="margin: 10px 0 0 0;"><strong>Reason:</strong></p>
+                                                        <p style="margin: 5px 0 0 0;">{{ object.rejection_reason or 'Please contact us for more details.' }}</p>
+                                                    </div>
+                                                    
+                                                    <h3 style="color: #0d6efd;">What Can You Do?</h3>
+                                                    <ul>
+                                                        <li>Contact us to discuss alternative options</li>
+                                                        <li>Browse other available courses that might be a better fit</li>
+                                                        <li>Reapply when you meet the requirements</li>
+                                                    </ul>
+                                                    
+                                                    <div style="text-align: center; margin: 30px 0;">
+                                                        <a href="{{ object.get_base_url() }}/my/available-courses" 
+                                                           style="background-color: #0d6efd; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block;">
+                                                            Browse Other Courses
+                                                        </a>
+                                                    </div>
+                                                    
+                                                    <p>If you have any questions, please don't hesitate to contact us.</p>
+                                                    
+                                                    <p style="margin-top: 30px;">
+                                                        Best regards,<br/>
+                                                        <strong>{{ object.company_id.name }}</strong>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </field>
+            <field name="auto_delete" eval="False"/>
+        </record>
+
 
 </odoo>

@@ -95,3 +95,8 @@ access_gr_course_review_manager,gr.course.review.manager,model_gr_course_review,
 access_gr_course_review_agent,gr.course.review.agent,model_gr_course_review,grants_training_suite_v19.group_agent,1,0,0,0
 access_gr_course_review_portal,gr.course.review.portal,model_gr_course_review,base.group_portal,1,1,1,0
 access_gr_course_review_public,gr.course.review.public,model_gr_course_review,base.group_public,1,0,0,0
+access_course_enrollment_request_public,course.enrollment.request.public,model_course_enrollment_request,base.group_public,1,0,0,0
+access_course_enrollment_request_portal,course.enrollment.request.portal,model_course_enrollment_request,base.group_portal,1,1,1,0
+access_course_enrollment_request_user,course.enrollment.request.user,model_course_enrollment_request,base.group_user,1,0,0,0
+access_course_enrollment_request_agent,course.enrollment.request.agent,model_course_enrollment_request,grants_training_suite_v19.group_agent,1,1,1,1
+access_course_enrollment_request_manager,course.enrollment.request.manager,model_course_enrollment_request,grants_training_suite_v19.group_manager,1,1,1,1

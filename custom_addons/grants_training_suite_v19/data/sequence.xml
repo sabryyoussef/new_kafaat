@@ -61,4 +61,14 @@
             <field name="number_increment">1</field>
         </record>
 
+        <!-- Course Enrollment Request Sequence -->
+        <record id="sequence_course_enrollment_request" model="ir.sequence">
+            <field name="name">Course Enrollment Request</field>
+            <field name="code">course.enrollment.request</field>
+            <field name="prefix">ENR</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
 </odoo>

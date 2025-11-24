@@ -81,3 +81,6 @@ from . import pool_utilization_report
 # Phase 4: Student Portal Enhancement
 from . import document_request_portal
 
+# Course Enrollment Request System
+from . import course_enrollment_request
+

@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- Course Enrollment Request Form View -->
+    <record id="view_course_enrollment_request_form" model="ir.ui.view">
+        <field name="name">course.enrollment.request.form</field>
+        <field name="model">course.enrollment.request</field>
+        <field name="arch" type="xml">
+            <form string="Course Enrollment Request">
+                <header>
+                    <button name="action_submit" string="Submit Request" type="object" 
+                            class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_approve" string="Approve" type="object" 
+                            class="btn-success" invisible="state != 'pending'"
+                            groups="grants_training_suite_v19.group_agent,grants_training_suite_v19.group_manager"/>
+                    <button name="action_reject" string="Reject" type="object" 
+                            class="btn-danger" invisible="state != 'pending'"
+                            groups="grants_training_suite_v19.group_agent,grants_training_suite_v19.group_manager"/>
+                    <button name="action_reset_to_draft" string="Reset to Draft" type="object" 
+                            invisible="state != 'rejected'"
+                            groups="grants_training_suite_v19.group_agent,grants_training_suite_v19.group_manager"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,pending,approved"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(grants_training_suite_v19.action_course_session)d" 
+                                type="action" 
+                                class="oe_stat_button" 
+                                icon="fa-calendar"
+                                invisible="not session_id"
+                                context="{'search_default_session_id': session_id}">
+                            <field name="session_id" widget="statinfo" string="Session"/>
+                        </button>
+                    </div>
+                    
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    
+                    <group>
+                        <group>
+                            <field name="student_id" options="{'no_create': True}"/>
+                            <field name="student_email" readonly="1"/>
+                            <field name="course_integration_id" options="{'no_create': True}"/>
+                            <field name="course_name" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="request_date" readonly="1"/>
+                            <field name="approved_by" readonly="1" invisible="state != 'approved'"/>
+                            <field name="approved_date" readonly="1" invisible="state != 'approved'"/>
+                            <field name="rejected_by" readonly="1" invisible="state != 'rejected'"/>
+                            <field name="rejected_date" readonly="1" invisible="state != 'rejected'"/>
+                        </group>
+                    </group>
+                    
+                    <notebook>
+                        <page string="Request Details">
+                            <group>
+                                <field name="notes" placeholder="Why do you want to enroll in this course?"/>
+                            </group>
+                        </page>
+                        <page string="Admin Notes" groups="grants_training_suite_v19.group_agent,grants_training_suite_v19.group_manager">
+                            <group>
+                                <field name="admin_notes" placeholder="Internal notes for admins..."/>
+                                <field name="rejection_reason" placeholder="Reason for rejection (shown to student)..." invisible="state != 'rejected'"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Course Enrollment Request List View -->
+    <record id="view_course_enrollment_request_list" model="ir.ui.view">
+        <field name="name">course.enrollment.request.list</field>
+        <field name="model">course.enrollment.request</field>
+        <field name="arch" type="xml">
+            <list string="Course Enrollment Requests" default_order="request_date desc">
+                <field name="name"/>
+                <field name="student_id"/>
+                <field name="course_name"/>
+                <field name="request_date"/>
+                <field name="state" decoration-info="state == 'draft'" 
+                       decoration-warning="state == 'pending'" 
+                       decoration-success="state == 'approved'" 
+                       decoration-danger="state == 'rejected'"/>
+                <field name="approved_by" optional="hide"/>
+                <field name="approved_date" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Course Enrollment Request Search View -->
+    <record id="view_course_enrollment_request_search" model="ir.ui.view">
+        <field name="name">course.enrollment.request.search</field>
+        <field name="model">course.enrollment.request</field>
+        <field name="arch" type="xml">
+            <search string="Search Enrollment Requests">
+                <field name="name"/>
+                <field name="student_id"/>
+                <field name="course_integration_id"/>
+                <field name="course_name"/>
+                
+                <filter string="Draft" name="filter_draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Pending" name="filter_pending" domain="[('state', '=', 'pending')]"/>
+                <filter string="Approved" name="filter_approved" domain="[('state', '=', 'approved')]"/>
+                <filter string="Rejected" name="filter_rejected" domain="[('state', '=', 'rejected')]"/>
+                
+                <group expand="0" string="Group By">
+                    <filter string="Student" name="group_student" context="{'group_by': 'student_id'}"/>
+                    <filter string="Course" name="group_course" context="{'group_by': 'course_integration_id'}"/>
+                    <filter string="Status" name="group_state" context="{'group_by': 'state'}"/>
+                    <filter string="Request Date" name="group_request_date" context="{'group_by': 'request_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Course Enrollment Request Kanban View -->
+    <record id="view_course_enrollment_request_kanban" model="ir.ui.view">
+        <field name="name">course.enrollment.request.kanban</field>
+        <field name="model">course.enrollment.request</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" class="o_kanban_small_column">
+                <field name="name"/>
+                <field name="student_id"/>
+                <field name="course_name"/>
+                <field name="request_date"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_content">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <field name="name"/>
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_record_body">
+                                    <field name="student_id"/>
+                                    <br/>
+                                    <field name="course_name"/>
+                                </div>
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left">
+                                        <field name="request_date" widget="date"/>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                        <field name="state" widget="label" 
+                                               decoration-info="state == 'draft'" 
+                                               decoration-warning="state == 'pending'" 
+                                               decoration-success="state == 'approved'" 
+                                               decoration-danger="state == 'rejected'"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Course Enrollment Request Action -->
+    <record id="action_course_enrollment_request" model="ir.actions.act_window">
+        <field name="name">Enrollment Requests</field>
+        <field name="res_model">course.enrollment.request</field>
+        <field name="view_mode">list,kanban,form</field>
+        <field name="context">{'search_default_filter_pending': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new enrollment request
+            </p>
+            <p>
+                Students can request to enroll in courses. Admins can approve or reject these requests.
+            </p>
+        </field>
+    </record>
+
+    <!-- Pending Enrollment Requests Action -->
+    <record id="action_course_enrollment_request_pending" model="ir.actions.act_window">
+        <field name="name">Pending Requests</field>
+        <field name="res_model">course.enrollment.request</field>
+        <field name="view_mode">list,kanban,form</field>
+        <field name="domain">[('state', '=', 'pending')]</field>
+        <field name="context">{'search_default_filter_pending': 1}</field>
+    </record>
+
+    <!-- Approved Enrollment Requests Action -->
+    <record id="action_course_enrollment_request_approved" model="ir.actions.act_window">
+        <field name="name">Approved Requests</field>
+        <field name="res_model">course.enrollment.request</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('state', '=', 'approved')]</field>
+        <field name="context">{'search_default_filter_approved': 1}</field>
+    </record>
+
+    <!-- Menu Items -->
+    <menuitem id="menu_course_enrollment_request_root"
+              name="Enrollment Requests"
+              parent="menu_student_management"
+              sequence="25"/>
+
+    <menuitem id="menu_course_enrollment_request_all"
+              name="All Requests"
+              parent="menu_course_enrollment_request_root"
+              action="action_course_enrollment_request"
+              sequence="1"/>
+
+    <menuitem id="menu_course_enrollment_request_pending"
+              name="Pending Requests"
+              parent="menu_course_enrollment_request_root"
+              action="action_course_enrollment_request_pending"
+              sequence="2"/>
+
+    <menuitem id="menu_course_enrollment_request_approved"
+              name="Approved Requests"
+              parent="menu_course_enrollment_request_root"
+              action="action_course_enrollment_request_approved"
+              sequence="3"/>
+
+</odoo>
+

@@ -77,6 +77,7 @@
         # 'views/salesperson_dashboard_views.xml',  # Full dashboard - COMMENTED OUT for debugging
         # 'views/activity_tracking_views.xml',  # COMMENTED OUT: Has view errors
         # 'views/pool_utilization_report_views.xml',  # COMMENTED OUT: May have issues
+        'views/course_enrollment_request_views.xml',  # Course Enrollment Request System
         'views/menu_views.xml',
         
         # Security (Phase 2 - load after views to ensure models are registered)

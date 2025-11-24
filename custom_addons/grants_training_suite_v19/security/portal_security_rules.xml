@@ -57,4 +57,28 @@
             <field name="perm_unlink" eval="False"/>
         </record>
 
+        <!-- Portal users can only see their own enrollment requests -->
+        <record id="course_enrollment_request_portal_rule" model="ir.rule">
+            <field name="name">Portal: Students can only see their own enrollment requests</field>
+            <field name="model_id" ref="model_course_enrollment_request"/>
+            <field name="domain_force">[('student_id.email', '=', user.email)]</field>
+            <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+        <!-- Managers and Agents can see all enrollment requests -->
+        <record id="course_enrollment_request_manager_agent_rule" model="ir.rule">
+            <field name="name">Managers and Agents: See all enrollment requests</field>
+            <field name="model_id" ref="model_course_enrollment_request"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('grants_training_suite_v19.group_manager')), (4, ref('grants_training_suite_v19.group_agent'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
 </odoo>
