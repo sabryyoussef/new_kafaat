@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Batch Intake Form View -->
+    <record id="view_batch_intake_form" model="ir.ui.view">
+        <field name="name">batch.intake.form</field>
+        <field name="model">batch.intake</field>
+        <field name="arch" type="xml">
+            <form string="Batch Intake">
+                <header>
+                    <button name="action_process_file" string="Process File" type="object" 
+                            class="btn-primary" invisible="state not in ['uploaded', 'error']"/>
+                    <button name="action_reset_to_draft" string="Reset to Draft" type="object" 
+                            class="btn-secondary" invisible="state == 'draft'"
+                            confirm="This will delete all applicant records. Continue?"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,uploaded,processing,completed"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_applicants" type="object" 
+                                class="oe_stat_button" icon="fa-users">
+                            <field name="total_count" widget="statinfo" string="Total"/>
+                        </button>
+                        <button name="action_view_applicants" type="object" 
+                                class="oe_stat_button" icon="fa-check" 
+                                context="{'search_default_eligible': 1}">
+                            <field name="eligible_count" widget="statinfo" string="Eligible"/>
+                        </button>
+                        <button name="action_view_applicants" type="object" 
+                                class="oe_stat_button" icon="fa-times"
+                                context="{'search_default_not_eligible': 1}">
+                            <field name="not_eligible_count" widget="statinfo" string="Not Eligible"/>
+                        </button>
+                        <button name="action_export_results" type="object" 
+                                class="oe_stat_button" icon="fa-download"
+                                invisible="state != 'completed'">
+                            <span class="o_stat_text">Export</span>
+                        </button>
+                    </div>
+                    
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    
+                    <group>
+                        <group>
+                            <field name="intake_date"/>
+                            <field name="file_name" readonly="1"/>
+                            <field name="file_type" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="processed_date" readonly="1"/>
+                            <field name="processed_by_id" readonly="1"/>
+                            <field name="eligibility_rate" widget="progressbar"/>
+                        </group>
+                    </group>
+                    
+                    <group string="Description">
+                        <field name="description" nolabel="1" placeholder="Brief description of this intake batch..."/>
+                    </group>
+                    
+                    <notebook>
+                        <page string="File Upload">
+                            <group>
+                                <field name="file_data" widget="binary" filename="file_name"/>
+                            </group>
+                        </page>
+                        
+                        <page string="Processing Notes" invisible="state not in ['completed', 'error']">
+                            <group>
+                                <field name="processing_notes" nolabel="1" invisible="state != 'completed'"/>
+                                <field name="error_log" nolabel="1" invisible="state != 'error'"/>
+                            </group>
+                        </page>
+                        
+                        <page string="Applicants" invisible="state != 'completed'">
+                            <field name="applicant_ids" nolabel="1">
+                                <list string="Applicants">
+                                    <field name="name"/>
+                                    <field name="email"/>
+                                    <field name="age"/>
+                                    <field name="education_level"/>
+                                    <field name="gpa"/>
+                                    <field name="eligibility_status" widget="badge"
+                                           decoration-success="eligibility_status == 'eligible'"
+                                           decoration-danger="eligibility_status == 'not_eligible'"/>
+                                    <field name="eligibility_score"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Batch Intake List View -->
+    <record id="view_batch_intake_list" model="ir.ui.view">
+        <field name="name">batch.intake.list</field>
+        <field name="model">batch.intake</field>
+        <field name="arch" type="xml">
+            <list string="Batch Intakes">
+                <field name="name"/>
+                <field name="intake_date"/>
+                <field name="total_count"/>
+                <field name="eligible_count"/>
+                <field name="not_eligible_count"/>
+                <field name="eligibility_rate" widget="progressbar"/>
+                <field name="state" widget="badge" 
+                       decoration-success="state == 'completed'"
+                       decoration-warning="state == 'processing'"
+                       decoration-danger="state == 'error'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Batch Intake Action -->
+    <record id="action_batch_intake" model="ir.actions.act_window">
+        <field name="name">Batch Intakes</field>
+        <field name="res_model">batch.intake</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first batch intake!
+            </p>
+            <p>
+                Upload Excel or CSV files with applicant data to process in bulk.
+            </p>
+        </field>
+    </record>
+</odoo>
+
