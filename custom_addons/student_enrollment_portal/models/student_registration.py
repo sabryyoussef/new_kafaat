@@ -361,8 +361,9 @@ class StudentRegistration(models.Model):
         self.ensure_one()
         
         student_vals = {
-            'name': self.student_name_english,
-            'name_arabic': self.student_name_arabic,
+            'name': self.student_name_english,  # Full Name
+            'name_english': self.student_name_english,  # English Name (required)
+            'name_arabic': self.student_name_arabic,  # Arabic Name (required)
             'email': self.email,
             'phone': self.phone,
             'birth_date': self.birth_date,
