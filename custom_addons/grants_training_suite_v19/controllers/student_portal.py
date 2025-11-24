@@ -183,69 +183,9 @@ class StudentPortal(CustomerPortal):
             _logger.error('Certificate download error: %s', str(e))
             return request.render('website.404')
     
-    @http.route(['/my/documents'], type='http', auth='user', website=True)
-    def portal_my_documents(self, **kw):
-        """List all document requests"""
-        student = self._get_student_for_portal_user()
-        if not student:
-            return request.render('grants_training_suite_v19.portal_no_student')
-        
-        doc_requests = request.env['gr.document.request.portal'].search([
-            ('student_id', '=', student.id)
-        ], order='create_date desc')
-        
-        values = {
-            'page_name': 'documents',
-            'student': student,
-            'document_requests': doc_requests,
-        }
-        return request.render('grants_training_suite_v19.portal_documents', values)
-    
-    @http.route(['/my/documents/new'], type='http', auth='user', website=True, methods=['GET', 'POST'], csrf=False)
-    def portal_document_request_new(self, **kw):
-        """Create new document request"""
-        student = self._get_student_for_portal_user()
-        if not student:
-            return request.render('grants_training_suite_v19.portal_no_student')
-        
-        if request.httprequest.method == 'POST':
-            try:
-                # Create document request
-                vals = {
-                    'student_id': student.id,
-                    'request_type': kw.get('request_type'),
-                    'document_type': kw.get('document_type'),
-                    'description': kw.get('description'),
-                    'status': 'submitted',
-                }
-                doc_request = request.env['gr.document.request.portal'].sudo().create(vals)
-            
-                # Handle file upload if present
-                uploaded_file = request.httprequest.files.get('file')
-                if uploaded_file and uploaded_file.filename:
-                    file_content = uploaded_file.read()
-                    attachment = request.env['ir.attachment'].sudo().create({
-                        'name': uploaded_file.filename,
-                        'datas': base64.b64encode(file_content),
-                        'res_model': 'gr.document.request.portal',
-                        'res_id': doc_request.id,
-                    })
-                    doc_request.attachment_ids = [(4, attachment.id)]
-                
-                return request.redirect('/my/documents')
-            except Exception as e:
-                _logger.error('Document request creation error: %s', str(e))
-                return request.render('grants_training_suite_v19.portal_document_request_form', {
-                    'page_name': 'new_document_request',
-                    'student': student,
-                    'error': _('Failed to create document request. Please try again.')
-                })
-        
-        values = {
-            'page_name': 'new_document_request',
-            'student': student,
-        }
-        return request.render('grants_training_suite_v19.portal_document_request_form', values)
+    # DOCUMENT MANAGEMENT ROUTES MOVED TO student_documents_portal MODULE
+    # Document request functionality is now handled by the student_documents_portal module
+    # Routes: /my/documents, /my/documents/new, /my/documents/<id>
     
     # OLD REGISTRATION ROUTES REMOVED - Now using student_enrollment_portal module
     # Students should register at /student/register instead

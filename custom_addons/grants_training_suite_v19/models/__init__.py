@@ -79,7 +79,7 @@ from . import salesperson_dashboard
 from . import pool_utilization_report
 
 # Phase 4: Student Portal Enhancement
-from . import document_request_portal
+# Document management moved to student_documents_portal module
 
 # Course Enrollment Request System
 from . import course_enrollment_request
