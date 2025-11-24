@@ -377,3 +377,64 @@ class GrantsStudentPortal(CustomerPortal):
         }
         
         return request.render('grants_training_suite_v19.portal_my_enrollment_requests', values)
+    
+    # ==================== DEMO PORTAL ROUTES (PUBLIC ACCESS) ====================
+    # These routes are for demonstration purposes - no login required
+    
+    def _get_demo_student(self):
+        """Get demo student for public viewing"""
+        student = request.env['gr.student'].sudo().search([
+            ('name', 'ilike', 'demo')
+        ], limit=1)
+        if not student:
+            student = request.env['gr.student'].sudo().search([], limit=1)
+        return student
+    
+    @http.route(['/demo/test'], type='http', auth='public', website=True, sitemap=False)
+    def demo_test(self, **kw):
+        """Simple test route to verify controller is loaded"""
+        return "<h1>Demo Controller is Working!</h1><p>If you see this, the controller is loaded.</p><a href='/demo'>Go to Demo Index</a>"
+    
+    @http.route(['/demo', '/demo/'], type='http', auth='public', website=True, sitemap=False)
+    def demo_index(self, **kw):
+        """Demo portal index with links to all demo pages"""
+        try:
+            student = self._get_demo_student()
+            values = {
+                'page_name': 'demo_index',
+                'student': student,
+            }
+            return request.render('grants_training_suite_v19.demo_portal_index', values)
+        except Exception as e:
+            _logger.error('Demo portal error: %s', str(e))
+            return f"<h1>Demo Portal</h1><p>Error: {str(e)}</p><p><a href='/demo/test'>Test Route</a></p>"
+    
+    @http.route(['/demo/student'], type='http', auth='public', website=True, sitemap=False)
+    def demo_student_dashboard(self, **kw):
+        """Public demo student dashboard"""
+        student = self._get_demo_student()
+        if not student:
+            return request.render('grants_training_suite_v19.demo_no_data', {
+                'message': _('No demo student data available.')
+            })
+        enrollment_requests = request.env['course.enrollment.request'].sudo().search([
+            ('student_id', '=', student.id)
+        ], order='request_date desc', limit=5)
+        pending_requests = enrollment_requests.filtered(lambda r: r.state == 'pending')
+        all_courses = request.env['gr.course.integration'].sudo().search([
+            ('status', '=', 'active')
+        ], limit=5)
+        enrolled_course_ids = student.course_session_ids.mapped('course_integration_id').ids
+        available_courses = all_courses.filtered(lambda c: c.id not in enrolled_course_ids)[:3]
+        values = {
+            'page_name': 'demo_student_dashboard',
+            'student': student,
+            'courses': student.course_session_ids,
+            'progress': student.progress_percentage,
+            'certificates': student.certificate_ids,
+            'enrollment_requests': enrollment_requests,
+            'pending_requests': pending_requests,
+            'available_courses': available_courses,
+            'is_demo': True,
+        }
+        return request.render('grants_training_suite_v19.portal_student_dashboard', values)
