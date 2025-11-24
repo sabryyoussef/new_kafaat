@@ -26,6 +26,19 @@
                                             </div>
                                         </t>
                                         
+                                        <!-- Course Interest Banner -->
+                                        <t t-if="selected_course">
+                                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                                <h5 class="alert-heading">
+                                                    <i class="fa fa-graduation-cap"/> Course of Interest
+                                                </h5>
+                                                <p class="mb-0">
+                                                    You're registering to enroll in: <strong><t t-esc="selected_course.name"/></strong>
+                                                </p>
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
+                                        </t>
+                                        
                                         <form action="/student/register/submit" method="post" enctype="multipart/form-data" class="needs-validation">
                                             
                                             <!-- Personal Information -->
@@ -132,7 +145,13 @@
                                             <div class="mb-3">
                                                 <label for="requested_courses" class="form-label">Courses You Want to Enroll In</label>
                                                 <textarea class="form-control" id="requested_courses" name="requested_courses" 
-                                                          rows="3" placeholder="Please list the courses you are interested in..."><t t-esc="post.get('requested_courses', '')"/></textarea>
+                                                          rows="3" placeholder="Please list the courses you are interested in..."><t t-if="selected_course"><t t-esc="selected_course.name"/>
+</t><t t-esc="post.get('requested_courses', '')"/></textarea>
+                                                <t t-if="selected_course">
+                                                    <small class="form-text text-success">
+                                                        <i class="fa fa-check-circle"/> <strong><t t-esc="selected_course.name"/></strong> has been pre-filled for you
+                                                    </small>
+                                                </t>
                                             </div>
                                             
                                             <!-- Document Upload -->

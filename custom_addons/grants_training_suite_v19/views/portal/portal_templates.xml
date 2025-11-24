@@ -624,9 +624,16 @@
                                                 </p>
                                                 <div class="d-grid gap-2">
                                                     <a t-attf-href="/grants/courses/#{course.id}" class="btn btn-primary">Learn More</a>
-                                                    <a t-attf-href="/my/courses/request/#{course.id}" class="btn btn-outline-success">
-                                                        <i class="fa fa-paper-plane"></i> Request Enrollment
-                                                    </a>
+                                                    <t t-if="request.env.user._is_public()">
+                                                        <a t-attf-href="/student/register?course_id=#{course.id}" class="btn btn-success">
+                                                            <i class="fa fa-user-plus"></i> Register &amp; Enroll
+                                                        </a>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <a t-attf-href="/my/courses/request/#{course.id}" class="btn btn-outline-success">
+                                                            <i class="fa fa-paper-plane"></i> Request Enrollment
+                                                        </a>
+                                                    </t>
                                                 </div>
                                             </div>
                                         </div>
@@ -682,18 +689,28 @@
                                 <div class="card border-0 shadow-sm sticky-top" style="top: 100px;">
                                     <div class="card-body">
                                         <h5 class="card-title">Ready to Enroll?</h5>
-                                        <p class="card-text">Request enrollment in this course to start your learning journey.</p>
-                                        <div class="d-grid gap-2">
-                                            <a t-attf-href="/my/courses/request/{{ course.id }}" class="btn btn-success btn-lg">
-                                                <i class="fa fa-paper-plane"></i> Request Enrollment
-                                            </a>
-                                            <a href="/grants/login" class="btn btn-outline-primary">
-                                                <i class="fa fa-sign-in"></i> Login
-                                            </a>
-                                            <a href="/student/register" class="btn btn-outline-secondary">
-                                                <i class="fa fa-user-plus"></i> New Student? Register
-                                            </a>
-                                        </div>
+                                        <t t-if="request.env.user._is_public()">
+                                            <p class="card-text">Register as a new student to enroll in this course.</p>
+                                            <div class="d-grid gap-2">
+                                                <a t-attf-href="/student/register?course_id={{ course.id }}" class="btn btn-success btn-lg">
+                                                    <i class="fa fa-user-plus"></i> Register &amp; Enroll
+                                                </a>
+                                                <a href="/grants/login" class="btn btn-outline-primary">
+                                                    <i class="fa fa-sign-in"></i> Already Registered? Login
+                                                </a>
+                                            </div>
+                                        </t>
+                                        <t t-else="">
+                                            <p class="card-text">Request enrollment in this course to start your learning journey.</p>
+                                            <div class="d-grid gap-2">
+                                                <a t-attf-href="/my/courses/request/{{ course.id }}" class="btn btn-success btn-lg">
+                                                    <i class="fa fa-paper-plane"></i> Request Enrollment
+                                                </a>
+                                                <a href="/my/student" class="btn btn-outline-primary">
+                                                    <i class="fa fa-home"></i> My Dashboard
+                                                </a>
+                                            </div>
+                                        </t>
                                     </div>
                                 </div>
                             </div>

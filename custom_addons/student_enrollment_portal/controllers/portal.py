@@ -13,14 +13,25 @@ _logger = logging.getLogger(__name__)
 class StudentPortal(CustomerPortal):
     
     @http.route(['/student/register'], type='http', auth='public', website=True, sitemap=False)
-    def student_registration_form(self, **kw):
+    def student_registration_form(self, course_id=None, **kw):
         """Display the student registration form"""
         
         # Get available courses
         courses = request.env['gr.course.integration'].sudo().search([])
         
+        # Get pre-selected course if course_id is provided
+        selected_course = None
+        if course_id:
+            try:
+                selected_course = request.env['gr.course.integration'].sudo().browse(int(course_id))
+                if not selected_course.exists():
+                    selected_course = None
+            except (ValueError, TypeError):
+                selected_course = None
+        
         values = {
             'courses': courses,
+            'selected_course': selected_course,
             'post': kw,  # Pass form data for repopulation
             'error': {},
             'error_message': []
