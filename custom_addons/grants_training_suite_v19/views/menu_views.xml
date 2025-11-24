@@ -81,7 +81,7 @@
             <menuitem
                 id="menu_grants_training_student_document_requests"
                 name="Student Document Requests"
-                action="action_document_request_portal"
+                action="grants_training_suite_v19.action_document_request_portal"
                 sequence="20"/>
         </menuitem>
         
