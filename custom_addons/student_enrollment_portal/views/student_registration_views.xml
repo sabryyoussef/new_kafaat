@@ -198,7 +198,6 @@
                 <field name="email"/>
                 <field name="phone"/>
                 <field name="reviewer_id"/>
-                <separator/>
                 <filter string="Draft" name="filter_draft" domain="[('state', '=', 'draft')]"/>
                 <filter string="Submitted" name="filter_submitted" domain="[('state', '=', 'submitted')]"/>
                 <filter string="Eligibility Review" name="filter_eligibility" domain="[('state', '=', 'eligibility_review')]"/>
@@ -209,7 +208,6 @@
                 <separator/>
                 <filter string="In Review" name="filter_in_review" domain="[('state', 'in', ['eligibility_review', 'document_review'])]"/>
                 <filter string="My Reviews" name="filter_my_reviews" domain="[('reviewer_id', '=', uid)]"/>
-                <separator/>
                 <group expand="0" string="Group By">
                     <filter string="Status" name="group_state" context="{'group_by': 'state'}"/>
                     <filter string="Reviewer" name="group_reviewer" context="{'group_by': 'reviewer_id'}"/>
