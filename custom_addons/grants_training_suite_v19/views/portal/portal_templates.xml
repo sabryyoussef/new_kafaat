@@ -715,35 +715,12 @@
         </t>
     </template>
     
-    <!-- Certificate List with Download -->
+    <!-- Certificate Download Enhancement - Add download button to existing template -->
     <template id="portal_my_certificates_enhanced" name="My Certificates Enhanced" inherit_id="grants_training_suite_v19.portal_my_certificates">
-        <xpath expr="//div[@class='container mt-4']" position="replace">
-            <div class="container mt-4">
-                <h2>My Certificates</h2>
-                
-                <t t-if="not certificates">
-                    <div class="alert alert-info">
-                        <p>You don't have any certificates yet. Complete your courses to earn certificates!</p>
-                    </div>
-                </t>
-                
-                <div class="row">
-                    <t t-foreach="certificates" t-as="cert">
-                        <div class="col-md-6 mb-3">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 t-esc="cert.name"/>
-                                    <p><strong>Type:</strong> <span t-esc="cert.certificate_type"/></p>
-                                    <p><strong>Issue Date:</strong> <span t-field="cert.issue_date"/></p>
-                                    <a t-attf-href="/my/certificates/#{cert.id}/download" class="btn btn-primary">
-                                        <i class="fa fa-download"/> Download PDF
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </t>
-                </div>
-            </div>
+        <xpath expr="//div[hasclass('card-body')]//p[last()]" position="after">
+            <a t-attf-href="/my/certificates/#{cert.id}/download" class="btn btn-primary btn-sm mt-2">
+                <i class="fa fa-download"/> Download PDF
+            </a>
         </xpath>
     </template>
     
