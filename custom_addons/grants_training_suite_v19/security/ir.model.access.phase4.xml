@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Phase 4: Document Request Portal Access Rights -->
+    <!-- Phase 4: Document Request Portal Security -->
     <!-- Load after views to ensure model is registered -->
+    
+    <!-- Portal Security Rule -->
+    <record id="document_request_portal_rule" model="ir.rule">
+        <field name="name">Portal: Students can only see their own document requests</field>
+        <field name="model_id" ref="model_gr_document_request_portal"/>
+        <field name="domain_force">[('student_id.email', '=', user.email)]</field>
+        <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+    
+    <!-- Model Access Rights -->
     
     <record id="access_document_request_portal_manager" model="ir.model.access">
         <field name="name">document.request.portal.manager</field>
