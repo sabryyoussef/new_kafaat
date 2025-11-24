@@ -32,6 +32,9 @@ class StudentPortal(CustomerPortal):
     def student_registration_submit(self, **post):
         """Handle student registration form submission"""
         
+        # Log the post data for debugging
+        _logger.info(f'Registration form submitted with data: {post}')
+        
         error = {}
         error_message = []
         
@@ -42,7 +45,11 @@ class StudentPortal(CustomerPortal):
         ]
         
         for field in required_fields:
-            if not post.get(field):
+            field_value = post.get(field)
+            # Handle list values (in case of multiple selections)
+            if isinstance(field_value, list):
+                field_value = field_value[0] if field_value else None
+            if not field_value:
                 error[field] = 'missing'
         
         if error:
@@ -64,20 +71,28 @@ class StudentPortal(CustomerPortal):
             }
             return request.render('student_enrollment_portal.portal_student_registration_form', values)
         
+        # Helper function to get value from post (handles lists)
+        def get_post_value(key, default=''):
+            value = post.get(key, default)
+            # If value is a list, get the first element
+            if isinstance(value, list):
+                return value[0] if value else default
+            return value
+        
         # Prepare registration data
         registration_vals = {
-            'student_name_english': post.get('student_name_english'),
-            'student_name_arabic': post.get('student_name_arabic'),
-            'email': post.get('email'),
-            'phone': post.get('phone'),
-            'birth_date': post.get('birth_date'),
-            'gender': post.get('gender'),
-            'nationality': post.get('nationality'),
-            'english_level': post.get('english_level'),
-            'native_language': post.get('native_language', 'Arabic'),
-            'has_previous_certificate': bool(post.get('has_previous_certificate')),
-            'certificate_type': post.get('certificate_type') if post.get('has_previous_certificate') else False,
-            'requested_courses': post.get('requested_courses', ''),
+            'student_name_english': get_post_value('student_name_english'),
+            'student_name_arabic': get_post_value('student_name_arabic'),
+            'email': get_post_value('email'),
+            'phone': get_post_value('phone'),
+            'birth_date': get_post_value('birth_date'),
+            'gender': get_post_value('gender'),
+            'nationality': get_post_value('nationality'),
+            'english_level': get_post_value('english_level'),
+            'native_language': get_post_value('native_language', 'Arabic'),
+            'has_previous_certificate': bool(get_post_value('has_previous_certificate')),
+            'certificate_type': get_post_value('certificate_type') if get_post_value('has_previous_certificate') else False,
+            'requested_courses': get_post_value('requested_courses', ''),
             'state': 'draft'
         }
         
@@ -107,8 +122,13 @@ class StudentPortal(CustomerPortal):
             return request.redirect('/student/register/success?reg=%s' % registration.name)
             
         except Exception as e:
-            _logger.error(f'Error creating student registration: {str(e)}')
+            import traceback
+            error_details = traceback.format_exc()
+            _logger.error(f'Error creating student registration: {str(e)}\n{error_details}')
+            
+            # Show detailed error in development/debug mode
             error_message.append(_('An error occurred while submitting your registration. Please try again.'))
+            error_message.append(_('Error details: %s') % str(e))
             
             courses = request.env['gr.course.integration'].sudo().search([])
             values = {
