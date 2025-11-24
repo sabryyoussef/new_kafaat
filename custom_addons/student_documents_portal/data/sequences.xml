@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Sequence for Student-Initiated Document Requests -->
+    <record id="sequence_document_request_portal" model="ir.sequence">
+        <field name="name">Student Document Request</field>
+        <field name="code">gr.document.request.portal</field>
+        <field name="prefix">SDR-</field>
+        <field name="padding">5</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+    
+    <!-- Sequence for Admin-Initiated Document Requests -->
+    <record id="sequence_document_request" model="ir.sequence">
+        <field name="name">Document Request</field>
+        <field name="code">gr.document.request</field>
+        <field name="prefix">DR-</field>
+        <field name="padding">5</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+    
+    <!-- Sequence for Registration Documents -->
+    <record id="sequence_registration_document" model="ir.sequence">
+        <field name="name">Registration Document</field>
+        <field name="code">gr.registration.document</field>
+        <field name="prefix">REGDOC-</field>
+        <field name="padding">5</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+</odoo>
+

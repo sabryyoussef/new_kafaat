@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Registration Document Form View -->
+    <record id="view_registration_document_form" model="ir.ui.view">
+        <field name="name">gr.registration.document.form</field>
+        <field name="model">gr.registration.document</field>
+        <field name="arch" type="xml">
+            <form string="Registration Document">
+                <header>
+                    <button name="action_upload" string="Mark as Uploaded" type="object" 
+                            class="btn-primary" invisible="state != 'pending'"/>
+                    <button name="action_start_review" string="Start Review" type="object" 
+                            class="btn-primary" invisible="state != 'uploaded'"/>
+                    <button name="action_approve" string="Approve" type="object" 
+                            class="btn-success" invisible="state not in ['uploaded', 'under_review']"/>
+                    <button name="action_reject" string="Reject - Reupload Required" type="object" 
+                            class="btn-danger" invisible="state not in ['uploaded', 'under_review']"/>
+                    <button name="action_reset" string="Reset" type="object" 
+                            class="btn-secondary" invisible="state == 'pending'"/>
+                    
+                    <field name="state" widget="statusbar" 
+                           statusbar_visible="pending,uploaded,under_review,approved"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(student_enrollment_portal.action_student_registrations)d" 
+                                type="action" class="oe_stat_button" icon="fa-graduation-cap"
+                                context="{'search_default_id': registration_id}">
+                            <span class="o_stat_text">View</span>
+                            <span class="o_stat_text">Registration</span>
+                        </button>
+                    </div>
+                    
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    
+                    <group>
+                        <group string="Document Information">
+                            <field name="registration_id" readonly="1"/>
+                            <field name="student_name" readonly="1"/>
+                            <field name="document_type" readonly="state != 'pending'"/>
+                            <field name="document_name"/>
+                            <field name="is_mandatory"/>
+                            <field name="required_format"/>
+                            <field name="max_file_size"/>
+                        </group>
+                        <group string="Status">
+                            <field name="state"/>
+                            <field name="registration_state" readonly="1"/>
+                            <field name="can_upload" readonly="1"/>
+                        </group>
+                    </group>
+                    
+                    <notebook>
+                        <page string="Document Details">
+                            <group>
+                                <field name="document_description" colspan="2"/>
+                            </group>
+                            <group string="Uploaded Document" invisible="not document_file">
+                                <field name="document_file" widget="binary" 
+                                       filename="document_filename" 
+                                       readonly="state not in ['pending', 'rejected']"/>
+                                <field name="document_filename" readonly="1"/>
+                            </group>
+                            <group string="Upload New Document" invisible="document_file or state not in ['pending', 'rejected']">
+                                <p class="text-muted">Please upload the required document using the field below.</p>
+                            </group>
+                        </page>
+                        
+                        <page string="Submission Info" invisible="state == 'pending'">
+                            <group>
+                                <group>
+                                    <field name="submitted_by_id" readonly="1"/>
+                                    <field name="submission_date" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="reviewed_by_id" readonly="1"/>
+                                    <field name="review_date" readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
+                        
+                        <page string="Review" invisible="state not in ['under_review', 'approved', 'rejected']">
+                            <group>
+                                <field name="review_notes" placeholder="Add review notes here..."/>
+                            </group>
+                            <group invisible="state != 'rejected'">
+                                <field name="rejection_reason" placeholder="Explain why this document was rejected..."/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Registration Document List View -->
+    <record id="view_registration_document_list" model="ir.ui.view">
+        <field name="name">gr.registration.document.list</field>
+        <field name="model">gr.registration.document</field>
+        <field name="arch" type="xml">
+            <list string="Registration Documents" default_order="create_date desc">
+                <field name="name"/>
+                <field name="registration_id"/>
+                <field name="student_name"/>
+                <field name="document_type"/>
+                <field name="document_name"/>
+                <field name="is_mandatory"/>
+                <field name="submission_date"/>
+                <field name="state" widget="badge" 
+                       decoration-success="state == 'approved'" 
+                       decoration-warning="state == 'under_review'" 
+                       decoration-info="state == 'uploaded'"
+                       decoration-danger="state == 'rejected'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Registration Document Kanban View -->
+    <record id="view_registration_document_kanban" model="ir.ui.view">
+        <field name="name">gr.registration.document.kanban</field>
+        <field name="model">gr.registration.document</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" class="o_kanban_small_column">
+                <field name="name"/>
+                <field name="state"/>
+                <field name="registration_id"/>
+                <field name="student_name"/>
+                <field name="document_type"/>
+                <field name="document_name"/>
+                <field name="is_mandatory"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_content">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <field name="document_type"/>
+                                            <span t-if="record.is_mandatory.raw_value" class="badge badge-danger">Mandatory</span>
+                                        </strong>
+                                    </div>
+                                    <div class="o_kanban_record_subtitle">
+                                        <field name="student_name"/>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_record_body">
+                                    <div class="o_kanban_record_details">
+                                        <div class="o_kanban_record_bottom">
+                                            <div class="oe_kanban_bottom_left">
+                                                <span><field name="registration_id"/></span>
+                                            </div>
+                                            <div class="oe_kanban_bottom_right">
+                                                <span><field name="name"/></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Registration Document Search View -->
+    <record id="view_registration_document_search" model="ir.ui.view">
+        <field name="name">gr.registration.document.search</field>
+        <field name="model">gr.registration.document</field>
+        <field name="arch" type="xml">
+            <search string="Search Registration Documents">
+                <field name="name"/>
+                <field name="registration_id"/>
+                <field name="student_name"/>
+                <field name="document_type"/>
+                <field name="document_name"/>
+                <separator/>
+                <filter string="Pending Upload" name="pending" domain="[('state', '=', 'pending')]"/>
+                <filter string="Uploaded" name="uploaded" domain="[('state', '=', 'uploaded')]"/>
+                <filter string="Under Review" name="under_review" domain="[('state', '=', 'under_review')]"/>
+                <filter string="Approved" name="approved" domain="[('state', '=', 'approved')]"/>
+                <filter string="Rejected" name="rejected" domain="[('state', '=', 'rejected')]"/>
+                <separator/>
+                <filter string="Mandatory Only" name="mandatory" domain="[('is_mandatory', '=', True)]"/>
+                <separator/>
+                <group>
+                    <filter string="Status" name="group_state" context="{'group_by': 'state'}"/>
+                    <filter string="Registration" name="group_registration" context="{'group_by': 'registration_id'}"/>
+                    <filter string="Document Type" name="group_document_type" context="{'group_by': 'document_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Registration Document Action -->
+    <record id="action_registration_document" model="ir.actions.act_window">
+        <field name="name">Registration Documents</field>
+        <field name="res_model">gr.registration.document</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="context">{'search_default_pending': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No registration documents found!
+            </p>
+            <p>
+                Registration documents are created automatically when students submit their registration forms.
+                Documents can include ID cards, certificates, and other required files.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu Item under Student Documents Portal -->
+    <menuitem id="menu_registration_documents"
+              name="Registration Documents"
+              parent="menu_student_documents_root"
+              action="action_registration_document"
+              sequence="30"/>
+              
+    <!-- Root menu for Student Documents Portal (if not exists) -->
+    <menuitem id="menu_student_documents_root"
+              name="Student Documents"
+              sequence="60"
+              web_icon="student_documents_portal,static/description/icon.png"/>
+</odoo>
+

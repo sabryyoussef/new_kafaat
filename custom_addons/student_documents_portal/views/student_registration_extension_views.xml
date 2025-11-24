@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Extend Student Registration Form to show Registration Documents -->
+    <record id="view_student_registration_form_documents" model="ir.ui.view">
+        <field name="name">student.registration.form.documents</field>
+        <field name="model">student.registration</field>
+        <field name="inherit_id" ref="student_enrollment_portal.view_student_registration_form"/>
+        <field name="arch" type="xml">
+            
+            <!-- Add button in button box to view documents -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_documents" type="object" 
+                        class="oe_stat_button" icon="fa-files-o">
+                    <field name="registration_document_count" widget="statinfo" 
+                           string="Documents"/>
+                </button>
+                <button name="action_request_additional_document" type="object" 
+                        class="oe_stat_button" icon="fa-plus"
+                        string="Request Doc"
+                        invisible="state not in ['submitted', 'eligibility_review', 'document_review']"
+                        groups="grants_training_suite_v19.group_manager,grants_training_suite_v19.group_agent"/>
+            </xpath>
+            
+            <!-- Add document status indicators -->
+            <xpath expr="//group[@string='Status']" position="after">
+                <group string="Document Status">
+                    <field name="mandatory_documents_uploaded" readonly="1"/>
+                    <field name="documents_approved" readonly="1"/>
+                </group>
+            </xpath>
+            
+            <!-- Replace the Documents page with registration document list -->
+            <xpath expr="//page[@string='Documents']" position="replace">
+                <page string="Documents">
+                    <field name="registration_document_ids" nolabel="1">
+                        <list string="Registration Documents" editable="bottom">
+                            <field name="document_type"/>
+                            <field name="document_name"/>
+                            <field name="is_mandatory"/>
+                            <field name="document_file" widget="binary" filename="document_filename"/>
+                            <field name="document_filename" invisible="1"/>
+                            <field name="submission_date"/>
+                            <field name="state" widget="badge" 
+                                   decoration-success="state == 'approved'" 
+                                   decoration-warning="state == 'under_review'" 
+                                   decoration-info="state == 'uploaded'"
+                                   decoration-danger="state == 'rejected'"/>
+                            <button name="action_approve" string="Approve" type="object" 
+                                    icon="fa-check" class="btn-success"
+                                    invisible="state not in ['uploaded', 'under_review']"
+                                    groups="grants_training_suite_v19.group_manager,grants_training_suite_v19.group_agent"/>
+                            <button name="action_reject" string="Reject" type="object" 
+                                    icon="fa-times" class="btn-danger"
+                                    invisible="state not in ['uploaded', 'under_review']"
+                                    groups="grants_training_suite_v19.group_manager,grants_training_suite_v19.group_agent"/>
+                        </list>
+                    </field>
+                    
+                    <group string="Document Summary" class="mt-3">
+                        <div class="alert alert-info" role="alert" invisible="documents_approved">
+                            <strong>Pending Documents:</strong> Some mandatory documents are still pending upload or approval.
+                        </div>
+                        <div class="alert alert-success" role="alert" invisible="not documents_approved">
+                            <strong>All Documents Approved:</strong> All mandatory documents have been approved.
+                        </div>
+                    </group>
+                </page>
+            </xpath>
+            
+        </field>
+    </record>
+</odoo>
+
