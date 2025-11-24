@@ -11,7 +11,7 @@
                                 <h1 class="display-3 fw-bold">Welcome to Grants Training Portal</h1>
                                 <p class="lead">Start your learning journey today. Register for courses and track your progress.</p>
                                 <div class="s_banner_buttons d-flex flex-wrap gap-2 pt24">
-                                    <a href="/grants/register" class="btn btn-primary btn-lg">Register Now</a>
+                                    <a href="/student/register" class="btn btn-primary btn-lg">Register Now</a>
                                     <a href="/grants/login" class="btn btn-outline-primary btn-lg">Login</a>
                                     <a href="/grants/courses/catalog" class="btn btn-secondary btn-lg">Browse Courses</a>
                                 </div>
@@ -58,8 +58,23 @@
         </t>
     </template>
 
-    <!-- OLD REGISTRATION TEMPLATES - REMOVED (Use student_enrollment_portal module instead) -->
-    <!-- Student Registration Page -->
+    <!-- ============================================================================
+         OLD REGISTRATION TEMPLATES - COMMENTED OUT FOR REFERENCE
+         ============================================================================
+         
+         These templates are kept for historical reference but are NO LONGER USED.
+         
+         Student registration is now handled by the separate 
+         'student_enrollment_portal' module with enhanced workflow:
+         - Route: /student/register
+         - Features: Multi-step approval workflow, document upload, admin review
+         
+         All links in this file have been updated to point to /student/register
+         
+         These commented templates can be safely deleted if no longer needed.
+         ============================================================================ -->
+    
+    <!-- OLD Student Registration Page -->
     <!-- <template id="portal_student_registration" name="Student Registration">
         <t t-call="website.layout">
             <div id="wrap" class="oe_structure">
@@ -623,7 +638,7 @@
                                                     <t t-esc="course.description[:150]"/>...
                                                 </p>
                                                 <div class="d-grid gap-2">
-                                                    <a t-attf-href="/grants/courses/#{course.id}" class="btn btn-primary">Learn More</a>
+                                                <a t-attf-href="/grants/courses/#{course.id}" class="btn btn-primary">Learn More</a>
                                                     <t t-if="request.env.user._is_public()">
                                                         <a t-attf-href="/student/register?course_id=#{course.id}" class="btn btn-success">
                                                             <i class="fa fa-user-plus"></i> Register &amp; Enroll
@@ -650,7 +665,7 @@
                         </div>
                         
                         <div class="text-center mt-5">
-                            <a href="/grants/register" class="btn btn-lg btn-primary">Register Now</a>
+                            <a href="/student/register" class="btn btn-lg btn-primary">Register Now</a>
                         </div>
                     </div>
                 </section>
@@ -698,7 +713,7 @@
                                                 <a href="/grants/login" class="btn btn-outline-primary">
                                                     <i class="fa fa-sign-in"></i> Already Registered? Login
                                                 </a>
-                                            </div>
+                                    </div>
                                         </t>
                                         <t t-else="">
                                             <p class="card-text">Request enrollment in this course to start your learning journey.</p>

@@ -219,7 +219,7 @@ class StudentPortal(CustomerPortal):
                     'status': 'submitted',
                 }
                 doc_request = request.env['gr.document.request.portal'].sudo().create(vals)
-                
+            
                 # Handle file upload if present
                 uploaded_file = request.httprequest.files.get('file')
                 if uploaded_file and uploaded_file.filename:
