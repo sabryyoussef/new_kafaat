@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Phase 4: Document Request Portal Access Rights -->
+    <!-- Load after views to ensure model is registered -->
+    
+    <record id="access_document_request_portal_manager" model="ir.model.access">
+        <field name="name">document.request.portal.manager</field>
+        <field name="model_id" ref="model_gr_document_request_portal"/>
+        <field name="group_id" ref="grants_training_suite_v19.group_manager"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="access_document_request_portal_agent" model="ir.model.access">
+        <field name="name">document.request.portal.agent</field>
+        <field name="model_id" ref="model_gr_document_request_portal"/>
+        <field name="group_id" ref="grants_training_suite_v19.group_agent"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="access_document_request_portal_user" model="ir.model.access">
+        <field name="name">document.request.portal.user</field>
+        <field name="model_id" ref="model_gr_document_request_portal"/>
+        <field name="group_id" ref="base.group_portal"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+</odoo>
+

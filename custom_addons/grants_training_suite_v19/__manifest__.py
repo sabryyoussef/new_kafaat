@@ -84,6 +84,9 @@
         
         # Portal Views
         'views/portal/portal_templates.xml',
+        
+        # Security (Phase 4 - load after views to ensure models are registered)
+        'security/ir.model.access.phase4.xml',
     ],
     'demo': [
         'demo/simple_demo_data.xml',
