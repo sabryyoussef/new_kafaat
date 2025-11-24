@@ -29,7 +29,7 @@
                     <button name="action_reject_documents" string="Reject" type="object" 
                             invisible="state != 'document_review'"
                             groups="grants_training_suite_v19.group_manager,grants_training_suite_v19.group_agent"/>
-                    <button name="action_final_approve" string="Finalize & Create Student" type="object" 
+                    <button name="action_final_approve" string="Finalize &amp; Create Student" type="object" 
                             class="oe_highlight" 
                             invisible="state != 'approved'"
                             groups="grants_training_suite_v19.group_manager,grants_training_suite_v19.group_agent"/>
