@@ -1,10 +1,20 @@
 # Student Documents Portal
 
-A dedicated Odoo module for managing student document requests with full portal functionality.
+A unified Odoo module for managing ALL student documents with both admin and portal functionality.
 
 ## Overview
 
-This module provides a complete document management system for students, allowing them to:
+This module provides **TWO complete document management workflows**:
+
+### 1. Admin-Initiated Requests (`gr.document.request`)
+Academy requests documents FROM students:
+- Track required enrollment documents
+- Set deadlines and priorities
+- Manage compliance requirements
+- Monitor student submissions
+
+### 2. Student-Initiated Requests (`gr.document.request.portal`)  
+Students manage their own documents:
 - Submit document upload requests
 - Request academy-issued documents
 - Track request status
@@ -12,19 +22,29 @@ This module provides a complete document management system for students, allowin
 
 ## Features
 
-### For Students (Portal Users)
-- **Submit Document Requests**: Upload documents or request documents from the academy
-- **Track Status**: Monitor the progress of document requests in real-time
-- **View History**: Access complete history of all document requests
-- **Download Documents**: Download completed documents directly from the portal
-- **Email Notifications**: Receive automatic updates when request status changes
-
 ### For Administrators
-- **Request Management**: Review and process document requests
-- **Status Tracking**: Update request status (Draft → Submitted → In Progress → Completed/Rejected)
+**Admin-Initiated Workflow** (`gr.document.request`):
+- **Create Document Requests**: Request specific documents from students
+- **Set Deadlines**: Track submission deadlines and send reminders
+- **Priority Management**: Mark documents as mandatory, high priority, urgent
+- **Format Requirements**: Specify required format (original, certified copy, digital)
+- **Review & Approve**: Verify submitted documents and approve/reject
+- **Track Compliance**: Monitor which students have submitted required documents
+
+**Student-Initiated Workflow** (`gr.document.request.portal`):
+- **Process Requests**: Review student document uploads and requests
+- **Status Updates**: Update status (Submitted → In Progress → Completed/Rejected)
 - **Communication**: Add admin responses and notes visible to students
-- **Document Attachment**: Attach processed documents for student download
-- **Email Templates**: Automatic notifications at each stage
+- **Document Handling**: Attach processed documents for student download
+
+### For Students (Portal Users)
+- **Submit Documents**: Proactively upload documents (transcripts, certificates, ID)
+- **Request Documents**: Request academy-issued documents (certificates, transcripts)
+- **Track Both Types**: See admin-requested documents AND self-initiated requests
+- **Real-Time Status**: Monitor progress of all document interactions
+- **Download**: Download completed/approved documents
+- **Email Notifications**: Automatic updates at each stage
+- **Complete History**: Access full history of all document exchanges
 
 ## Portal Routes
 
