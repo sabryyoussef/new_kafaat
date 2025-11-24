@@ -83,12 +83,8 @@
                 <filter string="In Progress" name="in_progress" domain="[('status', '=', 'in_progress')]"/>
                 <filter string="Completed" name="completed" domain="[('status', '=', 'completed')]"/>
                 <filter string="Rejected" name="rejected" domain="[('status', '=', 'rejected')]"/>
-                <filter string="Upload Requests" name="upload" domain="[('request_type', '=', 'upload')]"/>
-                <filter string="Download Requests" name="download" domain="[('request_type', '=', 'download')]"/>
-                <group expand="0" string="Group By">
+                <group string="Group By">
                     <filter string="Student" name="group_student" context="{'group_by': 'student_id'}"/>
-                    <filter string="Request Type" name="group_request_type" context="{'group_by': 'request_type'}"/>
-                    <filter string="Document Type" name="group_document_type" context="{'group_by': 'document_type'}"/>
                     <filter string="Status" name="group_status" context="{'group_by': 'status'}"/>
                 </group>
             </search>
