@@ -18,8 +18,7 @@ from . import student
 # Model 3: Assignment
 from . import assignment
 
-# Model 4: Document Request
-from . import document_request
+# Model 4: Document Request - MOVED TO student_documents_portal module
 
 # Model 5: Course Session
 from . import course_session

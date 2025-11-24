@@ -60,8 +60,8 @@
         'views/homework_attempt_enhanced_views.xml',
         'views/student_views.xml',
         'views/assignment_views.xml',
-        'views/document_request_views.xml',  # Admin tool for gr.document.request
-        # document_request_portal_views.xml DELETED - moved to student_documents_portal module
+        # document_request_views.xml MOVED TO student_documents_portal module
+        # document_request_portal_views.xml MOVED TO student_documents_portal module  
         'views/course_session_views.xml',
         'views/certificate_views.xml',
         'views/certificate_template_views.xml',

@@ -3,17 +3,31 @@
     'name': 'Student Documents Portal',
     'version': '19.0.1.0.0',
     'category': 'Education',
-    'summary': 'Student document management with portal access',
+    'summary': 'Unified document management system with admin and student portal access',
     'description': """
         Student Documents Portal
         ========================
         
-        A dedicated module for managing student documents with portal functionality:
-        - Document request submission from portal
-        - Document upload and verification
-        - Document status tracking
+        A unified document management system with TWO workflows:
+        
+        1. Admin-Initiated Requests (gr.document.request):
+           - Academy requests documents FROM students
+           - Track required documents with deadlines
+           - Manage compliance and enrollment requirements
+           - Priority and mandatory document tracking
+        
+        2. Student-Initiated Requests (gr.document.request.portal):
+           - Students upload documents proactively
+           - Students request academy-issued documents
+           - Self-service portal at /my/documents
+           - Track request status in real-time
+        
+        Features:
+        - Complete document lifecycle management
+        - Email notifications at each stage
+        - Admin review and approval workflows
         - Document download for students
-        - Admin review and approval workflow
+        - Full audit trail via chatter
         
         This module depends on and integrates with Grants Training Suite V19.
     """,
@@ -36,7 +50,8 @@
         'data/email_templates.xml',
         
         # Views
-        'views/document_request_portal_views.xml',
+        'views/document_request_views.xml',  # Admin-initiated document requests
+        'views/document_request_portal_views.xml',  # Student-initiated document requests
         'views/portal_templates.xml',
     ],
     'demo': [
