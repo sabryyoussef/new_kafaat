@@ -29,9 +29,6 @@
                 </group>
             </xpath>
             
-            <!-- Hide old attachment_ids field if it exists -->
-            <xpath expr="//field[@name='attachment_ids']" position="replace"/>
-            
             <!-- Replace the Documents page with registration document list -->
             <xpath expr="//page[@string='Documents']" position="replace">
                 <page string="Documents" name="documents_page">
