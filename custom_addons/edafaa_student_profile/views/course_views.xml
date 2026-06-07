@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_op_course_form_edafaa_code_inherit" model="ir.ui.view">
+        <field name="name">op.course.form.edafaa.code.inherit</field>
+        <field name="model">op.course</field>
+        <field name="inherit_id" ref="openeducat_core.view_op_course_form"/>
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+            <field name="code" position="attributes">
+                <attribute name="placeholder">Leave empty for auto CRS-0001</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

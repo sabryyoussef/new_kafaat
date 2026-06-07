@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <record id="seq_edafaa_op_course" model="ir.sequence">
+        <field name="name">Edafaa Course Code</field>
+        <field name="code">edafaa.op.course</field>
+        <field name="prefix">CRS-</field>
+        <field name="padding">4</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+        <field name="company_id" eval="False"/>
+    </record>
+</odoo>
