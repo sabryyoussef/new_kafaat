@@ -9,6 +9,7 @@
         'data/program_sequence.xml',
         'views/course_views.xml',
         'views/program_views.xml',
+        'views/student_views.xml',
     ],
     'license': 'LGPL-3',
     'installable': True,

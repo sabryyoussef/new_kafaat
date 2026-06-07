@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_op_student_form_edafaa_profile_inherit" model="ir.ui.view">
+        <field name="name">op.student.form.edafaa.profile.inherit</field>
+        <field name="model">op.student</field>
+        <field name="inherit_id" ref="openeducat_core.view_op_student_form"/>
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[contains(@class, 'student-name')]" position="after">
+                <group>
+                    <field name="name_arabic" required="1" placeholder="الاسم بالعربي"/>
+                    <field name="name_english" required="1" placeholder="Full name in English"/>
+                </group>
+            </xpath>
+            <field name="birth_date" position="before">
+                <field name="id_number" required="1"/>
+            </field>
+            <field name="birth_date" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+            <field name="email" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+            <field name="phone" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+            <field name="street" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+            <field name="city" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+            <field name="country_id" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>
