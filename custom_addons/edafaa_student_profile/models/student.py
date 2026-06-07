@@ -21,6 +21,70 @@ class OpStudent(models.Model):
         compute='_compute_sibling_ids',
         help='Other students sharing at least one linked parent.',
     )
+    training_status = fields.Selection(
+        selection=[
+            ('new', 'New Trainee'),
+            ('active', 'Currently Registered'),
+            ('completed', 'Completed'),
+        ],
+        string='Training Status',
+        compute='_compute_training_summary',
+        help='Derived from course enrollments (course_detail_ids).',
+    )
+    current_course_id = fields.Many2one(
+        'op.course',
+        string='Current Course',
+        compute='_compute_training_summary',
+        help='Primary running enrollment: highest ID among running enrollments.',
+    )
+    current_batch_id = fields.Many2one(
+        'op.batch',
+        string='Current Batch',
+        compute='_compute_training_summary',
+        help='Batch from the primary running enrollment.',
+    )
+    running_course_count = fields.Integer(
+        string='Running Courses',
+        compute='_compute_training_summary',
+    )
+    completed_course_count = fields.Integer(
+        string='Completed Courses',
+        compute='_compute_training_summary',
+    )
+
+    @api.depends(
+        'course_detail_ids',
+        'course_detail_ids.state',
+        'course_detail_ids.course_id',
+        'course_detail_ids.batch_id',
+    )
+    def _compute_training_summary(self):
+        """Summarize training lifecycle from op.student.course enrollments."""
+        for student in self:
+            enrollments = student.course_detail_ids
+            running = enrollments.filtered(lambda e: e.state == 'running')
+            finished = enrollments.filtered(lambda e: e.state == 'finished')
+
+            student.running_course_count = len(running)
+            student.completed_course_count = len(finished)
+
+            if not enrollments:
+                student.training_status = 'new'
+            elif running:
+                student.training_status = 'active'
+            elif finished:
+                student.training_status = 'completed'
+            else:
+                # Enrollments exist but none use known running/finished states.
+                student.training_status = 'new'
+
+            if running:
+                primary = running.sorted('id', reverse=True)[:1]
+                student.current_course_id = primary.course_id
+                student.current_batch_id = primary.batch_id
+            else:
+                student.current_course_id = False
+                student.current_batch_id = False
 
     @api.depends('parent_ids', 'parent_ids.student_ids')
     def _compute_sibling_ids(self):

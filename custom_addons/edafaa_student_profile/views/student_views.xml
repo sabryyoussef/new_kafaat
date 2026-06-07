@@ -4,12 +4,24 @@
         <field name="name">op.student.form.edafaa.profile.inherit</field>
         <field name="model">op.student</field>
         <field name="inherit_id" ref="openeducat_core.view_op_student_form"/>
-        <field name="priority" eval="25"/>
+        <field name="priority" eval="30"/>
         <field name="arch" type="xml">
             <xpath expr="//div[contains(@class, 'student-name')]" position="after">
                 <group>
                     <field name="name_arabic" required="1" placeholder="الاسم بالعربي"/>
                     <field name="name_english" required="1" placeholder="Full name in English"/>
+                </group>
+            </xpath>
+            <xpath expr="//field[@name='name_english']/parent::group" position="after">
+                <group string="Training Summary" name="training_summary">
+                    <field name="training_status" widget="badge"
+                           decoration-info="training_status == 'new'"
+                           decoration-success="training_status == 'active'"
+                           decoration-muted="training_status == 'completed'"/>
+                    <field name="current_course_id" readonly="1"/>
+                    <field name="current_batch_id" readonly="1"/>
+                    <field name="running_course_count" readonly="1"/>
+                    <field name="completed_course_count" readonly="1"/>
                 </group>
             </xpath>
             <field name="birth_date" position="before">
