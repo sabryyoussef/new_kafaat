@@ -4,7 +4,7 @@
         <field name="name">op.student.form.edafaa.profile.inherit</field>
         <field name="model">op.student</field>
         <field name="inherit_id" ref="openeducat_core.view_op_student_form"/>
-        <field name="priority" eval="20"/>
+        <field name="priority" eval="25"/>
         <field name="arch" type="xml">
             <xpath expr="//div[contains(@class, 'student-name')]" position="after">
                 <group>
@@ -33,6 +33,25 @@
             <field name="country_id" position="attributes">
                 <attribute name="required">1</attribute>
             </field>
+            <xpath expr="//page[@name='other_information']" position="before">
+                <page string="Family" name="family">
+                    <group string="Parents">
+                        <field name="parent_ids" widget="many2many_tags"
+                               options="{'no_create': True}"/>
+                    </group>
+                    <group string="Siblings">
+                        <field name="sibling_ids" nolabel="1" readonly="1">
+                            <list>
+                                <field name="name_english"/>
+                                <field name="name_arabic"/>
+                                <field name="id_number"/>
+                                <field name="email"/>
+                                <field name="phone"/>
+                            </list>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
         </field>
     </record>
 </odoo>

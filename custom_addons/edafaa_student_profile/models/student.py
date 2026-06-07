@@ -15,6 +15,20 @@ class OpStudent(models.Model):
         required=True,
         tracking=True,
     )
+    sibling_ids = fields.Many2many(
+        'op.student',
+        string='Siblings',
+        compute='_compute_sibling_ids',
+        help='Other students sharing at least one linked parent.',
+    )
+
+    @api.depends('parent_ids', 'parent_ids.student_ids')
+    def _compute_sibling_ids(self):
+        for student in self:
+            if student.parent_ids:
+                student.sibling_ids = student.parent_ids.mapped('student_ids') - student
+            else:
+                student.sibling_ids = False
 
     @api.onchange('name_english')
     def _onchange_name_english(self):

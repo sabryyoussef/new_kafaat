@@ -3,7 +3,10 @@
     'version': '19.0.1.0.0',
     'category': 'Education',
     'summary': 'Student profile enhancements for Edafaa / OpenEduCat SIS',
-    'depends': ['openeducat_core'],
+    'depends': [
+        'openeducat_core',
+        'openeducat_parent',
+    ],
     'data': [
         'data/course_sequence.xml',
         'data/program_sequence.xml',
