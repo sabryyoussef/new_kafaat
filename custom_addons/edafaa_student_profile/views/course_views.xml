@@ -11,4 +11,18 @@
             </field>
         </field>
     </record>
+
+    <record id="view_op_course_form_edafaa_skills_inherit" model="ir.ui.view">
+        <field name="name">op.course.form.edafaa.skills.inherit</field>
+        <field name="model">op.course</field>
+        <field name="inherit_id" ref="openeducat_core.view_op_course_form"/>
+        <field name="priority" eval="25"/>
+        <field name="arch" type="xml">
+            <page name="subject" position="after">
+                <page string="Skills" name="skills">
+                    <field name="skill_ids" nolabel="1" widget="many2many_tags"/>
+                </page>
+            </page>
+        </field>
+    </record>
 </odoo>

@@ -1,8 +1,16 @@
-from odoo import api, models
+from odoo import api, fields, models
 
 
 class OpProgram(models.Model):
     _inherit = 'op.program'
+
+    skill_ids = fields.Many2many(
+        'edafaa.skill',
+        'edafaa_program_skill_rel',
+        'program_id',
+        'skill_id',
+        string='Skills',
+    )
 
     @api.model_create_multi
     def create(self, vals_list):

@@ -11,4 +11,20 @@
             </field>
         </field>
     </record>
+
+    <record id="view_op_program_form_edafaa_skills_inherit" model="ir.ui.view">
+        <field name="name">op.program.form.edafaa.skills.inherit</field>
+        <field name="model">op.program</field>
+        <field name="inherit_id" ref="openeducat_core.view_op_program_form"/>
+        <field name="priority" eval="25"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group[@class='pt-3']" position="after">
+                <notebook>
+                    <page string="Skills" name="skills">
+                        <field name="skill_ids" nolabel="1" widget="many2many_tags"/>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
 </odoo>

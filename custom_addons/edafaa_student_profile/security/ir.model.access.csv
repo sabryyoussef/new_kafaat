@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_edafaa_skill_user,access_edafaa_skill_user,model_edafaa_skill,base.group_user,1,0,0,0
+access_edafaa_skill_faculty,access_edafaa_skill_faculty,model_edafaa_skill,openeducat_core.group_op_faculty,1,0,0,0
+access_edafaa_skill_back_office,access_edafaa_skill_back_office,model_edafaa_skill,openeducat_core.group_op_back_office_admin,1,1,1,1

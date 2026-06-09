@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_edafaa_skill_tree" model="ir.ui.view">
+        <field name="name">edafaa.skill.list</field>
+        <field name="model">edafaa.skill</field>
+        <field name="arch" type="xml">
+            <list string="Skills">
+                <field name="name"/>
+                <field name="code" optional="show"/>
+                <field name="active" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_edafaa_skill_form" model="ir.ui.view">
+        <field name="name">edafaa.skill.form</field>
+        <field name="model">edafaa.skill</field>
+        <field name="arch" type="xml">
+            <form string="Skill">
+                <sheet>
+                    <field name="active" invisible="1"/>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                            invisible="active == True"/>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="description" placeholder="Optional skill description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_edafaa_skill_search" model="ir.ui.view">
+        <field name="name">edafaa.skill.search</field>
+        <field name="model">edafaa.skill</field>
+        <field name="arch" type="xml">
+            <search string="Skills">
+                <field name="name"/>
+                <field name="code"/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_edafaa_skill" model="ir.actions.act_window">
+        <field name="name">Skills</field>
+        <field name="res_model">edafaa.skill</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_edafaa_skill_search"/>
+    </record>
+
+    <menuitem id="menu_edafaa_skill"
+              name="Skills"
+              parent="openeducat_core.menu_op_school_config_course"
+              action="action_edafaa_skill"
+              sequence="15"
+              groups="openeducat_core.group_op_back_office_admin"/>
+</odoo>

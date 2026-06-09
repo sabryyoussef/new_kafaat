@@ -8,8 +8,10 @@
         'openeducat_parent',
     ],
     'data': [
+        'security/ir.model.access.csv',
         'data/course_sequence.xml',
         'data/program_sequence.xml',
+        'views/skill_views.xml',
         'views/course_views.xml',
         'views/program_views.xml',
         'views/student_views.xml',
