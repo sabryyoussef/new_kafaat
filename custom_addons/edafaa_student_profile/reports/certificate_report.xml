@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="action_report_student_course_certificate" model="ir.actions.report">
+        <field name="name">Course Completion Certificate</field>
+        <field name="model">edafaa.student.certificate</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">edafaa_student_profile.report_student_course_certificate</field>
+        <field name="report_file">edafaa_student_profile.report_student_course_certificate</field>
+        <field name="print_report_name">'Certificate - %s' % (object.certificate_number)</field>
+        <field name="binding_model_id" ref="model_edafaa_student_certificate"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_student_course_certificate">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="text-center mt-4 mb-4">
+                            <h2 style="border-bottom: 2px solid #333; display: inline-block; padding-bottom: 8px;">
+                                Certificate of Completion
+                            </h2>
+                        </div>
+                        <div class="mt-4" style="font-size: 16px; line-height: 1.8;">
+                            <p>
+                                <strong>Certificate No.:</strong>
+                                <span t-field="o.certificate_number"/>
+                            </p>
+                            <p>
+                                <strong>Issue Date:</strong>
+                                <span t-field="o.issue_date"/>
+                            </p>
+                            <p class="mt-4">
+                                This is to certify that
+                                <strong t-field="o.student_id.name_english"/>
+                                <t t-if="o.student_id.name_arabic">
+                                    (<span t-field="o.student_id.name_arabic"/>)
+                                </t>
+                                has successfully completed the course
+                                <strong t-field="o.course_id.name"/>
+                                <t t-if="o.batch_id">
+                                    in batch <strong t-field="o.batch_id.name"/>
+                                </t>.
+                            </p>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

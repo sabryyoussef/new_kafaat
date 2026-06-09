@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="mail_template_student_course_certificate" model="mail.template">
+        <field name="name">Student Course Certificate</field>
+        <field name="model_id" ref="model_edafaa_student_certificate"/>
+        <field name="subject">Your certificate {{ object.certificate_number }} — {{ object.course_id.name }}</field>
+        <field name="email_from">{{ (user.email_formatted or user.company_id.email_formatted) }}</field>
+        <field name="email_to">{{ object.student_id.email }}</field>
+        <field name="body_html" type="html">
+<div style="font-family: Arial, sans-serif; font-size: 14px;">
+    <p>Dear <t t-out="object.student_id.name_english or object.student_id.name"/>,</p>
+    <p>
+        Congratulations on completing
+        <strong><t t-out="object.course_id.name"/></strong>.
+    </p>
+    <p>
+        <strong>Certificate number:</strong> <t t-out="object.certificate_number"/><br/>
+        <strong>Issue date:</strong> <t t-out="object.issue_date"/><br/>
+        <strong>Batch:</strong> <t t-out="object.batch_id.name or 'N/A'"/>
+    </p>
+    <p>Your certificate PDF is attached to this email.</p>
+    <p>Best regards,<br/><t t-out="user.company_id.name"/></p>
+</div>
+        </field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+</odoo>

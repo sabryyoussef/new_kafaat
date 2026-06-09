@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="seq_edafaa_student_certificate" model="ir.sequence">
+        <field name="name">Edafaa Student Course Certificate</field>
+        <field name="code">edafaa.student.certificate</field>
+        <field name="prefix">CERT-%(year)s-</field>
+        <field name="padding">4</field>
+    </record>
+</odoo>

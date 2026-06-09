@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_edafaa_student_certificate_tree" model="ir.ui.view">
+        <field name="name">edafaa.student.certificate.list</field>
+        <field name="model">edafaa.student.certificate</field>
+        <field name="arch" type="xml">
+            <list string="Certificates">
+                <field name="certificate_number"/>
+                <field name="student_id"/>
+                <field name="course_id"/>
+                <field name="batch_id" optional="show"/>
+                <field name="issue_date"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-success="state in ('issued', 'sent')"/>
+                <field name="email_sent" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_edafaa_student_certificate_form" model="ir.ui.view">
+        <field name="name">edafaa.student.certificate.form</field>
+        <field name="model">edafaa.student.certificate</field>
+        <field name="arch" type="xml">
+            <form string="Course Certificate">
+                <header>
+                    <button name="action_issue_certificate" string="Issue"
+                            type="object" class="oe_highlight"
+                            invisible="state != 'draft'"/>
+                    <button name="action_download_certificate" string="Download PDF"
+                            type="object"
+                            invisible="not attachment_id"/>
+                    <button name="action_print_certificate" string="Print"
+                            type="object"
+                            invisible="state == 'draft'"/>
+                    <button name="action_send_certificate_email" string="Send by Email"
+                            type="object"
+                            invisible="state not in ('issued', 'sent') or not attachment_id"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,issued,sent"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="certificate_number" readonly="1"/>
+                            <field name="student_id" readonly="state != 'draft'"/>
+                            <field name="student_course_id" readonly="state != 'draft'"
+                                   domain="[('student_id', '=', student_id), ('state', '=', 'finished')]"/>
+                        </group>
+                        <group>
+                            <field name="course_id" readonly="1"/>
+                            <field name="batch_id" readonly="1"/>
+                            <field name="issue_date" readonly="state == 'draft'"/>
+                            <field name="attachment_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="email_sent" readonly="1"/>
+                        <field name="email_sent_date" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="notes" placeholder="Optional notes"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_edafaa_student_certificate_search" model="ir.ui.view">
+        <field name="name">edafaa.student.certificate.search</field>
+        <field name="model">edafaa.student.certificate</field>
+        <field name="arch" type="xml">
+            <search string="Certificates">
+                <field name="certificate_number"/>
+                <field name="student_id"/>
+                <field name="course_id"/>
+                <field name="batch_id"/>
+                <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Issued" name="issued" domain="[('state', '=', 'issued')]"/>
+                <filter string="Sent" name="sent" domain="[('state', '=', 'sent')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_edafaa_student_certificate" model="ir.actions.act_window">
+        <field name="name">Course Certificates</field>
+        <field name="res_model">edafaa.student.certificate</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_edafaa_student_certificate_search"/>
+    </record>
+
+    <menuitem id="menu_edafaa_student_certificate"
+              name="Course Certificates"
+              parent="openeducat_core.menu_op_student_config"
+              action="action_edafaa_student_certificate"
+              sequence="25"
+              groups="openeducat_core.group_op_back_office_admin"/>
+</odoo>

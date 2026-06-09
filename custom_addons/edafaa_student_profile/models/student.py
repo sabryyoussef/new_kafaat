@@ -51,6 +51,31 @@ class OpStudent(models.Model):
         string='Completed Courses',
         compute='_compute_training_summary',
     )
+    certificate_ids = fields.One2many(
+        'edafaa.student.certificate',
+        'student_id',
+        string='Course Certificates',
+    )
+    certificate_count = fields.Integer(
+        string='Certificates',
+        compute='_compute_certificate_count',
+    )
+
+    @api.depends('certificate_ids')
+    def _compute_certificate_count(self):
+        for student in self:
+            student.certificate_count = len(student.certificate_ids)
+
+    def action_view_certificates(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Certificates'),
+            'res_model': 'edafaa.student.certificate',
+            'view_mode': 'list,form',
+            'domain': [('student_id', '=', self.id)],
+            'context': {'default_student_id': self.id},
+        }
 
     @api.depends(
         'course_detail_ids',
