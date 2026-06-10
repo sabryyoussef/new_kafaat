@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="crm.res_partner_menu_customer" model="ir.ui.menu">
+        <field name="name">Students</field>
+        <field name="action" ref="openeducat_core.act_open_op_student_view_2"/>
+    </record>
+</odoo>
