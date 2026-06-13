@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_batch_intake_form_edafaa_bridge_inherit" model="ir.ui.view">
+        <field name="name">batch.intake.form.edafaa.bridge.inherit</field>
+        <field name="model">batch.intake</field>
+        <field name="inherit_id" ref="batch_intake.view_batch_intake_form"/>
+        <field name="arch" type="xml">
+            <field name="batch_id" position="before">
+                <div class="alert alert-info mb-0" role="alert" colspan="2">
+                    Batch Intake is the admission/import cohort. Schedule Batch is the OpenEduCat batch used for enrollment, attendance, and current schedule.
+                </div>
+            </field>
+        </field>
+    </record>
+</odoo>
