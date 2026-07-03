@@ -15,6 +15,26 @@ class OpStudent(models.Model):
         required=True,
         tracking=True,
     )
+    specialization_id = fields.Many2one(
+        'op.program',
+        string='Specialization',
+        tracking=True,
+        help='Training program / specialization (التخصص).',
+    )
+    has_previous_certificate = fields.Boolean(
+        string='Has Previous Certificate',
+        tracking=True,
+    )
+    certificate_type = fields.Char(
+        string='Previous Certificate Type',
+        tracking=True,
+    )
+    has_issued_certificate = fields.Boolean(
+        string='Has Issued Certificate',
+        compute='_compute_has_issued_certificate',
+        search='_search_has_issued_certificate',
+        store=False,
+    )
     sibling_ids = fields.Many2many(
         'op.student',
         string='Siblings',
@@ -60,11 +80,36 @@ class OpStudent(models.Model):
         string='Certificates',
         compute='_compute_certificate_count',
     )
+    has_family_members = fields.Boolean(
+        string='Has Family Members',
+        compute='_compute_has_family_members',
+        help='True when the student has linked parents or siblings.',
+    )
 
     @api.depends('certificate_ids')
     def _compute_certificate_count(self):
         for student in self:
             student.certificate_count = len(student.certificate_ids)
+
+    @api.depends('certificate_ids.state')
+    def _compute_has_issued_certificate(self):
+        for student in self:
+            student.has_issued_certificate = bool(
+                student.certificate_ids.filtered(
+                    lambda c: c.state in ('issued', 'sent')
+                )
+            )
+
+    @api.model
+    def _search_has_issued_certificate(self, operator, value):
+        if operator not in ('=', '!='):
+            return []
+        issued = self.env['edafaa.student.certificate'].search([
+            ('state', 'in', ('issued', 'sent')),
+        ]).mapped('student_id').ids
+        if (operator == '=' and value) or (operator == '!=' and not value):
+            return [('id', 'in', issued or [0])]
+        return [('id', 'not in', issued or [0])]
 
     def action_view_certificates(self):
         self.ensure_one()
@@ -84,7 +129,6 @@ class OpStudent(models.Model):
         'course_detail_ids.batch_id',
     )
     def _compute_training_summary(self):
-        """Summarize training lifecycle from op.student.course enrollments."""
         for student in self:
             enrollments = student.course_detail_ids
             running = enrollments.filtered(lambda e: e.state == 'running')
@@ -100,7 +144,6 @@ class OpStudent(models.Model):
             elif finished:
                 student.training_status = 'completed'
             else:
-                # Enrollments exist but none use known running/finished states.
                 student.training_status = 'new'
 
             if running:
@@ -119,6 +162,12 @@ class OpStudent(models.Model):
             else:
                 student.sibling_ids = False
 
+    @api.depends('parent_ids', 'parent_ids.student_ids')
+    def _compute_has_family_members(self):
+        for student in self:
+            siblings = student.parent_ids.mapped('student_ids') - student
+            student.has_family_members = bool(student.parent_ids or siblings)
+
     @api.onchange('name_english')
     def _onchange_name_english(self):
         if self.name_english:
@@ -130,15 +179,43 @@ class OpStudent(models.Model):
             self._validate_required_profile_vals(vals)
             if vals.get('name_english') and str(vals['name_english']).strip():
                 self._apply_english_name_vals(vals)
-        return super().create(vals_list)
+        students = super().create(vals_list)
+        students._sync_partner_profile_fields()
+        return students
 
     def write(self, vals):
         if vals.get('name_english'):
             self._apply_english_name_vals(vals)
-        return super().write(vals)
+        res = super().write(vals)
+        sync_fields = {
+            'id_number', 'phone', 'street', 'street2', 'city', 'zip',
+            'state_id', 'country_id', 'email',
+        }
+        if sync_fields.intersection(vals):
+            self._sync_partner_profile_fields()
+        return res
+
+    def _sync_partner_profile_fields(self):
+        """Keep res.partner aligned with canonical op.student profile fields."""
+        Partner = self.env['res.partner']
+        for student in self.filtered('partner_id'):
+            partner_vals = {
+                'phone': student.phone,
+                'street': student.street,
+                'street2': student.street2,
+                'city': student.city,
+                'zip': student.zip,
+                'state_id': student.state_id.id if student.state_id else False,
+                'country_id': student.country_id.id if student.country_id else False,
+                'email': student.email,
+            }
+            if 'id_number' in Partner._fields:
+                partner_vals['id_number'] = student.id_number
+            student.partner_id.with_context(
+                edafaa_skip_student_sync=True,
+            ).write(partner_vals)
 
     def _apply_english_name_vals(self, vals):
-        """Sync delegated name and OpenEduCat name parts from English full name."""
         name_english = str(vals['name_english']).strip()
         vals['name'] = name_english
         first_name, last_name = self._split_english_name(name_english)
@@ -153,7 +230,6 @@ class OpStudent(models.Model):
 
     @api.model
     def _split_english_name(self, name_english):
-        """Conservative split: first whitespace-separated token = first_name, rest = last_name."""
         name_english = (name_english or '').strip()
         if not name_english:
             return '', ''
@@ -164,7 +240,6 @@ class OpStudent(models.Model):
 
     @api.model
     def _validate_required_profile_vals(self, vals):
-        """Raise ValidationError before ORM insert when required profile data is missing."""
         field_checks = [
             ('name_arabic', _('Arabic Name')),
             ('name_english', _('English Name')),

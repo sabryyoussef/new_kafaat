@@ -1,0 +1,14 @@
+{
+  "server": "kafaat",
+  "project_id": 10,
+  "parent_wp_id": 87,
+  "parent_subject": "edafa_kafaat_parent",
+  "commit": {
+    "sha": "bb4c7f487dc81a2a2351a822370298b7fd66e9bd",
+    "subject": "test: OP sync test package from server",
+    "author": "OP Sync <op-sync@edafa.local>",
+    "branch": "feature/op86-kafaat-trainee-request",
+    "files": ".op-sync/TEST_PACKAGE.md",
+    "remote": "https://github.com/sabryyoussef/new_kafaat.git"
+  }
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Hide standalone Batch Intake app from normal users -->
+    <record id="batch_intake.menu_batch_intake_main" model="ir.ui.menu">
+        <field name="group_ids" eval="[(6, 0, [ref('base.group_no_one')])]"/>
+    </record>
+
+    <!-- Integrate Batch Intakes under Students → General -->
+    <menuitem id="menu_edafaa_batch_intake_list"
+              name="Batch Intakes"
+              parent="openeducat_core.menu_op_general_student"
+              action="batch_intake.action_batch_intake"
+              sequence="35"
+              groups="batch_intake.group_batch_intake_user"/>
+</odoo>

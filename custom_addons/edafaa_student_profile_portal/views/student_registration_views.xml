@@ -16,7 +16,12 @@
                            readonly="state == 'rejected' or student_id"/>
                     <field name="country_id"
                            readonly="state == 'rejected' or student_id"/>
+                    <field name="specialization_id"
+                           readonly="state == 'rejected' or student_id"/>
                 </group>
+            </xpath>
+            <xpath expr="//field[@name='attachment_ids']/parent::page" position="attributes">
+                <attribute name="invisible">1</attribute>
             </xpath>
         </field>
     </record>

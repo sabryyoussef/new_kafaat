@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_op_admission_integration_manager,op.admission.integration.manager,model_op_admission,openeducat_core.group_op_back_office_admin,1,1,1,1
+access_op_admission_integration_faculty,op.admission.integration.faculty,model_op_admission,openeducat_core.group_op_faculty,1,1,1,0
+access_student_registration_integration_manager,student.registration.integration.manager,model_student_registration,openeducat_core.group_op_back_office_admin,1,1,1,1
+access_batch_intake_integration_manager,batch.intake.integration.manager,model_batch_intake,openeducat_core.group_op_back_office_admin,1,1,1,1
+access_contact_pool_integration_manager,contact.pool.integration.manager,model_contact_pool,openeducat_core.group_op_back_office_admin,1,1,1,1
+

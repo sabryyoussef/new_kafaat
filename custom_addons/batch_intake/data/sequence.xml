@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- Batch Intake Sequence -->
+        <record id="sequence_batch_intake" model="ir.sequence">
+            <field name="name">Batch Intake</field>
+            <field name="code">batch.intake</field>
+            <field name="prefix">BATCH</field>
+            <field name="padding">4</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <!-- Batch Intake Code Sequence -->
+        <record id="sequence_batch_intake_code" model="ir.sequence">
+            <field name="name">Batch Intake Code</field>
+            <field name="code">batch.intake.code</field>
+            <field name="prefix">BI</field>
+            <field name="padding">4</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+        
+    </data>
+</odoo>
+

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <delete model="ir.ui.view" id="crm_team_view_form_lead_target"/>
+    <delete model="ir.ui.view" id="crm_team_view_kanban_dashboard_lead_target"/>
+
+    <record id="crm_team_view_form_pipeline_target" model="ir.ui.view">
+        <field name="name">crm.team.form.pipeline.target</field>
+        <field name="model">crm.team</field>
+        <field name="inherit_id" ref="sale.crm_team_salesteams_view_form"/>
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+            <label for="invoiced_target" position="replace">
+                <label for="pipeline_target" string="Pipeline Target"/>
+            </label>
+            <div id="invoiced_target" position="replace">
+                <div class="o_row" id="pipeline_target">
+                    <field name="pipeline_target" class="oe_inline"/>
+                    <span class="flex-grow-1">opportunities / month</span>
+                </div>
+                <field name="opportunity_count_month" readonly="1"/>
+                <field name="pipeline_target_progress" widget="progressbar" readonly="1"/>
+                <field name="invoiced_target" invisible="1"/>
+            </div>
+        </field>
+    </record>
+
+    <record id="crm_team_view_kanban_dashboard_pipeline_target" model="ir.ui.view">
+        <field name="name">crm.team.kanban.dashboard.pipeline.target</field>
+        <field name="model">crm.team</field>
+        <field name="inherit_id" ref="sale.crm_team_view_kanban_dashboard"/>
+        <field name="arch" type="xml">
+            <field name="invoiced_target" position="replace">
+                <field name="pipeline_target"/>
+                <field name="opportunity_count_month"/>
+            </field>
+        </field>
+    </record>
+</odoo>

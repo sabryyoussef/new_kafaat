@@ -22,6 +22,7 @@
             </xpath>
             <xpath expr="//field[@name='name_english']/parent::group" position="after">
                 <group string="Training Summary" name="training_summary">
+                    <field name="specialization_id" string="Specialization"/>
                     <field name="training_status" widget="badge"
                            decoration-info="training_status == 'new'"
                            decoration-success="training_status == 'active'"
@@ -53,6 +54,9 @@
             <field name="country_id" position="attributes">
                 <attribute name="required">1</attribute>
             </field>
+            <field name="category_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
             <xpath expr="//page[@name='other_information']" position="before">
                 <page string="Family" name="family">
                     <group string="Parents">
@@ -82,21 +86,6 @@
                             <field name="state" widget="badge"
                                    decoration-success="state == 'running'"
                                    decoration-muted="state == 'finished'"/>
-                            <field name="certificate_number" string="Certificate"
-                                   optional="show"/>
-                            <field name="certificate_state" string="Cert. Status"
-                                   optional="hide"/>
-                            <field name="can_issue_certificate" column_invisible="1"/>
-                            <field name="certificate_id" column_invisible="1"/>
-                            <button name="action_issue_certificate" string="Issue Certificate"
-                                    type="object" class="btn-link"
-                                    invisible="not can_issue_certificate"/>
-                            <button name="action_download_certificate" string="Download"
-                                    type="object" class="btn-link"
-                                    invisible="not certificate_id or not certificate_number"/>
-                            <button name="action_send_certificate_email" string="Send Email"
-                                    type="object" class="btn-link"
-                                    invisible="not certificate_id or certificate_state == 'draft'"/>
                             <field name="academic_years_id" optional="show"/>
                             <field name="academic_term_id" optional="hide"/>
                         </list>

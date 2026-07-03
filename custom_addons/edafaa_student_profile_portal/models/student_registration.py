@@ -25,6 +25,11 @@ class StudentRegistration(models.Model):
         string='Country',
         tracking=True,
     )
+    specialization_id = fields.Many2one(
+        'op.program',
+        string='Specialization',
+        tracking=True,
+    )
 
     def _validate_registration_profile_for_student(self):
         """Ensure registration has all data required by Step 3 before op.student create."""
@@ -71,6 +76,8 @@ class StudentRegistration(models.Model):
             'country_id': self.country_id.id,
             'is_company': False,
         }
+        if 'id_number' in self.env['res.partner']._fields:
+            partner_vals['id_number'] = self.id_number.strip()
         if not partner:
             partner = self.env['res.partner'].create(partner_vals)
         else:
@@ -109,6 +116,9 @@ class StudentRegistration(models.Model):
             'city': self.city.strip(),
             'country_id': self.country_id.id,
             'nationality': nationality_country.id if nationality_country else False,
+            'specialization_id': self.specialization_id.id if self.specialization_id else False,
+            'has_previous_certificate': self.has_previous_certificate,
+            'certificate_type': self.certificate_type or False,
         }
 
         student = self.env['op.student'].create(student_vals)

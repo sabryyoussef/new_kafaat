@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- Extend Contact Pool Form View -->
+    <record id="view_contact_pool_form_inherit" model="ir.ui.view">
+        <field name="name">contact.pool.form.inherit</field>
+        <field name="model">contact.pool</field>
+        <field name="inherit_id" ref="contact_pool_manager.view_contact_pool_form"/>
+        <field name="arch" type="xml">
+            <!-- Add button to create admissions -->
+            <xpath expr="//header" position="inside">
+                <button name="action_create_admissions_from_contacts" 
+                        string="Create Admissions from Contacts" 
+                        type="object" 
+                        class="oe_highlight" 
+                        invisible="contact_count == 0"
+                        groups="openeducat_core.group_op_back_office_admin"/>
+            </xpath>
+        </field>
+    </record>
+    
+</odoo>
+

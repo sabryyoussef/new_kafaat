@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_batch_intake_manager,batch.intake.manager,model_batch_intake,batch_intake.group_batch_intake_manager,1,1,1,1
+access_batch_intake_user,batch.intake.user,model_batch_intake,batch_intake.group_batch_intake_user,1,1,1,0
+

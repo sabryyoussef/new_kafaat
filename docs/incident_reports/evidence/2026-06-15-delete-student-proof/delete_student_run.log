@@ -1,0 +1,38 @@
+=== Student Delete Proof ===
+Timestamp (UTC): 2026-06-15 15:35:45 GMT
+Database: TR_K19
+
+--- Step 1: Find or create disposable test parent ---
+Traceback (most recent call last):
+  File "/usr/bin/odoo", line 6, in <module>
+    odoo.cli.main()
+  File "/usr/lib/python3/dist-packages/odoo/cli/command.py", line 133, in main
+    command().run(args)
+  File "/usr/lib/python3/dist-packages/odoo/cli/shell.py", line 162, in run
+    self.shell(dbnames[0])
+  File "/usr/lib/python3/dist-packages/odoo/cli/shell.py", line 148, in shell
+    self.console(local_vars)
+  File "/usr/lib/python3/dist-packages/odoo/cli/shell.py", line 82, in console
+    exec(sys.stdin.read(), local_vars)
+  File "<string>", line 17, in <module>
+odoo.exceptions.UserError: No parent relationship found
+Shell exit: 1
+--- Step 1: Ensure parent relationship ---
+relationship id=1 name=Father
+--- Step 2: Create disposable student ---
+Created student id=8084
+--- Step 3: Create parent linked to student ---
+parent id=1, student parent_ids=[1]
+--- Step 4: Create portal user for student (worst-case child_ids scenario) ---
+student user_id=26
+parent user_id=27, child_ids BEFORE delete=[26]
+--- Step 5: Delete student (unlink) ---
+DELETE RESULT: SUCCESS
+--- Step 6: Post-delete verification ---
+Student record exists after delete: op.student()
+parent child_ids AFTER delete=[]
+Remaining test students: []
+VERIFICATION: PASS
+Shell exit: 0
+--- Cleanup test parent/partner/users ---
+Cleanup: nothing to remove

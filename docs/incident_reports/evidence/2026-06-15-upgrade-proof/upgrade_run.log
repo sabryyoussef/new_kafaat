@@ -1,0 +1,28 @@
+=== Edafaa Student Profile Upgrade Proof ===
+Timestamp (UTC): 2026-06-15 15:07:07 GMT
+Host: 24eb810ac393
+Database: TR_K19
+
+--- Pre-check: module state ---
+          name          |   state   | latest_version 
+------------------------+-----------+----------------
+ edafaa_student_profile | installed | 19.0.1.0.0
+(1 row)
+
+
+--- Pre-check: view 5894 has_family_members? ---
+NO (GOOD)
+
+--- Running upgrade ---
+
+Upgrade exit code: 0
+--- Post-upgrade verification (Odoo shell) ---
+Module state: installed
+Module version: 19.0.1.0.0
+View 5894 contains has_family_members: False
+View 5894 contains parent_ids: True
+View 5894 contains sibling_ids: True
+op.student fields available: ['certificate_count', 'name_arabic', 'parent_ids', 'sibling_ids']
+get_views returned: ['views', 'models']
+VERIFICATION: PASS
+Shell exit: 0

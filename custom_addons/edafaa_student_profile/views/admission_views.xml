@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_op_admission_form_edafaa_op86" model="ir.ui.view">
+        <field name="name">op.admission.form.edafaa.op86</field>
+        <field name="model">op.admission</field>
+        <field name="inherit_id" ref="openeducat_admission.view_op_admission_form"/>
+        <field name="arch" type="xml">
+            <field name="phone" position="after">
+                <field name="id_number"/>
+                <field name="nationality"/>
+                <field name="specialization_id"/>
+            </field>
+        </field>
+    </record>
+</odoo>

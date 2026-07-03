@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- Extend Student Registration Form View -->
+    <record id="view_student_registration_form_inherit" model="ir.ui.view">
+        <field name="name">student.registration.form.inherit</field>
+        <field name="model">student.registration</field>
+        <field name="inherit_id" ref="student_enrollment_portal.view_student_registration_form"/>
+        <field name="arch" type="xml">
+            <!-- Add button to create admission -->
+            <xpath expr="//header" position="inside">
+                <button name="action_create_admission" 
+                        string="Create Admission" 
+                        type="object" 
+                        class="oe_highlight" 
+                        invisible="state != 'approved' or source_admission_id"
+                        groups="openeducat_core.group_op_back_office_admin,openeducat_core.group_op_faculty"/>
+            </xpath>
+            <!-- Add admission link field -->
+            <xpath expr="//field[@name='approved_by']" position="after">
+                <group string="Admission Information" invisible="not source_admission_id">
+                    <field name="source_admission_id" readonly="1" 
+                           options="{'no_create': True, 'no_create_edit': True}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+    
+</odoo>
+

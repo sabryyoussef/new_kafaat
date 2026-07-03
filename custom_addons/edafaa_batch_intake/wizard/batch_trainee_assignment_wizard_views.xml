@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_batch_trainee_assignment_wizard_form" model="ir.ui.view">
+        <field name="name">batch.trainee.assignment.wizard.form</field>
+        <field name="model">batch.trainee.assignment.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Assign Trainees to Batch">
+                <group>
+                    <field name="course_id"/>
+                    <field name="batch_id"/>
+                </group>
+                <field name="student_ids" nolabel="1">
+                    <list>
+                        <field name="name_english"/>
+                        <field name="id_number"/>
+                        <field name="phone"/>
+                        <field name="specialization_id"/>
+                    </list>
+                </field>
+                <footer>
+                    <button name="action_assign" string="Assign" type="object" class="btn-primary"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_batch_trainee_assignment_wizard" model="ir.actions.act_window">
+        <field name="name">Assign to Batch</field>
+        <field name="res_model">batch.trainee.assignment.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="openeducat_core.model_op_student"/>
+        <field name="binding_view_types">list</field>
+    </record>
+</odoo>

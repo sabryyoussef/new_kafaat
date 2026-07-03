@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- Privilege -->
+
+        <record id="module_category_batch_intake_privilege" model="res.groups.privilege">
+            <field name="name">Batch Intake</field>
+            <field name="sequence">1</field>
+        </record>
+
+        <!-- Batch Intake User Group -->
+
+        <record id="group_batch_intake_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="privilege_id" ref="module_category_batch_intake_privilege"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="comment">Access to batch intake management</field>
+        </record>
+        
+        <!-- Batch Intake Manager Group -->
+
+        <record id="group_batch_intake_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="privilege_id" ref="module_category_batch_intake_privilege"/>
+            <field name="implied_ids" eval="[(4, ref('batch_intake.group_batch_intake_user'))]"/>
+            <field name="comment">Full access to all batch intake functionality</field>
+        </record>
+        
+    </data>
+</odoo>
+

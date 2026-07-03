@@ -1,0 +1,13 @@
+{
+  "name": "op86-playwright",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "playwright test op86_screenshots.spec.mjs",
+    "screenshots": "node capture_op86_screenshots.mjs",
+    "test:headed": "playwright test --headed"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.52.0"
+  }
+}

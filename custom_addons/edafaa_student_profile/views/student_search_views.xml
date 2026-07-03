@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_op_student_search_edafaa_op86" model="ir.ui.view">
+        <field name="name">op.student.search.edafaa.op86</field>
+        <field name="model">op.student</field>
+        <field name="inherit_id" ref="openeducat_core.view_op_student_search"/>
+        <field name="arch" type="xml">
+            <filter name="nationality" position="after">
+                <filter name="has_previous_certificate" string="Has Previous Certificate"
+                        domain="[('has_previous_certificate', '=', True)]"/>
+                <filter name="has_issued_certificate" string="Has Issued Certificate"
+                        domain="[('has_issued_certificate', '=', True)]"/>
+                <filter name="group_specialization" string="Specialization"
+                        context="{'group_by': 'specialization_id'}"/>
+                <filter name="group_certificate_type" string="Certificate Type"
+                        context="{'group_by': 'certificate_type'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

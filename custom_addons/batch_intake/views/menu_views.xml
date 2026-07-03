@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Main Menu -->
+        <menuitem id="menu_batch_intake_main"
+                  name="Batch Intake"
+                  sequence="20"
+                  web_icon="fa fa-users,blue,#e8f4f8"/>
+        
+        <!-- Batch Intakes Menu -->
+        <menuitem id="menu_batch_intake_list"
+                  name="Batch Intakes"
+                  parent="menu_batch_intake_main"
+                  action="action_batch_intake"
+                  sequence="10"/>
+        
+    </data>
+</odoo>
+

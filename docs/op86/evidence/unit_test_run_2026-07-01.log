@@ -1,0 +1,21 @@
+OP#86 unit test run — sabry-test — 2026-07-01
+
+Command:
+odoo -c /etc/odoo/odoo.conf -d sabry-test -u edafaa_student_profile \
+  --test-enable --stop-after-init \
+  --test-tags=/edafaa_student_profile,/edafaa_batch_intake --http-port=8079
+
+Result:
+  0 failed, 0 error(s) of 7 tests
+
+Tests:
+  edafaa_student_profile.tests.test_op86_field_bindings
+    - test_student_syncs_id_and_phone_to_partner
+    - test_admission_enroll_maps_id_and_mobile
+    - test_specialization_stored_on_student
+  edafaa_batch_intake.tests.test_batch_intake_bridge
+    - test_edafaa_batch_intake_menu_exists
+    - test_partner_sync_on_student_intake_write
+    - test_process_blocked_without_schedule_batch
+  edafaa_batch_intake.tests.test_op86_batch
+    - test_batch_intake_row_extract
