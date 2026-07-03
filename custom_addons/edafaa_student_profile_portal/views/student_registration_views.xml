@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_student_registration_form_edafaa_profile_bridge" model="ir.ui.view">
+        <field name="name">student.registration.form.edafaa.profile.bridge</field>
+        <field name="model">student.registration</field>
+        <field name="inherit_id" ref="student_enrollment_portal.view_student_registration_form"/>
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='phone']/parent::group" position="after">
+                <group string="Student Profile Required Data">
+                    <field name="id_number"
+                           readonly="state == 'rejected' or student_id"/>
+                    <field name="street"
+                           readonly="state == 'rejected' or student_id"/>
+                    <field name="city"
+                           readonly="state == 'rejected' or student_id"/>
+                    <field name="country_id"
+                           readonly="state == 'rejected' or student_id"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

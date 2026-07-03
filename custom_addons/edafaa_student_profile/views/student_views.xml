@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_op_student_form_edafaa_profile_inherit" model="ir.ui.view">
+        <field name="name">op.student.form.edafaa.profile.inherit</field>
+        <field name="model">op.student</field>
+        <field name="inherit_id" ref="openeducat_core.view_op_student_form"/>
+        <field name="priority" eval="35"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <field name="certificate_count" invisible="1"/>
+                <button name="action_view_certificates" type="object"
+                        class="oe_stat_button" icon="fa-certificate"
+                        invisible="certificate_count == 0">
+                    <field name="certificate_count" widget="statinfo" string="Certificates"/>
+                </button>
+            </xpath>
+            <xpath expr="//div[contains(@class, 'student-name')]" position="after">
+                <group>
+                    <field name="name_arabic" required="1" placeholder="الاسم بالعربي"/>
+                    <field name="name_english" required="1" placeholder="Full name in English"/>
+                </group>
+            </xpath>
+            <xpath expr="//field[@name='name_english']/parent::group" position="after">
+                <group string="Training Summary" name="training_summary">
+                    <field name="training_status" widget="badge"
+                           decoration-info="training_status == 'new'"
+                           decoration-success="training_status == 'active'"
+                           decoration-muted="training_status == 'completed'"/>
+                    <field name="current_course_id" readonly="1"/>
+                    <field name="current_batch_id" readonly="1"/>
+                    <field name="running_course_count" readonly="1"/>
+                    <field name="completed_course_count" readonly="1"/>
+                </group>
+            </xpath>
+            <field name="birth_date" position="before">
+                <field name="id_number" required="1"/>
+            </field>
+            <field name="birth_date" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+            <field name="email" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+            <field name="phone" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+            <field name="street" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+            <field name="city" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+            <field name="country_id" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+            <xpath expr="//page[@name='other_information']" position="before">
+                <page string="Family" name="family">
+                    <group string="Parents">
+                        <field name="parent_ids" widget="many2many_tags"
+                               options="{'no_create': True}"/>
+                    </group>
+                    <group string="Siblings">
+                        <field name="sibling_ids" nolabel="1" readonly="1">
+                            <list>
+                                <field name="name_english"/>
+                                <field name="name_arabic"/>
+                                <field name="id_number"/>
+                                <field name="email"/>
+                                <field name="phone"/>
+                            </list>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//page[@name='family']" position="after">
+                <page string="Courses" name="courses">
+                    <field name="course_detail_ids" nolabel="1" readonly="1">
+                        <list create="false" edit="false" delete="false">
+                            <field name="course_id"/>
+                            <field name="batch_id"/>
+                            <field name="roll_number"/>
+                            <field name="state" widget="badge"
+                                   decoration-success="state == 'running'"
+                                   decoration-muted="state == 'finished'"/>
+                            <field name="certificate_number" string="Certificate"
+                                   optional="show"/>
+                            <field name="certificate_state" string="Cert. Status"
+                                   optional="hide"/>
+                            <field name="can_issue_certificate" column_invisible="1"/>
+                            <field name="certificate_id" column_invisible="1"/>
+                            <button name="action_issue_certificate" string="Issue Certificate"
+                                    type="object" class="btn-link"
+                                    invisible="not can_issue_certificate"/>
+                            <button name="action_download_certificate" string="Download"
+                                    type="object" class="btn-link"
+                                    invisible="not certificate_id or not certificate_number"/>
+                            <button name="action_send_certificate_email" string="Send Email"
+                                    type="object" class="btn-link"
+                                    invisible="not certificate_id or certificate_state == 'draft'"/>
+                            <field name="academic_years_id" optional="show"/>
+                            <field name="academic_term_id" optional="hide"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
