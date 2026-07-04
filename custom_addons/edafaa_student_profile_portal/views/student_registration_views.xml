@@ -7,18 +7,21 @@
         <field name="priority" eval="20"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='phone']/parent::group" position="after">
-                <group string="Student Profile Required Data">
-                    <field name="id_number"
+                <group string="بيانات الملف المطلوبة">
+                    <field name="id_number" string="رقم الهوية"
                            readonly="state == 'rejected' or student_id"/>
-                    <field name="street"
+                    <field name="street" string="الشارع"
                            readonly="state == 'rejected' or student_id"/>
-                    <field name="city"
+                    <field name="city" string="المدينة"
                            readonly="state == 'rejected' or student_id"/>
-                    <field name="country_id"
+                    <field name="country_id" string="الدولة"
                            readonly="state == 'rejected' or student_id"/>
-                    <field name="specialization_id"
+                    <field name="specialization_id" string="التخصص"
                            readonly="state == 'rejected' or student_id"/>
                 </group>
+            </xpath>
+            <xpath expr="//field[@name='phone']" position="attributes">
+                <attribute name="string">رقم الهاتف</attribute>
             </xpath>
             <xpath expr="//field[@name='attachment_ids']/parent::page" position="attributes">
                 <attribute name="invisible">1</attribute>

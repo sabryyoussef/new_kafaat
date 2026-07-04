@@ -86,6 +86,7 @@ class BatchIntake(models.Model):
             if not student:
                 continue
             write_vals = {k: v for k, v in profile.items() if v}
+            write_vals['source_type'] = 'batch_intake'
             if write_vals:
                 write_vals.setdefault('name_arabic', student.name_arabic or student.name)
                 write_vals.setdefault('name_english', student.name_english or student.name)

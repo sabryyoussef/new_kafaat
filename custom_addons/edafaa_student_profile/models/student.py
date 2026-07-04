@@ -5,6 +5,8 @@ from odoo.exceptions import ValidationError
 class OpStudent(models.Model):
     _inherit = 'op.student'
 
+    id_number = fields.Char(string='رقم الهوية', size=64)
+
     name_arabic = fields.Char(
         string='Arabic Name',
         required=True,
@@ -17,9 +19,28 @@ class OpStudent(models.Model):
     )
     specialization_id = fields.Many2one(
         'op.program',
-        string='Specialization',
+        string='التخصص',
         tracking=True,
         help='Training program / specialization (التخصص).',
+    )
+    registration_number = fields.Char(
+        string='رقم التسجيل',
+        readonly=True,
+        tracking=True,
+        copy=False,
+        help='Registration number from student.registration when created via portal.',
+    )
+    source_type = fields.Selection(
+        selection=[
+            ('manual', 'Manual Entry'),
+            ('student_registration', 'Student Registration Portal'),
+            ('batch_intake', 'Batch Intake'),
+            ('contact_pool', 'Contact Pool Manager'),
+        ],
+        string='نوع المصدر',
+        default='manual',
+        tracking=True,
+        help='Source module where this student profile originated from.',
     )
     has_previous_certificate = fields.Boolean(
         string='Has Previous Certificate',
@@ -49,27 +70,32 @@ class OpStudent(models.Model):
         ],
         string='Training Status',
         compute='_compute_training_summary',
+        store=True,
         help='Derived from course enrollments (course_detail_ids).',
     )
     current_course_id = fields.Many2one(
         'op.course',
-        string='Current Course',
+        string='المقرر الحالي',
         compute='_compute_training_summary',
+        store=True,
         help='Primary running enrollment: highest ID among running enrollments.',
     )
     current_batch_id = fields.Many2one(
         'op.batch',
-        string='Current Batch',
+        string='الدفعة الحالية',
         compute='_compute_training_summary',
+        store=True,
         help='Batch from the primary running enrollment.',
     )
     running_course_count = fields.Integer(
         string='Running Courses',
         compute='_compute_training_summary',
+        store=True,
     )
     completed_course_count = fields.Integer(
         string='Completed Courses',
         compute='_compute_training_summary',
+        store=True,
     )
     certificate_ids = fields.One2many(
         'edafaa.student.certificate',
@@ -243,11 +269,11 @@ class OpStudent(models.Model):
         field_checks = [
             ('name_arabic', _('Arabic Name')),
             ('name_english', _('English Name')),
-            ('id_number', _('ID Number')),
+            ('id_number', _('رقم الهوية')),
             ('email', _('Email')),
-            ('phone', _('Phone')),
-            ('street', _('Street')),
-            ('city', _('City')),
+            ('phone', _('رقم الهاتف')),
+            ('street', _('الشارع')),
+            ('city', _('المدينة')),
         ]
         missing = []
         for field_name, label in field_checks:
@@ -260,7 +286,7 @@ class OpStudent(models.Model):
         if 'birth_date' not in vals or not vals.get('birth_date'):
             missing.append(_('Birth Date'))
         if 'country_id' not in vals or not vals.get('country_id'):
-            missing.append(_('Country'))
+            missing.append(_('الدولة'))
         if missing:
             raise ValidationError(
                 _('Missing required student profile field(s): %s')
@@ -275,11 +301,11 @@ class OpStudent(models.Model):
         field_checks = [
             ('name_arabic', _('Arabic Name')),
             ('name_english', _('English Name')),
-            ('id_number', _('ID Number')),
+            ('id_number', _('رقم الهوية')),
             ('email', _('Email')),
-            ('phone', _('Phone')),
-            ('street', _('Street')),
-            ('city', _('City')),
+            ('phone', _('رقم الهاتف')),
+            ('street', _('الشارع')),
+            ('city', _('المدينة')),
         ]
         for student in self:
             missing = []
@@ -290,7 +316,7 @@ class OpStudent(models.Model):
             if not student.birth_date:
                 missing.append(_('Birth Date'))
             if not student.country_id:
-                missing.append(_('Country'))
+                missing.append(_('الدولة'))
             if missing:
                 raise ValidationError(
                     _('Missing required student profile field(s): %s')

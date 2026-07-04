@@ -10,10 +10,20 @@
                         domain="[('has_previous_certificate', '=', True)]"/>
                 <filter name="has_issued_certificate" string="Has Issued Certificate"
                         domain="[('has_issued_certificate', '=', True)]"/>
-                <filter name="group_specialization" string="Specialization"
+                <filter name="group_specialization" string="التخصص"
                         context="{'group_by': 'specialization_id'}"/>
                 <filter name="group_certificate_type" string="Certificate Type"
                         context="{'group_by': 'certificate_type'}"/>
+                <filter name="group_current_course" string="المقرر الحالي"
+                        context="{'group_by': 'current_course_id'}"/>
+                <filter name="group_source_type" string="نوع المصدر"
+                        context="{'group_by': 'source_type'}"/>
+            </filter>
+            <field name="blood_group" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <filter name="blood_group" position="attributes">
+                <attribute name="invisible">1</attribute>
             </filter>
         </field>
     </record>

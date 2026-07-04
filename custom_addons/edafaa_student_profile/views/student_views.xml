@@ -22,19 +22,21 @@
             </xpath>
             <xpath expr="//field[@name='name_english']/parent::group" position="after">
                 <group string="Training Summary" name="training_summary">
-                    <field name="specialization_id" string="Specialization"/>
+                    <field name="specialization_id" string="التخصص"/>
+                    <field name="registration_number" readonly="1"/>
+                    <field name="source_type" readonly="1"/>
                     <field name="training_status" widget="badge"
                            decoration-info="training_status == 'new'"
                            decoration-success="training_status == 'active'"
                            decoration-muted="training_status == 'completed'"/>
-                    <field name="current_course_id" readonly="1"/>
+                    <field name="current_course_id" readonly="1" string="المقرر الحالي"/>
                     <field name="current_batch_id" readonly="1"/>
                     <field name="running_course_count" readonly="1"/>
                     <field name="completed_course_count" readonly="1"/>
                 </group>
             </xpath>
             <field name="birth_date" position="before">
-                <field name="id_number" required="1"/>
+                <field name="id_number" required="1" string="رقم الهوية"/>
             </field>
             <field name="birth_date" position="attributes">
                 <attribute name="required">1</attribute>
@@ -44,17 +46,31 @@
             </field>
             <field name="phone" position="attributes">
                 <attribute name="required">1</attribute>
+                <attribute name="string">رقم الهاتف</attribute>
+                <attribute name="placeholder">رقم الهاتف</attribute>
             </field>
+            <xpath expr="//label[@for='street']" position="attributes">
+                <attribute name="string">العنوان</attribute>
+            </xpath>
             <field name="street" position="attributes">
                 <attribute name="required">1</attribute>
+                <attribute name="string">الشارع</attribute>
+                <attribute name="placeholder">الشارع</attribute>
             </field>
             <field name="city" position="attributes">
                 <attribute name="required">1</attribute>
+                <attribute name="string">المدينة</attribute>
+                <attribute name="placeholder">المدينة</attribute>
             </field>
             <field name="country_id" position="attributes">
                 <attribute name="required">1</attribute>
+                <attribute name="string">الدولة</attribute>
+                <attribute name="placeholder">الدولة</attribute>
             </field>
             <field name="category_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="blood_group" position="attributes">
                 <attribute name="invisible">1</attribute>
             </field>
             <xpath expr="//page[@name='other_information']" position="before">
@@ -68,9 +84,9 @@
                             <list>
                                 <field name="name_english"/>
                                 <field name="name_arabic"/>
-                                <field name="id_number"/>
+                                <field name="id_number" string="رقم الهوية"/>
                                 <field name="email"/>
-                                <field name="phone"/>
+                                <field name="phone" string="رقم الهاتف"/>
                             </list>
                         </field>
                     </group>
@@ -92,6 +108,17 @@
                     </field>
                 </page>
             </xpath>
+        </field>
+    </record>
+
+    <record id="view_op_student_tree_edafaa_op206" model="ir.ui.view">
+        <field name="name">op.student.list.edafaa.op206</field>
+        <field name="model">op.student</field>
+        <field name="inherit_id" ref="openeducat_core.view_op_student_tree"/>
+        <field name="arch" type="xml">
+            <field name="blood_group" position="attributes">
+                <attribute name="column_invisible">1</attribute>
+            </field>
         </field>
     </record>
 </odoo>

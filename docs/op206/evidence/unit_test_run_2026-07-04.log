@@ -1,0 +1,21 @@
+OP#206 unit test run — sabry-test — 2026-07-04
+
+Command:
+odoo -c /etc/odoo/odoo.conf -d sabry-test -u edafaa_student_profile \
+  --test-enable --stop-after-init --test-tags=/edafaa_student_profile --http-port=8079
+
+Result:
+  0 failed, 0 error(s) of 9 tests
+
+OP#206 cases:
+  - test_current_course_id_is_stored
+  - test_group_by_current_course_filter_in_search_view
+  - test_blood_group_hidden_on_form
+  - test_registration_source_fields_on_student
+  - test_admission_maps_source_type
+  - test_portal_create_maps_registration_number
+
+OP#86 regression:
+  - test_student_syncs_id_and_phone_to_partner
+  - test_admission_enroll_maps_id_and_mobile
+  - test_specialization_stored_on_student

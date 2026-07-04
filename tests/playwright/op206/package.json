@@ -1,0 +1,12 @@
+{
+  "name": "op206-playwright",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "playwright test op206_requirements.spec.mjs",
+    "test:all": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.52.0"
+  }
+}

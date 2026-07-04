@@ -12,6 +12,15 @@ class OpAdmission(models.Model):
         self.ensure_one()
         details = super().get_student_vals()
         phone = self.phone or self.mobile or ''
+        registration_number = False
+        if (
+            'source_registration_id' in self._fields
+            and self.source_registration_id
+        ):
+            registration_number = self.source_registration_id.name
+        source_type = 'manual'
+        if 'source_type' in self._fields and self.source_type:
+            source_type = self.source_type
         details.update({
             'name_arabic': self.name,
             'name_english': self.name,
@@ -25,5 +34,7 @@ class OpAdmission(models.Model):
             'country_id': self.country_id.id if self.country_id else False,
             'nationality': self.nationality.id if self.nationality else False,
             'specialization_id': self.specialization_id.id if self.specialization_id else False,
+            'registration_number': registration_number,
+            'source_type': source_type,
         })
         return details

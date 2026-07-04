@@ -1,6 +1,6 @@
 {
     'name': 'Edafaa Batch Intake Bridge',
-    'version': '19.0.2.0.0',
+    'version': '19.0.2.1.0',
     'category': 'Education',
     'summary': 'Integrates Batch Intake into Edafaa/Kafaat student workflow',
     'depends': [

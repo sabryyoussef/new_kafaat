@@ -9,25 +9,25 @@ class StudentRegistration(models.Model):
     _inherit = 'student.registration'
 
     id_number = fields.Char(
-        string='ID Number',
+        string='رقم الهوية',
         tracking=True,
     )
     street = fields.Char(
-        string='Street',
+        string='الشارع',
         tracking=True,
     )
     city = fields.Char(
-        string='City',
+        string='المدينة',
         tracking=True,
     )
     country_id = fields.Many2one(
         'res.country',
-        string='Country',
+        string='الدولة',
         tracking=True,
     )
     specialization_id = fields.Many2one(
         'op.program',
-        string='Specialization',
+        string='التخصص',
         tracking=True,
     )
 
@@ -37,11 +37,11 @@ class StudentRegistration(models.Model):
         field_checks = [
             ('student_name_arabic', _('Arabic Name')),
             ('student_name_english', _('English Name')),
-            ('id_number', _('ID Number')),
+            ('id_number', _('رقم الهوية')),
             ('email', _('Email')),
-            ('phone', _('Phone')),
-            ('street', _('Street')),
-            ('city', _('City')),
+            ('phone', _('رقم الهاتف')),
+            ('street', _('الشارع')),
+            ('city', _('المدينة')),
         ]
         missing = []
         for field_name, label in field_checks:
@@ -51,7 +51,7 @@ class StudentRegistration(models.Model):
         if not self.birth_date:
             missing.append(_('Birth Date'))
         if not self.country_id:
-            missing.append(_('Country'))
+            missing.append(_('الدولة'))
         if missing:
             raise ValidationError(
                 _('Cannot create student record. Missing required profile field(s): %s')
@@ -119,6 +119,8 @@ class StudentRegistration(models.Model):
             'specialization_id': self.specialization_id.id if self.specialization_id else False,
             'has_previous_certificate': self.has_previous_certificate,
             'certificate_type': self.certificate_type or False,
+            'registration_number': self.name,
+            'source_type': 'student_registration',
         }
 
         student = self.env['op.student'].create(student_vals)

@@ -1,0 +1,27 @@
+تم تسليم حزمة إصلاحات إعادة UAT لـ OP#86 (Work Package #206).
+
+الفرع:
+feature/op206-uat-retest-op86
+
+ما تم إصلاحه:
+1) Group By → المقرر الحالي (Current Course)
+2) مسميات عربية وربط: رقم الهوية، رقم الهاتف، التخصص، العنوان
+3) إخفاء Blood Group
+4) نقل رقم التسجيل ونوع المصدر إلى ملف المتدرب (op.student)
+
+التحقق:
+- Unit tests: 9/9
+- Playwright: 5/5
+- لقطات الشاشة مرفقة في docs/op206/delivery/screenshots/
+
+ملاحظات الإصلاح:
+- docs/op206/delivery/notes/FIX_NOTES_AR.md
+- docs/op206/delivery/notes/FIX_NOTES.md
+
+حزمة مضغوطة للمرفقات:
+docs/op206/OP206_DELIVERY_PACKAGE.zip
+
+الترقية:
+odoo -d <DB> -u edafaa_student_profile,edafaa_student_profile_portal,edafaa_batch_intake --stop-after-init
+
+الحالة: جاهز لإعادة تنفيذ UAT على Staging.
