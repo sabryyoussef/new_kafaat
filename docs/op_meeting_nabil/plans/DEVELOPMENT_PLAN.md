@@ -5,7 +5,7 @@
 **Source:** nabil@kafaat.edu.sa meeting (2026-07-07)  
 **OpenProject:** #351–#358 under parent #87  
 **Odoo:** parent #41, children #42–#49 (`sabry-test`)  
-**Branches:** S1 `feature/meeting-s1-351-353-356` · S2 `feature/meeting-s2-352-354` · S3 `feature/meeting-s3-355`
+**Branches:** S1 `feature/meeting-s1-351-353-356` · S2 `feature/meeting-s2-352-354` · S3 `feature/meeting-s3-355` · S5 `feature/meeting-s5-358`
 
 ---
 
@@ -16,8 +16,8 @@
 | **S1** | 1–2 | Quick wins + investigate | #351, #353, #356 | ~1.5–2 d | **Done** (2026-07-15, `feature/meeting-s1-351-353-356`) |
 | **S2** | 3–6 | Profile fields + Batch guide | #352, #354 | ~3.5–5 d | **Done** (2026-07-15, `feature/meeting-s2-352-354`) |
 | **S3** | 7–14 | Excel sales assignment | #355 | ~5–7 d | **Done** (2026-07-15, `feature/meeting-s3-355`) |
-| **S4** | 15–30+ | Arabic i18n (scoped) | #357 | ~2–4 w | Pending |
-| **S5** | parallel / after S4 | Batch QR attendance | #358 | ~3–6 w | Pending |
+| **S4** | 15–30+ | Arabic i18n (scoped) | #357 | ~2–4 w | Pending (plan locked Scope A) |
+| **S5** | parallel / after S4 | Batch QR attendance | #358 | ~3–5 w | **Done** (2026-07-15, `feature/meeting-s5-358`) |
 
 ### S1 locked delivery (2026-07-15 recreate)
 
@@ -47,6 +47,15 @@ Order: #352 → #354 → upgrade/UAT → Playwright → OP/Odoo delivery + close
 
 Locked: match by `id_number`; staff by login/email; overwrite; `.xlsx` + reject CSV; SIS only (not CRM/grants).  
 Order: field → wizard → tests/PW → delivery + close.
+
+### S5 locked delivery (2026-07-15)
+
+| WP | Work | Outcome |
+|----|------|---------|
+| #358 | Stable QR per batch + portal check-in → OpenEduCat attendance | Code |
+
+Locked: **1A portal** (phone); **stable QR** (regenerate revokes); late after **15 min** grace; enrollment `running` required.  
+Module: `edafaa_batch_attendance`. Out: kiosk, daily QR.
 
 **Calendar (1 FTE developer):**
 

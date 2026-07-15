@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_edafaa_checkin_log_user,edafaa.attendance.checkin.log user,model_edafaa_attendance_checkin_log,base.group_user,1,0,0,0
+access_edafaa_checkin_log_manager,edafaa.attendance.checkin.log manager,model_edafaa_attendance_checkin_log,base.group_system,1,1,1,1
+access_edafaa_checkin_attempt_user,edafaa.attendance.checkin.attempt user,model_edafaa_attendance_checkin_attempt,base.group_user,1,0,0,0
+access_edafaa_checkin_attempt_portal,edafaa.attendance.checkin.attempt portal,model_edafaa_attendance_checkin_attempt,base.group_portal,1,1,1,0
+access_edafaa_checkin_log_portal,edafaa.attendance.checkin.log portal create,model_edafaa_attendance_checkin_log,base.group_portal,0,0,0,0
+access_edafaa_checkin_service,edafaa.batch.attendance.service,model_edafaa_batch_attendance_service,base.group_user,1,0,0,0
+access_edafaa_checkin_service_portal,edafaa.batch.attendance.service portal,model_edafaa_batch_attendance_service,base.group_portal,1,0,0,0

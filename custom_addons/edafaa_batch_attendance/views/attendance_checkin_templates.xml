@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="checkin_success" name="Attendance Check-in Success">
+        <t t-call="website.layout">
+            <div class="container py-5 text-center">
+                <h1 class="text-success">Checked in</h1>
+                <p t-esc="message"/>
+                <p t-if="late" class="text-warning">Marked as late.</p>
+                <p t-if="batch">
+                    <strong>Batch:</strong>
+                    <t t-esc="batch.name"/>
+                </p>
+                <p t-if="student">
+                    <strong>Student:</strong>
+                    <t t-esc="student.name"/>
+                </p>
+            </div>
+        </t>
+    </template>
+
+    <template id="checkin_already" name="Attendance Already Checked In">
+        <t t-call="website.layout">
+            <div class="container py-5 text-center">
+                <h1>Already checked in</h1>
+                <p t-esc="message"/>
+                <p t-if="batch">
+                    <strong>Batch:</strong>
+                    <t t-esc="batch.name"/>
+                </p>
+            </div>
+        </t>
+    </template>
+
+    <template id="checkin_rejected" name="Attendance Check-in Rejected">
+        <t t-call="website.layout">
+            <div class="container py-5 text-center">
+                <h1 class="text-danger">Check-in not allowed</h1>
+                <p t-esc="message"/>
+            </div>
+        </t>
+    </template>
+</odoo>

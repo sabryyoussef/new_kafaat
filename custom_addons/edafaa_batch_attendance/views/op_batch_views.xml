@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_op_batch_form_attendance_qr" model="ir.ui.view">
+        <field name="name">op.batch.form.edafaa.attendance.qr</field>
+        <field name="model">op.batch</field>
+        <field name="inherit_id" ref="openeducat_core.view_op_batch_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group string="Attendance QR Check-in" name="attendance_qr_group">
+                    <group>
+                        <field name="attendance_qr_active"/>
+                        <field name="attendance_late_grace_minutes"/>
+                        <field name="attendance_qr_token" groups="base.group_no_one"/>
+                        <field name="attendance_qr_url" widget="url"/>
+                    </group>
+                    <group>
+                        <field name="attendance_qr_image" widget="image" class="oe_avatar"/>
+                    </group>
+                </group>
+                <div class="oe_button_box" name="button_box_qr">
+                    <button name="action_generate_qr" type="object"
+                            string="Generate QR"
+                            class="btn-primary"
+                            invisible="attendance_qr_token"/>
+                    <button name="action_regenerate_qr" type="object"
+                            string="Regenerate QR"
+                            class="btn-secondary"
+                            invisible="not attendance_qr_token"
+                            confirm="Regenerating will invalidate the old QR URL. Continue?"/>
+                    <button name="action_toggle_qr_active" type="object"
+                            string="Toggle QR Active"
+                            class="btn-secondary"
+                            invisible="not attendance_qr_token"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

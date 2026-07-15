@@ -1,0 +1,11 @@
+# S5 Delivery Links — OP#358
+
+OpenProject #358:
+https://projects.drpaws.ai/work_packages/358
+https://master.tailcf9988.ts.net:10081/work_packages/358
+
+Odoo #49 (sabry-test):
+http://127.0.0.1:8069/web#id=49&model=project.task&view_type=form&db=sabry-test
+
+Branch: feature/meeting-s5-358
+Module: edafaa_batch_attendance 19.0.1.0.0
