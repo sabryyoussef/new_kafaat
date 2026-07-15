@@ -1,0 +1,54 @@
+database=sabry-test
+project_id=3
+project=Kafaat — Meeting Requirements (#351–#358)
+parent_task_id=41
+children=8
+
+Parent task:
+http://127.0.0.1:8069/web#id=41&model=project.task&view_type=form&db=sabry-test
+http://127.0.0.1:8069/odoo/project/3/tasks/41
+
+Sub-tasks:
+  Odoo #42 ← OP#351  [Kafaat] Search trainees by national ID (رقم الهوية)
+    http://127.0.0.1:8069/web#id=42&model=project.task&view_type=form&db=sabry-test
+    https://master.tailcf9988.ts.net:10081/work_packages/351
+
+  Odoo #43 ← OP#352  [Kafaat] Student application status on profile (حالة الطالب)
+    http://127.0.0.1:8069/web#id=43&model=project.task&view_type=form&db=sabry-test
+    https://master.tailcf9988.ts.net:10081/work_packages/352
+
+  Odoo #44 ← OP#353  [Kafaat] Voucher Number on student profile
+    http://127.0.0.1:8069/web#id=44&model=project.task&view_type=form&db=sabry-test
+    https://master.tailcf9988.ts.net:10081/work_packages/353
+
+  Odoo #45 ← OP#354  [Kafaat] Batch workflow — Arabic user guide
+    http://127.0.0.1:8069/web#id=45&model=project.task&view_type=form&db=sabry-test
+    https://master.tailcf9988.ts.net:10081/work_packages/354
+
+  Odoo #46 ← OP#355  [Kafaat] Excel bulk assign trainees to sales staff
+    http://127.0.0.1:8069/web#id=46&model=project.task&view_type=form&db=sabry-test
+    https://master.tailcf9988.ts.net:10081/work_packages/355
+
+  Odoo #47 ← OP#356  [Kafaat] Investigate — limited courses visible in system
+    http://127.0.0.1:8069/web#id=47&model=project.task&view_type=form&db=sabry-test
+    https://master.tailcf9988.ts.net:10081/work_packages/356
+
+  Odoo #48 ← OP#357  [Kafaat] Full Arabic UI translation
+    http://127.0.0.1:8069/web#id=48&model=project.task&view_type=form&db=sabry-test
+    https://master.tailcf9988.ts.net:10081/work_packages/357
+
+  Odoo #49 ← OP#358  [Kafaat] Batch attendance with QR code per batch
+    http://127.0.0.1:8069/web#id=49&model=project.task&view_type=form&db=sabry-test
+    https://master.tailcf9988.ts.net:10081/work_packages/358
+
+  Odoo #50 ← OP#362  [Kafaat] S1 Delivery — Playwright screenshots
+    http://127.0.0.1:8069/web#id=50&model=project.task&view_type=form&db=sabry-test
+    https://master.tailcf9988.ts.net:10081/work_packages/362
+
+  Odoo #51 ← OP#363  [Kafaat] S2 Delivery
+    http://127.0.0.1:8069/web#id=51&model=project.task&view_type=form&db=sabry-test
+    https://master.tailcf9988.ts.net:10081/work_packages/363
+
+  Odoo #54 ← OP#365  [Kafaat] S3 Delivery
+    http://127.0.0.1:8069/web#id=54&model=project.task&view_type=form&db=sabry-test
+    https://master.tailcf9988.ts.net:10081/work_packages/365

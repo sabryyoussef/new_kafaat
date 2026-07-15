@@ -1,0 +1,14 @@
+S1 Delivery — Playwright evidence (#351 / #353 / #356)
+
+OpenProject: #362
+https://master.tailcf9988.ts.net:10081/work_packages/362
+Parent OP: #87
+Related: #351 #353 #356
+
+Odoo: #50
+http://127.0.0.1:8069/web#id=50&model=project.task&view_type=form&db=sabry-test
+Parent Odoo: #41
+Related Odoo: #42 #44 #47
+
+Screenshots: docs/op_meeting_nabil/evidence/screenshots/
+Suite: tests/playwright/meeting_s1/ (5/5 passed)

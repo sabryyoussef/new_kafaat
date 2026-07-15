@@ -1,0 +1,36 @@
+Kafaat meeting requirements — 8 work packages under #87
+Created via: docs/op_meeting_nabil/create_openproject_wps.py
+Project list: https://master.tailcf9988.ts.net:10081/projects/wa-120363422104853335/work_packages
+
+#351  [Kafaat] Search trainees by national ID (رقم الهوية)
+  https://master.tailcf9988.ts.net:10081/work_packages/351
+
+#352  [Kafaat] Student application status on profile (حالة الطالب)
+  https://master.tailcf9988.ts.net:10081/work_packages/352
+
+#353  [Kafaat] Voucher Number on student profile
+  https://master.tailcf9988.ts.net:10081/work_packages/353
+
+#354  [Kafaat] Batch workflow — Arabic user guide
+  https://master.tailcf9988.ts.net:10081/work_packages/354
+
+#355  [Kafaat] Excel bulk assign trainees to sales staff
+  https://master.tailcf9988.ts.net:10081/work_packages/355
+
+#356  [Kafaat] Investigate — limited courses visible in system
+  https://master.tailcf9988.ts.net:10081/work_packages/356
+
+#357  [Kafaat] Full Arabic UI translation
+  https://master.tailcf9988.ts.net:10081/work_packages/357
+
+#358  [Kafaat] Batch attendance with QR code per batch
+  https://master.tailcf9988.ts.net:10081/work_packages/358
+
+#362  [Kafaat] S1 Delivery — Playwright screenshots (#351 / #353 / #356)
+  https://master.tailcf9988.ts.net:10081/work_packages/362
+
+#363  [Kafaat] S2 Delivery — Playwright + Batch guide (#352 / #354)
+  https://master.tailcf9988.ts.net:10081/work_packages/363
+
+#365  [Kafaat] S3 Delivery — Excel assign trainees to sales (#355)
+  https://master.tailcf9988.ts.net:10081/work_packages/365

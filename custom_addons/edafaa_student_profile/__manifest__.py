@@ -1,6 +1,7 @@
 {
     'name': 'Edafaa Student Profile',
-    'version': '19.0.2.1.0',
+    'version': '19.0.2.6.0',
+    'post_init_hook': 'post_init_hook',
     'category': 'Education',
     'summary': 'Student profile enhancements for Edafaa / OpenEduCat SIS',
     'depends': [
@@ -8,7 +9,11 @@
         'openeducat_parent',
         'openeducat_admission',
         'mail',
+        'sales_team',
     ],
+    'external_dependencies': {
+        'python': ['openpyxl'],
+    },
     'data': [
         'security/ir.model.access.csv',
         'data/course_sequence.xml',
@@ -23,6 +28,7 @@
         'views/student_views.xml',
         'views/student_search_views.xml',
         'views/admission_views.xml',
+        'wizard/trainee_sales_assign_wizard_views.xml',
     ],
     'license': 'LGPL-3',
     'installable': True,

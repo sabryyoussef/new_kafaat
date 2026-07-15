@@ -1,0 +1,14 @@
+S2 Delivery — #352 / #354
+
+OpenProject: #363
+https://master.tailcf9988.ts.net:10081/work_packages/363
+Related: #352 #354 · Parent #87
+
+Odoo: #51
+http://127.0.0.1:8069/web#id=51&model=project.task&view_type=form&db=sabry-test
+Related: #43 #45 · Parent #41
+
+Branch: feature/meeting-s2-352-354
+Module: edafaa_student_profile 19.0.2.5.0
+Guide: docs/op_meeting_nabil/guides/USER_GUIDE_BATCH_AR.md
+PW: tests/playwright/meeting_s2/ (3/3)

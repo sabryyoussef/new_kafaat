@@ -1,0 +1,12 @@
+S3 Delivery — #355
+
+OpenProject: #365
+https://master.tailcf9988.ts.net:10081/work_packages/365
+Related: #355 · Parent #87
+
+Odoo: #54
+http://127.0.0.1:8069/web#id=54&model=project.task&view_type=form&db=sabry-test
+Related: #46 · Parent #41
+
+Branch: feature/meeting-s3-355
+Module: edafaa_student_profile 19.0.2.6.0

@@ -4,6 +4,17 @@ import logging
 
 _logger = logging.getLogger(__name__)
 
+# OP#352 — map registration workflow state → profile application_status
+REGISTRATION_STATE_TO_APPLICATION_STATUS = {
+    'approved': 'accepted',
+    'enrolled': 'accepted',
+    'rejected': 'rejected',
+    'draft': 'under_review',
+    'submitted': 'under_review',
+    'eligibility_review': 'under_review',
+    'document_review': 'under_review',
+}
+
 
 class StudentRegistration(models.Model):
     _inherit = 'student.registration'
@@ -30,6 +41,37 @@ class StudentRegistration(models.Model):
         string='التخصص',
         tracking=True,
     )
+
+    @api.model
+    def _map_registration_state_to_application_status(self, state):
+        return REGISTRATION_STATE_TO_APPLICATION_STATUS.get(state, 'under_review')
+
+    def _find_linked_op_student(self):
+        """Resolve linked op.student (registration_number or email)."""
+        self.ensure_one()
+        Student = self.env['op.student']
+        if self.name:
+            student = Student.search([('registration_number', '=', self.name)], limit=1)
+            if student:
+                return student
+        if self.email:
+            return Student.search([('email', '=', self.email)], limit=1)
+        return Student
+
+    def _sync_op_student_application_status(self):
+        for reg in self:
+            student = reg._find_linked_op_student()
+            if not student:
+                continue
+            status = reg._map_registration_state_to_application_status(reg.state)
+            if student.application_status != status:
+                student.write({'application_status': status})
+
+    def write(self, vals):
+        res = super().write(vals)
+        if 'state' in vals:
+            self._sync_op_student_application_status()
+        return res
 
     def _validate_registration_profile_for_student(self):
         """Ensure registration has all data required by Step 3 before op.student create."""
@@ -58,8 +100,43 @@ class StudentRegistration(models.Model):
                 % ', '.join(missing)
             )
 
+    def _prepare_student_profile_vals(self, partner, name_english, first_name, last_name):
+        """Build op.student vals from registration profile fields."""
+        self.ensure_one()
+        gender_map = {
+            'male': 'm',
+            'female': 'f',
+        }
+        nationality_country = self.env['res.country'].search(
+            [('name', 'ilike', self.nationality)], limit=1,
+        ) if self.nationality else self.env['res.country']
+
+        return {
+            'name_arabic': self.student_name_arabic.strip(),
+            'name_english': name_english,
+            'name': name_english,
+            'first_name': first_name,
+            'last_name': last_name,
+            'partner_id': partner.id,
+            'email': self.email,
+            'phone': self.phone,
+            'birth_date': self.birth_date,
+            'gender': gender_map.get(self.gender, 'm'),
+            'id_number': self.id_number.strip(),
+            'street': self.street.strip(),
+            'city': self.city.strip(),
+            'country_id': self.country_id.id,
+            'nationality': nationality_country.id if nationality_country else False,
+            'specialization_id': self.specialization_id.id if self.specialization_id else False,
+            'has_previous_certificate': self.has_previous_certificate,
+            'certificate_type': self.certificate_type or False,
+            'registration_number': self.name,
+            'source_type': 'student_registration',
+            'application_status': self._map_registration_state_to_application_status(self.state),
+        }
+
     def _create_student_record(self):
-        """Create op.student with full Step 3 profile mapping from registration."""
+        """Create or update op.student with full Step 3 profile mapping from registration."""
         self.ensure_one()
         self._validate_registration_profile_for_student()
 
@@ -83,45 +160,19 @@ class StudentRegistration(models.Model):
         else:
             partner.write(partner_vals)
 
+        student_vals = self._prepare_student_profile_vals(
+            partner, name_english, first_name, last_name,
+        )
+
         existing_student = self.env['op.student'].search([('email', '=', self.email)], limit=1)
         if existing_student:
-            _logger.warning(
-                'Student with email %s already exists: %s',
-                self.email,
+            existing_student.write(student_vals)
+            _logger.info(
+                'Updated op.student %s from registration %s via profile portal bridge',
                 existing_student.id,
+                self.name,
             )
             return existing_student
-
-        gender_map = {
-            'male': 'm',
-            'female': 'f',
-        }
-        nationality_country = self.env['res.country'].search(
-            [('name', 'ilike', self.nationality)], limit=1,
-        ) if self.nationality else self.env['res.country']
-
-        student_vals = {
-            'name_arabic': self.student_name_arabic.strip(),
-            'name_english': name_english,
-            'name': name_english,
-            'first_name': first_name,
-            'last_name': last_name,
-            'partner_id': partner.id,
-            'email': self.email,
-            'phone': self.phone,
-            'birth_date': self.birth_date,
-            'gender': gender_map.get(self.gender, 'm'),
-            'id_number': self.id_number.strip(),
-            'street': self.street.strip(),
-            'city': self.city.strip(),
-            'country_id': self.country_id.id,
-            'nationality': nationality_country.id if nationality_country else False,
-            'specialization_id': self.specialization_id.id if self.specialization_id else False,
-            'has_previous_certificate': self.has_previous_certificate,
-            'certificate_type': self.certificate_type or False,
-            'registration_number': self.name,
-            'source_type': 'student_registration',
-        }
 
         student = self.env['op.student'].create(student_vals)
         _logger.info(

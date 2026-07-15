@@ -1,6 +1,6 @@
 {
     'name': 'Edafaa Student Profile Portal Bridge',
-    'version': '19.0.1.0.0',
+    'version': '19.0.1.1.0',
     'category': 'Education',
     'summary': 'Bridge student enrollment portal to Edafaa required op.student profile fields',
     'depends': [

@@ -4,8 +4,36 @@ from odoo.exceptions import ValidationError
 
 class OpStudent(models.Model):
     _inherit = 'op.student'
+    _rec_names_search = ['name', 'id_number', 'name_arabic', 'name_english']
 
     id_number = fields.Char(string='رقم الهوية', size=64)
+    voucher_number = fields.Char(
+        string='رقم قسيمة الاختبار',
+        size=64,
+        index=True,
+        help='Exam / test voucher number',
+    )
+    application_status = fields.Selection(
+        selection=[
+            ('accepted', 'مقبول'),
+            ('rejected', 'مرفوض'),
+            ('under_review', 'تحت المراجعة'),
+            ('cancelled', 'ملغي'),
+        ],
+        string='حالة الطالب',
+        default='under_review',
+        tracking=True,
+        index=True,
+        help='Admission / application status on the student profile '
+             '(distinct from training_status).',
+    )
+    assigned_user_id = fields.Many2one(
+        'res.users',
+        string='موظف المبيعات المسؤول',
+        tracking=True,
+        index=True,
+        help='Sales staff responsible for this trainee (Excel bulk assign).',
+    )
 
     name_arabic = fields.Char(
         string='Arabic Name',

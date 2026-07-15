@@ -1,0 +1,12 @@
+{
+  "name": "meeting-s1-playwright",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "playwright test meeting_s1.spec.mjs",
+    "test:all": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.52.0"
+  }
+}
