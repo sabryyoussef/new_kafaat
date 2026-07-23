@@ -21,8 +21,16 @@ class OpAdmission(models.Model):
         source_type = 'manual'
         if 'source_type' in self._fields and self.source_type:
             source_type = self.source_type
+        name_arabic = self.name
+        if (
+            'source_registration_id' in self._fields
+            and self.source_registration_id
+            and 'student_name_arabic' in self.source_registration_id._fields
+            and self.source_registration_id.student_name_arabic
+        ):
+            name_arabic = self.source_registration_id.student_name_arabic.strip()
         details.update({
-            'name_arabic': self.name,
+            'name_arabic': name_arabic,
             'name_english': self.name,
             'id_number': self.id_number or False,
             'phone': phone,

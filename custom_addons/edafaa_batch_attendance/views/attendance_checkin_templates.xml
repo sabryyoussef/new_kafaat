@@ -2,10 +2,10 @@
 <odoo>
     <template id="checkin_success" name="Attendance Check-in Success">
         <t t-call="website.layout">
-            <div class="container py-5 text-center">
+            <div class="container py-5 text-center" t-att-dir="'rtl' if is_rtl else 'ltr'">
                 <h1 class="text-success">Checked in</h1>
                 <p t-esc="message"/>
-                <p t-if="late" class="text-warning">Marked as late.</p>
+                <p t-if="late" class="text-warning fw-bold">Marked as late.</p>
                 <p t-if="batch">
                     <strong>Batch:</strong>
                     <t t-esc="batch.name"/>
@@ -20,9 +20,10 @@
 
     <template id="checkin_already" name="Attendance Already Checked In">
         <t t-call="website.layout">
-            <div class="container py-5 text-center">
+            <div class="container py-5 text-center" t-att-dir="'rtl' if is_rtl else 'ltr'">
                 <h1>Already checked in</h1>
                 <p t-esc="message"/>
+                <p t-if="late" class="text-warning">Previous status: late.</p>
                 <p t-if="batch">
                     <strong>Batch:</strong>
                     <t t-esc="batch.name"/>
@@ -33,9 +34,12 @@
 
     <template id="checkin_rejected" name="Attendance Check-in Rejected">
         <t t-call="website.layout">
-            <div class="container py-5 text-center">
+            <div class="container py-5 text-center" t-att-dir="'rtl' if is_rtl else 'ltr'">
                 <h1 class="text-danger">Check-in not allowed</h1>
                 <p t-esc="message"/>
+                <p t-if="status == 'no_active_session'" class="text-muted mt-3">
+                    Staff must schedule or confirm an active class session for this batch before check-in.
+                </p>
             </div>
         </t>
     </template>

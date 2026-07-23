@@ -1,0 +1,127 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* edafaa_batch_attendance
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-15 17:00+0000\n"
+"PO-Revision-Date: 2026-07-15 17:00+0000\n"
+"Language-Team: Arabic\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#. module: edafaa_batch_attendance
+#: model_terms:ir.ui.view,arch_db:edafaa_batch_attendance.checkin_success
+msgid "Checked in"
+msgstr "تم تسجيل الحضور"
+
+#. module: edafaa_batch_attendance
+#: model_terms:ir.ui.view,arch_db:edafaa_batch_attendance.checkin_success
+msgid "Marked as late."
+msgstr "تم التسجيل مع تأخير."
+
+#. module: edafaa_batch_attendance
+#: model_terms:ir.ui.view,arch_db:edafaa_batch_attendance.checkin_success
+#: model_terms:ir.ui.view,arch_db:edafaa_batch_attendance.checkin_already
+msgid "Batch:"
+msgstr "الدفعة:"
+
+#. module: edafaa_batch_attendance
+#: model_terms:ir.ui.view,arch_db:edafaa_batch_attendance.checkin_success
+msgid "Student:"
+msgstr "المتدرب:"
+
+#. module: edafaa_batch_attendance
+#: model_terms:ir.ui.view,arch_db:edafaa_batch_attendance.checkin_already
+msgid "Already checked in"
+msgstr "تم تسجيل الحضور مسبقاً"
+
+#. module: edafaa_batch_attendance
+#: model_terms:ir.ui.view,arch_db:edafaa_batch_attendance.checkin_already
+msgid "Previous status: late."
+msgstr "الحالة السابقة: متأخر."
+
+#. module: edafaa_batch_attendance
+#: model_terms:ir.ui.view,arch_db:edafaa_batch_attendance.checkin_rejected
+msgid "Check-in not allowed"
+msgstr "تسجيل الحضور غير مسموح"
+
+#. module: edafaa_batch_attendance
+#. odoo-python
+#: code:addons/edafaa_batch_attendance/models/attendance_sheet.py:0
+msgid "Invalid or revoked attendance QR."
+msgstr "رمز الحضور غير صالح أو مُلغى."
+
+#. module: edafaa_batch_attendance
+#. odoo-python
+#: code:addons/edafaa_batch_attendance/models/attendance_sheet.py:0
+msgid "Attendance check-in is disabled for this batch."
+msgstr "تسجيل الحضور متوقف لهذه الدفعة."
+
+#. module: edafaa_batch_attendance
+#. odoo-python
+#: code:addons/edafaa_batch_attendance/models/attendance_sheet.py:0
+msgid "No student profile is linked to your portal account."
+msgstr "لا يوجد ملف متدرب مرتبط بحسابك."
+
+#. module: edafaa_batch_attendance
+#. odoo-python
+#: code:addons/edafaa_batch_attendance/models/attendance_sheet.py:0
+msgid "You are not enrolled in this batch."
+msgstr "لست مسجلاً في هذه الدفعة."
+
+#. module: edafaa_batch_attendance
+#. odoo-python
+#: code:addons/edafaa_batch_attendance/models/attendance_sheet.py:0
+msgid "No active class session for check-in right now."
+msgstr "لا توجد حصة نشطة لتسجيل الحضور الآن."
+
+#. module: edafaa_batch_attendance
+#. odoo-python
+#: code:addons/edafaa_batch_attendance/models/attendance_sheet.py:0
+msgid "Attendance for this session is already closed."
+msgstr "تم إغلاق الحضور لهذه الحصة."
+
+#. module: edafaa_batch_attendance
+#. odoo-python
+#: code:addons/edafaa_batch_attendance/models/attendance_sheet.py:0
+msgid "You are already checked in for this session."
+msgstr "تم تسجيل حضورك مسبقاً لهذه الحصة."
+
+#. module: edafaa_batch_attendance
+#. odoo-python
+#: code:addons/edafaa_batch_attendance/models/attendance_sheet.py:0
+msgid "Too many check-in attempts."
+msgstr "محاولات كثيرة لتسجيل الحضور."
+
+#. module: edafaa_batch_attendance
+#. odoo-python
+#: code:addons/edafaa_batch_attendance/models/attendance_sheet.py:0
+msgid "Too many check-in attempts. Please wait a minute and try again."
+msgstr "محاولات كثيرة. يرجى الانتظار دقيقة ثم المحاولة مجدداً."
+
+#. module: edafaa_batch_attendance
+#. odoo-python
+#: code:addons/edafaa_batch_attendance/models/attendance_sheet.py:0
+msgid "QR check-in"
+msgstr "تسجيل حضور عبر QR"
+
+#. module: edafaa_batch_attendance
+#. odoo-python
+#: code:addons/edafaa_batch_attendance/models/attendance_sheet.py:0
+#, python-format
+msgid "Checked in successfully for %(batch)s."
+msgstr "تم تسجيل الحضور بنجاح لدفعة %(batch)s."
+
+#. module: edafaa_batch_attendance
+#. odoo-python
+#: code:addons/edafaa_batch_attendance/models/attendance_sheet.py:0
+#, python-format
+msgid "Checked in late for %(batch)s."
+msgstr "تم تسجيل الحضور مع تأخير لدفعة %(batch)s."

@@ -34,3 +34,6 @@ Project list: https://master.tailcf9988.ts.net:10081/projects/wa-120363422104853
 
 #365  [Kafaat] S3 Delivery — Excel assign trainees to sales (#355)
   https://master.tailcf9988.ts.net:10081/work_packages/365
+
+#385  [Kafaat] UAT notes client reply — detailed proof + Playwright screenshots (8 items)
+  https://projects.drpaws.ai/work_packages/385

@@ -309,6 +309,18 @@ class StudentRegistration(models.Model):
     
     def action_final_approve(self):
         """Final approval - create student record and portal user"""
+        bridge_installed = bool(
+            self.env['ir.module.module'].search([
+                ('name', '=', 'edafaa_student_profile_portal'),
+                ('state', '=', 'installed'),
+            ], limit=1)
+        )
+        if not bridge_installed:
+            _logger.warning(
+                'edafaa_student_profile_portal is not installed — profile fields '
+                '(id_number, address, specialization) may not map to op.student on finalize',
+            )
+
         for record in self:
             if record.state != 'approved':
                 raise UserError(_('Only approved registrations can be finalized.'))

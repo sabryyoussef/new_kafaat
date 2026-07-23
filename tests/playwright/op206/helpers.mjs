@@ -14,8 +14,11 @@ export const ODOO_BASE_URL = process.env.ODOO_BASE_URL || process.env.ODOO_URL |
 export const ODOO_LOGIN = process.env.ODOO_USER || process.env.ODOO_LOGIN || 'admin';
 export const ODOO_PASSWORD = process.env.ODOO_PASSWORD || 'admin';
 
-export function screenshotPath(name) {
-  const full = path.join(SCREENSHOT_DIR, name);
+export function screenshotPath(name, relativeDir) {
+  const base = relativeDir
+    ? path.resolve(__dirname, relativeDir)
+    : SCREENSHOT_DIR;
+  const full = path.join(base, name);
   fs.mkdirSync(path.dirname(full), { recursive: true });
   return full;
 }
@@ -105,10 +108,10 @@ export async function openRegistrationForm(page, registrationId) {
   await dismissModals(page);
 }
 
-export async function captureScreenshot(page, filename) {
+export async function captureScreenshot(page, filename, relativeDir) {
   await page.waitForTimeout(500);
   await dismissModals(page);
-  await page.screenshot({ path: screenshotPath(filename), fullPage: true });
+  await page.screenshot({ path: screenshotPath(filename, relativeDir), fullPage: true });
 }
 
 /** Open Group By menu on current list/search view. */

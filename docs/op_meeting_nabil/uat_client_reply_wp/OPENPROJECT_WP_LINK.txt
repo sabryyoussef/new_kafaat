@@ -1,0 +1,12 @@
+OpenProject work package created
+
+ID: #385
+Subject: [Kafaat] UAT notes client reply — detailed proof + Playwright screenshots (8 items)
+Parent: #87
+Project ID: 10
+
+URL: https://projects.drpaws.ai/work_packages/385
+API: https://projects.drpaws.ai/api/v3/work_packages/385
+
+Related: #351–#358 (relates)
+Created via: docs/op_meeting_nabil/uat_client_reply_wp/create_op_wp.py

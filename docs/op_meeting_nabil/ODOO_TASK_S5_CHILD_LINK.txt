@@ -1,0 +1,11 @@
+Odoo child task (under #49 / OP#358)
+
+ID: 56
+Name: S5 Delivery — Option A Lock + P1–P5 Progress (OP#358)
+Parent: #49
+Project: Kafaat — Meeting Requirements (#351–#358)
+
+Link:
+http://127.0.0.1:8069/web#id=56&model=project.task&view_type=form&db=sabry-test
+
+Attachments: 11 files (P0, plan, UAT checklist, delivery note, OP comment, screenshots)

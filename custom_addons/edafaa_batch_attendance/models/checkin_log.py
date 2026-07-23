@@ -21,6 +21,7 @@ class EdafaaAttendanceCheckinLog(models.Model):
             ('rejected_inactive', 'QR inactive'),
             ('rejected_no_student', 'No student linked'),
             ('rejected_not_enrolled', 'Not enrolled'),
+            ('no_active_session', 'No active session'),
             ('rate_limited', 'Rate limited'),
         ],
         string='Result',

@@ -113,7 +113,7 @@ odoo -c /etc/odoo/odoo.conf -d sabry-test \
 | #355 | [PLAN_WP355.md](PLAN_WP355.md) | 5–7 |
 | #356 | [PLAN_WP356.md](PLAN_WP356.md) | 0.5–1 |
 | #357 | [PLAN_WP357.md](PLAN_WP357.md) | 2–4 w |
-| #358 | [PLAN_WP358.md](PLAN_WP358.md) | 3–6 w |
+| #358 | [IMPLEMENTATION_PLAN_S5_WP358.md](IMPLEMENTATION_PLAN_S5_WP358.md) | 3–6 w |
 
 Analysis docs: [`../analysis/`](../analysis/)
 

@@ -17,7 +17,7 @@
 | 5. Excel → sales assign | [#355](https://master.tailcf9988.ts.net:10081/work_packages/355) | [#46](http://127.0.0.1:8069/web#id=46&model=project.task&view_type=form&db=sabry-test) | NOT IMPLEMENTED | 5–7 d | [WP355](WP355_excel_sales_assign.md) |
 | 6. Courses visibility | [#356](https://master.tailcf9988.ts.net:10081/work_packages/356) | [#47](http://127.0.0.1:8069/web#id=47&model=project.task&view_type=form&db=sabry-test) | PARTIAL | 0.5–1 d | [WP356](WP356_courses_visibility.md) |
 | 7. Full Arabic UI | [#357](https://master.tailcf9988.ts.net:10081/work_packages/357) | [#48](http://127.0.0.1:8069/web#id=48&model=project.task&view_type=form&db=sabry-test) | PARTIAL | 2–4 w | [WP357](WP357_arabic_translation.md) |
-| 8. Batch QR attendance | [#358](https://master.tailcf9988.ts.net:10081/work_packages/358) | [#49](http://127.0.0.1:8069/web#id=49&model=project.task&view_type=form&db=sabry-test) | NOT IMPLEMENTED | 3–6 w | [WP358](WP358_batch_qr_attendance.md) |
+| 8. Batch QR attendance | [#358](https://master.tailcf9988.ts.net:10081/work_packages/358) | [#49](http://127.0.0.1:8069/web#id=49&model=project.task&view_type=form&db=sabry-test) | P0 BLOCKED — SESSION FOUNDATION | 3–6 w | [WP358](WP358_batch_qr_attendance.md) · [P0](S5_358_P0_FOUNDATION_VALIDATION.md) |
 
 ## Counts
 

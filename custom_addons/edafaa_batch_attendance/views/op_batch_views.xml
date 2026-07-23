@@ -7,17 +7,22 @@
         <field name="arch" type="xml">
             <xpath expr="//sheet" position="inside">
                 <group string="Attendance QR Check-in" name="attendance_qr_group">
+                    <div colspan="2" class="alert alert-info" role="alert">
+                        <field name="attendance_qr_ops_note" nolabel="1"/>
+                    </div>
                     <group>
                         <field name="attendance_qr_active"/>
                         <field name="attendance_late_grace_minutes"/>
                         <field name="attendance_qr_token" groups="base.group_no_one"/>
-                        <field name="attendance_qr_url" widget="url"/>
+                        <field name="attendance_qr_url" widget="CopyClipboardChar"/>
                     </group>
                     <group>
-                        <field name="attendance_qr_image" widget="image" class="oe_avatar"/>
+                        <field name="attendance_qr_image" widget="image"
+                                 class="oe_avatar"
+                                 options="{'size': [200, 200]}"/>
                     </group>
                 </group>
-                <div class="oe_button_box" name="button_box_qr">
+                <div name="button_box_qr" class="oe_button_box">
                     <button name="action_generate_qr" type="object"
                             string="Generate QR"
                             class="btn-primary"
@@ -31,6 +36,11 @@
                             string="Toggle QR Active"
                             class="btn-secondary"
                             invisible="not attendance_qr_token"/>
+                    <button name="action_open_checkin_logs" type="object"
+                            string="Check-in Logs"
+                            class="btn-secondary"
+                            invisible="not attendance_qr_token"
+                            icon="fa-list"/>
                 </div>
             </xpath>
         </field>

@@ -1,7 +1,7 @@
 import base64
 import uuid
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 
 
 class OpBatch(models.Model):
@@ -29,7 +29,13 @@ class OpBatch(models.Model):
     attendance_late_grace_minutes = fields.Integer(
         string='Late Grace (minutes)',
         default=15,
-        help='Check-ins after this many minutes from sheet open are marked late.',
+        help='Check-ins after this many minutes from the active '
+             'session start (op.session.start_datetime) are marked late. '
+             'S5 locked default: 15. Requires a scheduled op.session (Option A).',
+    )
+    attendance_qr_ops_note = fields.Html(
+        string='QR Ops Note',
+        compute='_compute_attendance_qr_ops_note',
     )
 
     _attendance_qr_token_unique = models.Constraint(
@@ -54,6 +60,17 @@ class OpBatch(models.Model):
             except Exception:
                 batch.attendance_qr_image = False
 
+    @api.depends()
+    def _compute_attendance_qr_ops_note(self):
+        note = _(
+            '<p><b>Option A — Operational session required.</b> '
+            'Students can check in only while an <code>op.session</code> for this '
+            'batch covers the current time. Schedule/confirm the class session '
+            'before sharing the QR. Regenerating the QR invalidates the old URL.</p>'
+        )
+        for batch in self:
+            batch.attendance_qr_ops_note = note
+
     def action_generate_qr(self):
         for batch in self:
             if not batch.attendance_qr_token:
@@ -71,6 +88,17 @@ class OpBatch(models.Model):
         for batch in self:
             batch.attendance_qr_active = not batch.attendance_qr_active
         return True
+
+    def action_open_checkin_logs(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('QR Check-in Logs'),
+            'res_model': 'edafaa.attendance.checkin.log',
+            'view_mode': 'list,form',
+            'domain': [('batch_id', '=', self.id)],
+            'context': {'default_batch_id': self.id},
+        }
 
     def _ensure_qr_token(self):
         self.ensure_one()
